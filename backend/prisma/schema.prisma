@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             String          @id @default(uuid())
+  email          String          @unique
+  password       String
+  name           String
+  role           Role            @default(CLUB)
+  isVerified     Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  clubProfile    ClubProfile?
+  companyProfile CompanyProfile?
+  sentMessages     ChatMessage[] @relation("SentMessages")
+  receivedMessages ChatMessage[] @relation("ReceivedMessages")
+}
+
+enum Role {
+  CLUB
+  COMPANY
+  ADMIN
+}
+
+model ClubProfile {
+  id           String   @id @default(uuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+  collegeName  String
+  description  String?
+  pastEvents   String?  // Could be JSON array of strings
+  reach        Int      @default(0) // Estimated audience reach
+  socialLinks  String?  // JSON object of links
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  events       Event[]
+}
+
+model CompanyProfile {
+  id           String   @id @default(uuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+  industry     String?
+  budgetRange  String?
+  targetAudience String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deals        SponsorshipDeal[]
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  clubId      String
+  club        ClubProfile @relation(fields: [clubId], references: [id])
+  name        String
+  description String
+  eventType   String
+  footfall    Int      @default(0)
+  location    String
+  date        DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  tiers       SponsorshipTier[]
+  deals       SponsorshipDeal[]
+}
+
+model SponsorshipTier {
+  id          String   @id @default(uuid())
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id])
+  name        String
+  amount      Float
+  benefits    String   // JSON array or text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deals       SponsorshipDeal[]
+}
+
+model SponsorshipDeal {
+  id          String   @id @default(uuid())
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id])
+  companyId   String
+  company     CompanyProfile @relation(fields: [companyId], references: [id])
+  tierId      String
+  tier        SponsorshipTier @relation(fields: [tierId], references: [id])
+  status      DealStatus @default(PENDING)
+  paymentStatus PaymentStatus @default(UNPAID)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum DealStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PENDING
+  PAID
+  REFUNDED
+}
+
+model ChatMessage {
+  id          String   @id @default(uuid())
+  senderId    String
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId  String
+  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  message     String
+  createdAt   DateTime @default(now())
+}

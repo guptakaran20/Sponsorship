@@ -1,0 +1,278 @@
+
+# 🏗️ SYSTEM DESIGN DOCUMENT
+
+## Product: **SponsorBridge**
+
+---
+
+## 1. 🧭 High Level Architecture
+
+We are building a **Two-Sided Marketplace Platform**
+
+So architecture must support:
+
+* Clubs
+* Companies
+* Event Listings
+* Sponsorship Deals
+* Messaging
+* Payments
+* Analytics
+
+---
+
+### 🔷 Architecture Type → **3 Tier Architecture**
+
+```
+Frontend  →  Backend API  →  Database
+                ↓
+        External Services
+```
+
+---
+
+## 2. 🧱 Major Components
+
+| Layer          | Components                  |
+| -------------- | --------------------------- |
+| Client Layer   | Web App (Clubs & Companies) |
+| API Layer      | Auth Service, Event Service |
+| Business Logic | Matching Engine             |
+| Communication  | Chat Service                |
+| Storage        | DB + File Storage           |           
+| Analytics      | ROI Tracking                |
+| Admin Panel    | Verification System         |
+
+---
+
+## 3. 🔁 System Workflow
+
+### 🏫 Club Side
+
+1. Club registers
+2. Verified using college email
+3. Creates Event Listing
+4. Uploads Sponsorship Deck
+5. Defines Sponsorship Tiers
+6. Event visible in Marketplace
+
+---
+
+### 🏢 Company Side
+
+1. Company registers
+2. Sets:
+
+   * Budget
+   * Target audience
+   * Event type preference
+3. Gets matched with events
+4. Sends Sponsorship Request
+5. Chat opens with Club
+
+---
+
+### 🤝 Deal Flow
+
+```
+Company Applies
+      ↓
+Negotiation Chat
+      ↓
+Event Happens
+```
+
+---
+
+## 4. 📊 Database Design (Core Entities)
+
+### Users Table
+
+```
+user_id
+name
+email
+role (club/company)
+verified
+```
+
+---
+
+### Club Profile
+
+```
+club_id
+college_name
+past_events
+reach
+social_links
+```
+
+---
+
+### Company Profile
+
+```
+company_id
+industry
+budget_range
+```
+
+---
+
+### Event Table
+
+```
+event_id
+club_id
+event_name
+event_type
+footfall
+location
+date
+```
+
+---
+
+### Sponsorship Tier Table
+
+```
+tier_id
+event_id
+tier_name
+amount
+benefits
+```
+
+---
+
+### Sponsorship Deals
+
+```
+deal_id
+event_id
+company_id
+tier_selected
+status
+payment_status
+```
+
+---
+
+### Chat Messages
+
+```
+chat_id
+sender_id
+receiver_id
+message
+timestamp
+```
+
+---
+
+## 5. 🧠 Matching Engine (Recommendation Logic)
+
+Match companies with events based on:
+
+```
+Event Type == Preferred Event
+Budget >= Sponsorship Tier
+Location Match
+Target Audience Match
+```
+
+Later:
+
+* Use ML-based recommendation model
+
+---
+
+## 6. 🔐 Security Considerations
+
+* JWT Authentication
+* Role Based Access Control
+* Email Verification
+* Admin Approval System
+* Escrow Payment
+* HTTPS Encryption
+
+---
+
+# ⚙️ BEST TECH STACK (Highly Recommended)
+
+---
+
+## 🖥️ Frontend
+
+| Tech         | Why?              |
+| ------------ | ----------------- |
+| React.js     | Fast UI           |
+| Next.js      | SEO + Performance |
+| Tailwind CSS | Quick Styling     |
+| ShadCN UI    | Ready Components  |
+
+---
+
+## 🔧 Backend
+
+| Tech       | Why?           |
+| ---------- | -------------- |
+| Node.js    | Async Handling |
+| Express.js | Lightweight    |
+| Socket.io  | Real-time Chat |
+| JWT        | Authentication |
+
+---
+
+## 🗄️ Database
+
+| Tech       | Why?            |
+| ---------- | --------------- |
+| PostgreSQL | Relational data |
+| Prisma ORM | Easy DB queries |
+
+---
+
+## 📦 File Storage
+
+| Tech   | Why?         |
+| ------ | ------------ |
+| AWS S3 | Deck Uploads |
+
+---
+
+## 💬 Messaging
+
+| Tech      | Why?                  |
+| --------- | --------------------- |
+| Socket.io | Real-time negotiation |
+
+---
+
+---
+
+## ☁️ Deployment
+
+| Tech    | Why?             |
+| ------- | ---------------- |
+| Vercel  | Frontend         |
+| AWS EC2 | Backend          |
+| Docker  | Containerization |
+
+---
+
+## 📊 Analytics
+
+| Tech               | Why?           |
+| ------------------ | -------------- |
+| Firebase Analytics | Event Tracking |
+
+---
+
+## 🔒 Authentication
+
+| Tech          | Why?         |
+| ------------- | ------------ |
+| Clerk / Auth0 | Managed Auth |
+

@@ -1,0 +1,113 @@
+import { Request, Response } from 'express';
+import bcrypt from 'bcryptjs';
+import { PrismaClient } from '@prisma/client';
+import { generateToken } from '../utils/jwt';
+
+const prisma = new PrismaClient();
+
+export const register = async (req: Request, res: Response) => {
+    try {
+        const { email, password, name, role } = req.body;
+
+        // Validate input
+        if (!email || !password || !name) {
+            return res.status(400).json({ message: 'Please provide email, password and name' });
+        }
+
+        // Check if user already exists
+        const existingUser = await prisma.user.findUnique({ where: { email } });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Default role to CLUB if not provided or invalid
+        const userRole = role === 'COMPANY' || role === 'ADMIN' ? role : 'CLUB';
+
+        // Create user
+        const user = await prisma.user.create({
+            data: {
+                email,
+                password: hashedPassword,
+                name,
+                role: userRole,
+            },
+        });
+
+        // Generate token
+        const token = generateToken(user.id, user.role);
+
+        res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                role: user.role,
+            },
+            token,
+        });
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.status(500).json({ message: 'Server error during registration' });
+    }
+};
+
+export const login = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Please provide email and password' });
+        }
+
+        // Find user
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Check password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate token
+        const token = generateToken(user.id, user.role);
+
+        res.status(200).json({
+            message: 'Logged in successfully',
+            user: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                role: user.role,
+            },
+            token,
+        });
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Server error during login' });
+    }
+};
+
+export const getMe = async (req: Request | any, res: Response) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: req.user.id },
+            select: { id: true, email: true, name: true, role: true, isVerified: true },
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error getting user profile' });
+    }
+};

@@ -1,0 +1,288 @@
+
+# 📄 PRODUCT REQUIREMENTS DOCUMENT (PRD)
+
+## 🧩 Product Name (Working Title)
+
+**SponsorBridge**
+*Tagline: Connecting Campus Innovation with Industry Support*
+
+---
+
+## 1. 📌 Problem Statement
+
+College clubs and student organizations regularly organize events, fests, hackathons, and workshops that require financial or in-kind sponsorship.
+
+However:
+
+* Clubs struggle to **find relevant sponsors**
+* They rely heavily on:
+
+  * Cold emailing
+  * Personal contacts
+  * Alumni network
+  * Random LinkedIn DMs
+* Companies receive **unstructured sponsorship requests**
+* There is:
+
+  * No centralized platform
+  * No credibility verification
+  * No ROI tracking for companies
+
+➡️ Result:
+
+* Clubs miss funding opportunities
+* Companies miss campus visibility
+* Sponsorship ecosystem remains inefficient and trust-deficient
+
+---
+
+## 2. 🎯 Goal
+
+Create a **two-sided marketplace platform** that connects:
+
+🏫 College Clubs ↔ 🏢 Companies
+
+To:
+
+* Discover sponsorship opportunities
+* Pitch and apply for sponsorships
+* Track deliverables
+* Build long-term partnerships
+
+---
+
+## 3. 👥 Target Users
+
+### Primary Users
+
+| User Type               | Description                                          |
+| ----------------------- | ---------------------------------------------------- |
+| Club Admin              | Fest organizers, technical clubs, cultural societies |
+| Company Marketing Teams | Brand managers, CSR teams, hiring teams              |
+| Startup Founders        | Early stage companies wanting visibility             |
+
+---
+
+### Secondary Users
+
+* Event Attendees (future feature)
+* Alumni Sponsors
+* Campus Influencers
+* Vendor Partners
+
+---
+
+## 4. 🛠️ User Roles
+
+### A. College Club
+
+* Register with:
+
+  * College Email Verification
+  * Club Description
+  * Past Events
+  * Audience Reach
+  * Social Media Stats
+* Create Event Listings
+* Upload Sponsorship Deck
+* Define Sponsorship Tiers:
+
+  * Title Sponsor
+  * Gold
+  * Silver
+  * Merchandise Partner
+* Track sponsor applications
+
+---
+
+### B. Company
+
+* Register Business Profile
+* Select Sponsorship Interests:
+
+  * Tech Events
+  * Cultural Fests
+  * Sports Events
+  * Hackathons
+* Set:
+
+  * Budget Range
+  * Preferred Cities
+  * Audience Type
+* Browse Event Listings
+* Sponsor directly or request proposal
+
+---
+
+## 5. 🚀 Core Features (MVP)
+
+### 🔹 Authentication
+
+* Club Login
+* Company Login
+* Email Verification
+* Admin Approval System
+
+---
+
+### 🔹 Club Dashboard
+
+* Create Event Page
+* Upload Sponsorship Proposal
+* Add Benefits Offered:
+
+  * Logo Placement
+  * Stalls
+  * Social Media Mentions
+  * Speaking Slot
+* Track Interested Sponsors
+* Messaging System
+
+---
+
+### 🔹 Company Dashboard
+
+* Browse Events
+* Filter by:
+
+  * College Tier
+  * Location
+  * Expected Footfall
+  * Event Type
+* Sponsor Request Button
+* Save Events
+
+---
+
+### 🔹 Sponsorship Marketplace
+
+* Event Discovery Feed
+* Matchmaking Algorithm:
+
+  * Industry ↔ Event Type
+  * Budget ↔ Sponsorship Tier
+  * Location Preference
+
+---
+
+### 🔹 In-Platform Chat System
+
+* Club ↔ Company Communication
+* Negotiation
+* Document Sharing
+
+---
+
+## 6. ⭐ Suggested Features (Phase 2)
+
+These will **massively improve platform value**:
+
+### 📊 Sponsorship ROI Analytics
+
+Companies see:
+
+* Event Footfall
+* Social Media Reach
+* Engagement Stats
+* QR Scan Data
+* Lead Capture
+
+---
+
+### 🛡️ Trust & Credibility Score
+
+For Clubs based on:
+
+* Past Sponsors
+* Successful Deliverables
+* Event Feedback
+* Ratings from Companies
+
+---
+
+### 🤝 Alumni Sponsorship Portal
+
+Allow:
+
+* Alumni founders to sponsor their own college
+
+---
+
+### 📦 In-Kind Sponsorship Matching
+
+For:
+
+* Food Partners
+* Merchandise
+* Printing
+* Venue Sponsors
+
+---
+
+### 📢 Public Event Page
+
+Companies can view:
+
+* Audience Demographics
+* Past Event Photos
+* Testimonials
+
+---
+
+### 🏆 Leaderboards
+
+* Most Sponsored Clubs
+* Top Campus Sponsors
+
+---
+
+## 7. 💰 Monetization Strategy
+
+| Model                   | Description                  |
+| ----------------------- | ---------------------------- |
+| Commission              | % per successful sponsorship |
+| Featured Listing        | Promote Event                |
+| Subscription            | Company Premium Plan         |
+| Data Insights           | Marketing Analytics          |
+| Contract Automation Fee | Paid legal docs              |
+
+---
+
+## 8. 📐 Success Metrics (KPIs)
+
+* Number of Clubs Registered
+* Number of Companies Registered
+* Sponsorship Deals Closed
+* Average Sponsorship Amount
+* Repeat Sponsorship Rate
+* Conversion Rate
+
+---
+
+## 9. ⚠️ Risks
+
+* Fake Clubs
+* Companies Ghosting
+* Payment Disputes
+* Deliverable Mismatch
+
+---
+
+## 10. 🔐 Solutions
+
+* College Email Verification
+* Admin Approval
+* Rating System
+
+---
+
+## 11. 🧠 Future Scope
+
+* AI-based Sponsor Recommendation
+* Event Marketing Toolkit
+* Internship Tie-ups
+* Influencer Collaboration
+* Ticketing Integration
+
+---
+
