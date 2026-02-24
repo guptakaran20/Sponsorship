@@ -24,12 +24,12 @@ export const getClubProfileView = async (req: AuthRequest, res: Response) => {
         } else if (viewerRole === 'COMPANY') {
             const company = await prisma.companyProfile.findUnique({ where: { userId: viewerId } });
             if (company) {
-                // Check if they have an ACCEPTED or COMPLETED deal together
+                // Check if they have a COMPLETED deal together
                 const hasValidDeal = await prisma.sponsorshipDeal.findFirst({
                     where: {
                         companyId: company.id,
                         event: { clubId: club.id },
-                        status: { in: ['ACCEPTED', 'COMPLETED'] }
+                        status: 'COMPLETED'
                     }
                 });
                 if (hasValidDeal) showContact = true;
@@ -79,21 +79,20 @@ export const getCompanyProfileView = async (req: AuthRequest, res: Response) => 
             isVisible = true;
             showContact = true;
         } else if (viewerRole === 'CLUB') {
+            isVisible = true; // Clubs can always see company basic details
             const club = await prisma.clubProfile.findUnique({ where: { userId: viewerId } });
             if (club) {
-                // To be visible at all, the company must have requested a deal on an event of this club
+                // To see contact details, there must be a completed deal
                 const dealContext = await prisma.sponsorshipDeal.findFirst({
                     where: {
                         companyId: company.id,
-                        event: { clubId: club.id }
+                        event: { clubId: club.id },
+                        status: 'COMPLETED'
                     }
                 });
 
                 if (dealContext) {
-                    isVisible = true;
-                    if (['ACCEPTED', 'COMPLETED'].includes(dealContext.status)) {
-                        showContact = true;
-                    }
+                    showContact = true;
                 }
             }
         }

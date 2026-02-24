@@ -103,7 +103,30 @@ export const getDeals = async (req: AuthRequest, res: Response) => {
             }
         }
 
-        res.status(200).json(deals);
+        const sanitizedDeals = deals.map((deal: any) => {
+            const isContactVisibleForCompany = ['ACCEPTED', 'COMPLETED'].includes(deal.status);
+            const isContactVisibleForClub = ['PENDING', 'ACCEPTED', 'COMPLETED'].includes(deal.status);
+
+            if (role === 'COMPANY' && !isContactVisibleForCompany && deal.event?.club) {
+                deal.event.club.contactPerson = null;
+                deal.event.club.contactNumber = null;
+                deal.event.club.website = null;
+                deal.event.club.socialLinks = null;
+            }
+            if (role === 'CLUB' && !isContactVisibleForClub && deal.company) {
+                deal.company.contactPerson = null;
+                deal.company.contactNumber = null;
+                deal.company.website = null;
+                deal.company.socialLinks = null;
+            }
+            if (role === 'CLUB') {
+                deal.dealPin = null;
+            }
+
+            return deal;
+        });
+
+        res.status(200).json(sanitizedDeals);
     } catch (error) {
         console.error('Error fetching deals:', error);
         res.status(500).json({ message: 'Server error fetching deals' });
@@ -113,9 +136,9 @@ export const getDeals = async (req: AuthRequest, res: Response) => {
 export const updateDealStatus = async (req: AuthRequest, res: Response) => {
     try {
         const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-        const { status } = req.body; // ACCEPTED, REJECTED, COMPLETED
+        const { status } = req.body; // ACCEPTED, REJECTED
 
-        if (!['ACCEPTED', 'REJECTED', 'COMPLETED'].includes(status)) {
+        if (!['ACCEPTED', 'REJECTED'].includes(status)) {
             return res.status(400).json({ message: 'Invalid status' });
         }
 
@@ -136,8 +159,9 @@ export const updateDealStatus = async (req: AuthRequest, res: Response) => {
 
         let dealPin = null;
         if (status === 'ACCEPTED') {
-            // Generate a 6 character alphanumeric PIN
-            dealPin = Math.random().toString(36).substring(2, 8).toUpperCase();
+            // Generate a 6 character alphanumeric PIN reliably
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            dealPin = Array.from({ length: 6 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
         }
 
         const updatedDeal = await prisma.sponsorshipDeal.update({
@@ -189,7 +213,7 @@ export const verifyDealPin = async (req: AuthRequest, res: Response) => {
             return res.status(400).json({ message: 'Deal is not accepted yet' });
         }
 
-        if (deal.dealPin !== pin.toUpperCase()) {
+        if (!pin || deal.dealPin !== pin.trim().toUpperCase()) {
             return res.status(400).json({ message: 'Invalid PIN' });
         }
 

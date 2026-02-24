@@ -49,19 +49,20 @@ export const createEvent = async (req: AuthRequest, res: Response) => {
 
 export const getEvents = async (req: Request, res: Response) => {
     try {
-        const { eventType, location, footfallMin } = req.query;
+        const { eventType, location, footfallMin, clubId } = req.query;
 
         // Build query
         const whereClause: any = {};
         if (eventType) whereClause.eventType = { contains: String(eventType), mode: 'insensitive' };
         if (location) whereClause.location = { contains: String(location), mode: 'insensitive' };
         if (footfallMin) whereClause.footfall = { gte: parseInt(String(footfallMin)) };
+        if (clubId) whereClause.clubId = String(clubId);
 
         const events = await prisma.event.findMany({
             where: whereClause,
             include: {
                 club: {
-                    select: { collegeName: true, reach: true }
+                    select: { collegeName: true, reach: true, description: true, pastEvents: true, socialLinks: true }
                 },
                 tiers: true
             },
