@@ -7,7 +7,7 @@ import { generateToken } from '../utils/jwt';
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const { email, password, name, role } = req.body;
+        const { email, password, name, role, adminSecret } = req.body;
 
         // Validate input
         if (!email || !password || !name) {
@@ -18,6 +18,14 @@ export const register = async (req: Request, res: Response) => {
         const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
+        }
+
+        // Validate ADMIN registration
+        if (role === 'ADMIN') {
+            const expectedSecret = process.env.ADMIN_SECRET || 'supersecretadmin'; // Fallback for dev if not set
+            if (adminSecret !== expectedSecret) {
+                return res.status(401).json({ message: 'Invalid admin secret' });
+            }
         }
 
         // Hash password
