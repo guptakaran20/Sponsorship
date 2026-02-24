@@ -45,9 +45,7 @@ export default function CompanyDashboardPage() {
     // Calculate metrics
     const activeSponsorships = deals.filter(d => d.status === 'ACCEPTED').length;
     const pendingRequests = deals.filter(d => d.status === 'PENDING').length;
-    const totalInvested = deals
-        .filter(d => d.status === 'ACCEPTED')
-        .reduce((sum, d) => sum + (d.tier?.amount || 0), 0);
+    const totalInvested = profile?.totalAmountSpent || 0;
 
     return (
         <div className="space-y-8 pb-12">

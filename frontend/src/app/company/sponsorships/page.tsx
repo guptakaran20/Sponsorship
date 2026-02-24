@@ -81,6 +81,50 @@ export default function CompanySponsorshipsPage() {
                                 <p className="text-slate-400 font-medium">
                                     Organized by {deal.event.club?.collegeName || 'Unknown Club'}
                                 </p>
+
+                                {/* Contact Details Section */}
+                                {['ACCEPTED', 'COMPLETED'].includes(deal.status) && deal.event.club && (deal.event.club.contactPerson || deal.event.club.contactNumber || deal.event.club.website || deal.event.club.socialLinks) && (
+                                    <div className="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl">
+                                        <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Club Contact Information</p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                                            {deal.event.club.contactPerson && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Contact:</span>
+                                                    {deal.event.club.contactPerson}
+                                                </div>
+                                            )}
+                                            {deal.event.club.contactNumber && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Phone:</span>
+                                                    {deal.event.club.contactNumber}
+                                                </div>
+                                            )}
+                                            {deal.event.club.website && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Website:</span>
+                                                    <a href={deal.event.club.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                                                        Website Link
+                                                    </a>
+                                                </div>
+                                            )}
+                                            {deal.event.club.socialLinks && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Socials:</span>
+                                                    {(() => {
+                                                        try {
+                                                            const socials = JSON.parse(deal.event.club.socialLinks);
+                                                            return (
+                                                                <span className="space-x-2">
+                                                                    {socials.instagram && <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">Instagram</a>}
+                                                                </span>
+                                                            )
+                                                        } catch (e) { return null; }
+                                                    })()}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex flex-col items-end gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/5 md:border-t-0 z-10">

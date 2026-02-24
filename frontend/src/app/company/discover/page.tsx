@@ -90,8 +90,8 @@ export default function DiscoverEventsPage() {
                                 setSearchQuery('');
                             }}
                             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center border ${eventTypeFilter === companyProfile.targetAudience
-                                    ? 'bg-indigo-500/20 border-indigo-500/50 text-indigo-400'
-                                    : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
+                                ? 'bg-indigo-500/20 border-indigo-500/50 text-indigo-400'
+                                : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
                                 }`}
                         >
                             <Sparkles className="w-4 h-4 mr-2 text-amber-400" />
@@ -237,6 +237,53 @@ export default function DiscoverEventsPage() {
                                     {selectedEvent.description}
                                 </p>
                             </div>
+
+                            {selectedEvent.club?.description && (
+                                <div className="mb-8 p-6 bg-indigo-500/5 rounded-2xl border border-indigo-500/10">
+                                    <h3 className="text-xl font-semibold text-white mb-3">About the Club</h3>
+                                    <p className="text-slate-300 leading-relaxed mb-4">
+                                        {selectedEvent.club.description}
+                                    </p>
+
+                                    {selectedEvent.club.pastEvents && JSON.parse(selectedEvent.club.pastEvents).length > 0 && (
+                                        <div className="mb-4">
+                                            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Past Events</h4>
+                                            <div className="flex flex-wrap gap-2">
+                                                {JSON.parse(selectedEvent.club.pastEvents).map((event: string, i: number) => (
+                                                    <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-300">
+                                                        {event}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {selectedEvent.club.socialLinks && (
+                                        <div>
+                                            {(() => {
+                                                try {
+                                                    const socials = JSON.parse(selectedEvent.club.socialLinks);
+                                                    if (!socials.instagram && !socials.website) return null;
+                                                    return (
+                                                        <div className="flex gap-4">
+                                                            {socials.instagram && (
+                                                                <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-pink-400 hover:text-pink-300 hover:underline">
+                                                                    Instagram
+                                                                </a>
+                                                            )}
+                                                            {socials.website && (
+                                                                <a href={socials.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-blue-400 hover:text-blue-300 hover:underline">
+                                                                    Website
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                } catch (e) { return null; }
+                                            })()}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
                             <div>
                                 <h3 className="text-xl font-semibold text-white mb-4">Available Sponsorship Tiers</h3>

@@ -104,6 +104,41 @@ export default function ClubSponsorshipsPage() {
                                 <h3 className="text-2xl font-bold text-white mb-1">
                                     {deal.company.industry || 'Company'} <span className="text-slate-500 text-lg font-normal mx-2">for</span> {deal.event.name}
                                 </h3>
+
+                                {/* Contact Details Section */}
+                                {['PENDING', 'ACCEPTED', 'COMPLETED'].includes(deal.status) && (deal.company.contactPerson || deal.company.contactNumber || deal.company.website || deal.company.socialLinks) && (
+                                    <div className="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl">
+                                        <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Company Profile & Contact</p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                                            {deal.company.contactPerson && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Contact:</span>
+                                                    {deal.company.contactPerson}
+                                                </div>
+                                            )}
+                                            {deal.company.contactNumber && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Phone:</span>
+                                                    {deal.company.contactNumber}
+                                                </div>
+                                            )}
+                                            {deal.company.website && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Website:</span>
+                                                    <a href={deal.company.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                                                        {deal.company.website}
+                                                    </a>
+                                                </div>
+                                            )}
+                                            {deal.company.budgetRange && (
+                                                <div className="text-slate-300">
+                                                    <span className="text-slate-500 mr-2">Budget Range:</span>
+                                                    {deal.company.budgetRange}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex flex-col items-end gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/5 md:border-t-0">

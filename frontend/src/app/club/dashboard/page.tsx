@@ -21,8 +21,9 @@ export default function ClubDashboardPage() {
                 ]);
 
                 setProfile(profData);
-                // We can just filter events globally for now where club matches, or the backend should do it.
-                // Assuming /events returns all events, we filter on client if needed OR /deals returns the info we need.
+                if (profData && profData.events) {
+                    setEvents(profData.events);
+                }
                 const myDeals = dealsData || [];
                 setDeals(myDeals);
             } catch (error) {
@@ -50,9 +51,7 @@ export default function ClubDashboardPage() {
     // Calculate metrics
     const activeSponsors = deals.filter(d => d.status === 'ACCEPTED').length;
     const pendingRequests = deals.filter(d => d.status === 'PENDING').length;
-    const totalRevenue = deals
-        .filter(d => d.status === 'ACCEPTED')
-        .reduce((sum, d) => sum + (d.tier?.amount || 0), 0);
+    const totalRevenue = profile?.totalAmountRaised || 0;
 
     return (
         <div className="space-y-8 pb-12">
@@ -145,17 +144,38 @@ export default function ClubDashboardPage() {
                     </Link>
                 </div>
 
-                <div className="text-center py-12 border border-dashed border-white/10 rounded-2xl bg-white/5">
-                    <Calendar className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-white mb-2">No Active Events Found</h3>
-                    <p className="text-slate-400 mb-6 max-w-md mx-auto">You haven't posted any events yet. Post an event to start receiving sponsorship offers from companies.</p>
-                    <Link
-                        href="/club/events/new"
-                        className="px-6 py-2 text-indigo-400 hover:text-white bg-indigo-500/10 hover:bg-indigo-500 border border-indigo-500/20 hover:border-transparent rounded-xl transition-all inline-block font-medium"
-                    >
-                        Create Your First Event
-                    </Link>
-                </div>
+                {events.length === 0 ? (
+                    <div className="text-center py-12 border border-dashed border-white/10 rounded-2xl bg-white/5">
+                        <Calendar className="w-12 h-12 text-slate-600 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-white mb-2">No Active Events Found</h3>
+                        <p className="text-slate-400 mb-6 max-w-md mx-auto">You haven't posted any events yet. Post an event to start receiving sponsorship offers from companies.</p>
+                        <Link
+                            href="/club/events/new"
+                            className="px-6 py-2 text-indigo-400 hover:text-white bg-indigo-500/10 hover:bg-indigo-500 border border-indigo-500/20 hover:border-transparent rounded-xl transition-all inline-block font-medium"
+                        >
+                            Create Your First Event
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {events.slice(0, 3).map(event => (
+                            <Link href={`/club/events/${event.id}`} key={event.id} className="block bg-black/20 border border-white/5 rounded-2xl p-6 hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all group">
+                                <span className="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-400 text-xs font-medium rounded-full mb-4">
+                                    {event.eventType}
+                                </span>
+                                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                                    {event.name}
+                                </h3>
+                                <div className="text-sm text-slate-400 flex items-center mb-1">
+                                    <Calendar className="w-4 h-4 mr-2 opacity-70" /> {new Date(event.date).toLocaleDateString()}
+                                </div>
+                                <div className="text-sm text-slate-400 flex items-center">
+                                    <Users className="w-4 h-4 mr-2 opacity-70" /> {event.footfall} reach
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
