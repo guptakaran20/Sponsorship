@@ -58,7 +58,7 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
         });
 
         if (!profile) {
-            return res.status(404).json({ message: 'Club profile not found' });
+            return res.status(200).json(null);
         }
 
         res.status(200).json(profile);
