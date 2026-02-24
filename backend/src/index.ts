@@ -12,7 +12,6 @@ import clubRoutes from './routes/clubRoutes';
 import eventRoutes from './routes/eventRoutes';
 import companyRoutes from './routes/companyRoutes';
 import dealRoutes from './routes/dealRoutes';
-import messageRoutes from './routes/messageRoutes';
 import adminRoutes from './routes/adminRoutes';
 
 app.use(cors());
@@ -23,7 +22,6 @@ app.use('/api/clubs', clubRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/deals', dealRoutes);
-app.use('/api/messages', messageRoutes);
 app.use('/api/admin', adminRoutes);
 
 app.get('/', (req, res) => {

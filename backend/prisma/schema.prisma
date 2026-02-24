@@ -18,8 +18,6 @@ model User {
   updatedAt      DateTime        @updatedAt
   clubProfile    ClubProfile?
   companyProfile CompanyProfile?
-  sentMessages     ChatMessage[] @relation("SentMessages")
-  receivedMessages ChatMessage[] @relation("ReceivedMessages")
 }
 
 enum Role {
@@ -49,6 +47,8 @@ model CompanyProfile {
   industry     String?
   budgetRange  String?
   targetAudience String?
+  companySize  String?
+  website      String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   deals        SponsorshipDeal[]
@@ -110,12 +110,3 @@ enum PaymentStatus {
   REFUNDED
 }
 
-model ChatMessage {
-  id          String   @id @default(uuid())
-  senderId    String
-  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
-  receiverId  String
-  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
-  message     String
-  createdAt   DateTime @default(now())
-}

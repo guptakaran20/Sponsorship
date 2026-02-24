@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
-import { Handshake, CheckCircle2, XCircle, Clock, MessageSquare, Briefcase } from 'lucide-react';
+import { Handshake, CheckCircle2, XCircle, Clock, Briefcase } from 'lucide-react';
 
 export default function ClubSponsorshipsPage() {
     const [deals, setDeals] = useState<any[]>([]);
@@ -85,14 +85,6 @@ export default function ClubSponsorshipsPage() {
                             </div>
 
                             <div className="flex flex-wrap items-center gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/5 md:border-t-0">
-                                <Link
-                                    href={`/chat/${deal.company.userId}`}
-                                    className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-xl font-medium transition-all flex items-center justify-center flex-1 md:flex-none border border-white/10"
-                                >
-                                    <MessageSquare className="w-4 h-4 mr-2 text-indigo-400" />
-                                    Chat
-                                </Link>
-
                                 {deal.status === 'PENDING' && (
                                     <>
                                         <button

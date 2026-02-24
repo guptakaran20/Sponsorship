@@ -67,8 +67,3 @@ export type SponsorshipTier = Prisma.SponsorshipTierModel
  * 
  */
 export type SponsorshipDeal = Prisma.SponsorshipDealModel
-/**
- * Model ChatMessage
- * 
- */
-export type ChatMessage = Prisma.ChatMessageModel

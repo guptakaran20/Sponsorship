@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
-import { Calendar, Users, MapPin, Tag, Sparkles, Handshake, Filter, ChevronDown, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Calendar, Users, MapPin, Tag, Sparkles, Handshake, Filter, ChevronDown, CheckCircle2, ChevronRight, Search } from 'lucide-react';
 
 export default function DiscoverEventsPage() {
     const [events, setEvents] = useState<any[]>([]);
@@ -14,6 +14,20 @@ export default function DiscoverEventsPage() {
 
     // Filters
     const [eventTypeFilter, setEventTypeFilter] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [companyProfile, setCompanyProfile] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const profile = await fetchApi('/companies/profile');
+                if (profile) setCompanyProfile(profile);
+            } catch (error) {
+                console.error("Failed to load profile", error);
+            }
+        };
+        fetchProfile();
+    }, []);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -55,15 +69,47 @@ export default function DiscoverEventsPage() {
         }
     };
 
+    const filteredEvents = events.filter(event =>
+    (event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.club?.collegeName?.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+
     return (
         <div className="space-y-8 pb-12">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-white tracking-tight mb-2">Event Marketplace</h1>
                     <p className="text-slate-400">Discover and sponsor premium campus events across the country.</p>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
+                    {companyProfile?.targetAudience && (
+                        <button
+                            onClick={() => {
+                                setEventTypeFilter(companyProfile.targetAudience);
+                                setSearchQuery('');
+                            }}
+                            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center border ${eventTypeFilter === companyProfile.targetAudience
+                                    ? 'bg-indigo-500/20 border-indigo-500/50 text-indigo-400'
+                                    : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
+                                }`}
+                        >
+                            <Sparkles className="w-4 h-4 mr-2 text-amber-400" />
+                            Related to you
+                        </button>
+                    )}
+
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <input
+                            type="text"
+                            placeholder="Search events or colleges..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="bg-slate-900 border border-white/10 text-white rounded-xl py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm w-full md:w-64"
+                        />
+                    </div>
+
                     <div className="relative">
                         <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <select
@@ -88,7 +134,7 @@ export default function DiscoverEventsPage() {
                         <div key={i} className="h-80 bg-slate-900 rounded-3xl" />
                     ))}
                 </div>
-            ) : events.length === 0 ? (
+            ) : filteredEvents.length === 0 ? (
                 <div className="text-center py-20 bg-slate-900 border border-dashed border-white/10 rounded-3xl">
                     <Sparkles className="w-12 h-12 text-slate-600 mx-auto mb-4" />
                     <h3 className="text-xl font-medium text-white mb-2">No Events Found</h3>
@@ -98,7 +144,7 @@ export default function DiscoverEventsPage() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {events.map((event) => (
+                    {filteredEvents.map((event) => (
                         <div
                             key={event.id}
                             className="bg-slate-900 border border-white/5 rounded-3xl overflow-hidden hover:border-indigo-500/50 hover:shadow-[0_0_30px_-5px_var(--color-indigo-500)] hover:shadow-indigo-500/20 transition-all duration-300 group flex flex-col cursor-pointer"

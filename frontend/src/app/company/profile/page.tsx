@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
-import { Building2, Save, Target, DollarSign } from 'lucide-react';
+import { Building2, Save, Target, DollarSign, Users, Globe } from 'lucide-react';
 
 export default function CompanyProfilePage() {
     const [formData, setFormData] = useState({
         industry: 'Technology',
         budgetRange: '',
         targetAudience: '',
+        companySize: '',
+        website: '',
     });
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
@@ -23,6 +25,8 @@ export default function CompanyProfilePage() {
                         industry: profile.industry || 'Technology',
                         budgetRange: profile.budgetRange || '',
                         targetAudience: profile.targetAudience || '',
+                        companySize: profile.companySize || '',
+                        website: profile.website || '',
                     });
                 }
             } catch (error) {
@@ -67,8 +71,8 @@ export default function CompanyProfilePage() {
             <div className="bg-slate-900 border border-white/5 rounded-3xl p-6 lg:p-8 shadow-xl">
                 {message.text && (
                     <div className={`p-4 rounded-xl mb-6 border ${message.type === 'success'
-                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                            : 'bg-red-500/10 border-red-500/20 text-red-400'
+                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                        : 'bg-red-500/10 border-red-500/20 text-red-400'
                         }`}>
                         {message.text}
                     </div>
@@ -104,9 +108,9 @@ export default function CompanyProfilePage() {
                             className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
                         >
                             <option value="" className="bg-slate-900">Select a range</option>
-                            <option value="$1k - $5k" className="bg-slate-900">$1,000 - $5,000</option>
-                            <option value="$5k - $20k" className="bg-slate-900">$5,000 - $20,000</option>
-                            <option value="$20k+" className="bg-slate-900">$20,000+</option>
+                            <option value="₹10k - ₹50k" className="bg-slate-900">₹10,000 - ₹50,000</option>
+                            <option value="₹50k - ₹2L" className="bg-slate-900">₹50,000 - ₹2,00,000</option>
+                            <option value="₹2L+" className="bg-slate-900">₹2,00,000+</option>
                         </select>
                     </div>
 
@@ -115,12 +119,49 @@ export default function CompanyProfilePage() {
                             <Target className="w-4 h-4 mr-2 text-indigo-400" />
                             Target Audience
                         </label>
-                        <textarea
+                        <select
                             value={formData.targetAudience}
                             onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value })}
-                            rows={3}
-                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
-                            placeholder="e.g. Computer Science Undergrads, Designers..."
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+                        >
+                            <option value="" className="bg-slate-900">Select target audience</option>
+                            <option value="Tech Fest" className="bg-slate-900">Tech Fest</option>
+                            <option value="Hackathon" className="bg-slate-900">Hackathon</option>
+                            <option value="Cultural Fest" className="bg-slate-900">Cultural Fest</option>
+                            <option value="Workshop" className="bg-slate-900">Workshop</option>
+                        </select>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <Users className="w-4 h-4 mr-2 text-indigo-400" />
+                            Company Size
+                        </label>
+                        <select
+                            value={formData.companySize}
+                            onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+                        >
+                            <option value="" className="bg-slate-900">Select size</option>
+                            <option value="1-10" className="bg-slate-900">1-10 Employees</option>
+                            <option value="11-50" className="bg-slate-900">11-50 Employees</option>
+                            <option value="51-200" className="bg-slate-900">51-200 Employees</option>
+                            <option value="201-1000" className="bg-slate-900">201-1000 Employees</option>
+                            <option value="1000+" className="bg-slate-900">1000+ Employees</option>
+                        </select>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <Globe className="w-4 h-4 mr-2 text-indigo-400" />
+                            Company Website
+                        </label>
+                        <input
+                            type="url"
+                            value={formData.website}
+                            onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            placeholder="https://yourcompany.com"
                         />
                     </div>
 

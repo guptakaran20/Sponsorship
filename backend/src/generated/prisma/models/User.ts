@@ -208,8 +208,6 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   clubProfile?: Prisma.XOR<Prisma.ClubProfileNullableScalarRelationFilter, Prisma.ClubProfileWhereInput> | null
   companyProfile?: Prisma.XOR<Prisma.CompanyProfileNullableScalarRelationFilter, Prisma.CompanyProfileWhereInput> | null
-  sentMessages?: Prisma.ChatMessageListRelationFilter
-  receivedMessages?: Prisma.ChatMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -223,8 +221,6 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   clubProfile?: Prisma.ClubProfileOrderByWithRelationInput
   companyProfile?: Prisma.CompanyProfileOrderByWithRelationInput
-  sentMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
-  receivedMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -241,8 +237,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   clubProfile?: Prisma.XOR<Prisma.ClubProfileNullableScalarRelationFilter, Prisma.ClubProfileWhereInput> | null
   companyProfile?: Prisma.XOR<Prisma.CompanyProfileNullableScalarRelationFilter, Prisma.CompanyProfileWhereInput> | null
-  sentMessages?: Prisma.ChatMessageListRelationFilter
-  receivedMessages?: Prisma.ChatMessageListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -284,8 +278,6 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   clubProfile?: Prisma.ClubProfileCreateNestedOneWithoutUserInput
   companyProfile?: Prisma.CompanyProfileCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
-  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -299,8 +291,6 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   clubProfile?: Prisma.ClubProfileUncheckedCreateNestedOneWithoutUserInput
   companyProfile?: Prisma.CompanyProfileUncheckedCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
-  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUpdateInput = {
@@ -314,8 +304,6 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubProfile?: Prisma.ClubProfileUpdateOneWithoutUserNestedInput
   companyProfile?: Prisma.CompanyProfileUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
-  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -329,8 +317,6 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubProfile?: Prisma.ClubProfileUncheckedUpdateOneWithoutUserNestedInput
   companyProfile?: Prisma.CompanyProfileUncheckedUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
-  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -448,34 +434,6 @@ export type UserUpdateOneRequiredWithoutCompanyProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompanyProfileInput, Prisma.UserUpdateWithoutCompanyProfileInput>, Prisma.UserUncheckedUpdateWithoutCompanyProfileInput>
 }
 
-export type UserCreateNestedOneWithoutSentMessagesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserCreateNestedOneWithoutReceivedMessagesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessagesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
-  upsert?: Prisma.UserUpsertWithoutSentMessagesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
-}
-
-export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessagesInput
-  upsert?: Prisma.UserUpsertWithoutReceivedMessagesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessagesInput, Prisma.UserUpdateWithoutReceivedMessagesInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
-}
-
 export type UserCreateWithoutClubProfileInput = {
   id?: string
   email: string
@@ -486,8 +444,6 @@ export type UserCreateWithoutClubProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyProfile?: Prisma.CompanyProfileCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
-  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutClubProfileInput = {
@@ -500,8 +456,6 @@ export type UserUncheckedCreateWithoutClubProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyProfile?: Prisma.CompanyProfileUncheckedCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
-  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutClubProfileInput = {
@@ -530,8 +484,6 @@ export type UserUpdateWithoutClubProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyProfile?: Prisma.CompanyProfileUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
-  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubProfileInput = {
@@ -544,8 +496,6 @@ export type UserUncheckedUpdateWithoutClubProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyProfile?: Prisma.CompanyProfileUncheckedUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
-  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutCompanyProfileInput = {
@@ -558,8 +508,6 @@ export type UserCreateWithoutCompanyProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   clubProfile?: Prisma.ClubProfileCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
-  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutCompanyProfileInput = {
@@ -572,8 +520,6 @@ export type UserUncheckedCreateWithoutCompanyProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   clubProfile?: Prisma.ClubProfileUncheckedCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
-  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutCompanyProfileInput = {
@@ -602,8 +548,6 @@ export type UserUpdateWithoutCompanyProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubProfile?: Prisma.ClubProfileUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
-  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyProfileInput = {
@@ -616,192 +560,8 @@ export type UserUncheckedUpdateWithoutCompanyProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clubProfile?: Prisma.ClubProfileUncheckedUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
-  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
-export type UserCreateWithoutSentMessagesInput = {
-  id?: string
-  email: string
-  password: string
-  name: string
-  role?: $Enums.Role
-  isVerified?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  clubProfile?: Prisma.ClubProfileCreateNestedOneWithoutUserInput
-  companyProfile?: Prisma.CompanyProfileCreateNestedOneWithoutUserInput
-  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutReceiverInput
-}
-
-export type UserUncheckedCreateWithoutSentMessagesInput = {
-  id?: string
-  email: string
-  password: string
-  name: string
-  role?: $Enums.Role
-  isVerified?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  clubProfile?: Prisma.ClubProfileUncheckedCreateNestedOneWithoutUserInput
-  companyProfile?: Prisma.CompanyProfileUncheckedCreateNestedOneWithoutUserInput
-  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutReceiverInput
-}
-
-export type UserCreateOrConnectWithoutSentMessagesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
-}
-
-export type UserCreateWithoutReceivedMessagesInput = {
-  id?: string
-  email: string
-  password: string
-  name: string
-  role?: $Enums.Role
-  isVerified?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  clubProfile?: Prisma.ClubProfileCreateNestedOneWithoutUserInput
-  companyProfile?: Prisma.CompanyProfileCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
-}
-
-export type UserUncheckedCreateWithoutReceivedMessagesInput = {
-  id?: string
-  email: string
-  password: string
-  name: string
-  role?: $Enums.Role
-  isVerified?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  clubProfile?: Prisma.ClubProfileUncheckedCreateNestedOneWithoutUserInput
-  companyProfile?: Prisma.CompanyProfileUncheckedCreateNestedOneWithoutUserInput
-  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
-}
-
-export type UserCreateOrConnectWithoutReceivedMessagesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
-}
-
-export type UserUpsertWithoutSentMessagesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
-}
-
-export type UserUpdateWithoutSentMessagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clubProfile?: Prisma.ClubProfileUpdateOneWithoutUserNestedInput
-  companyProfile?: Prisma.CompanyProfileUpdateOneWithoutUserNestedInput
-  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutReceiverNestedInput
-}
-
-export type UserUncheckedUpdateWithoutSentMessagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clubProfile?: Prisma.ClubProfileUncheckedUpdateOneWithoutUserNestedInput
-  companyProfile?: Prisma.CompanyProfileUncheckedUpdateOneWithoutUserNestedInput
-  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutReceiverNestedInput
-}
-
-export type UserUpsertWithoutReceivedMessagesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessagesInput, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutReceivedMessagesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessagesInput, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
-}
-
-export type UserUpdateWithoutReceivedMessagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clubProfile?: Prisma.ClubProfileUpdateOneWithoutUserNestedInput
-  companyProfile?: Prisma.CompanyProfileUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
-}
-
-export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clubProfile?: Prisma.ClubProfileUncheckedUpdateOneWithoutUserNestedInput
-  companyProfile?: Prisma.CompanyProfileUncheckedUpdateOneWithoutUserNestedInput
-  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
-}
-
-
-/**
- * Count Type UserCountOutputType
- */
-
-export type UserCountOutputType = {
-  sentMessages: number
-  receivedMessages: number
-}
-
-export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
-  receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserCountOutputType
-   */
-  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ChatMessageWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ChatMessageWhereInput
-}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -815,9 +575,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   clubProfile?: boolean | Prisma.User$clubProfileArgs<ExtArgs>
   companyProfile?: boolean | Prisma.User$companyProfileArgs<ExtArgs>
-  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
-  receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
-  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -857,9 +614,6 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   clubProfile?: boolean | Prisma.User$clubProfileArgs<ExtArgs>
   companyProfile?: boolean | Prisma.User$companyProfileArgs<ExtArgs>
-  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
-  receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
-  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -869,8 +623,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     clubProfile: Prisma.$ClubProfilePayload<ExtArgs> | null
     companyProfile: Prisma.$CompanyProfilePayload<ExtArgs> | null
-    sentMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
-    receivedMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1277,8 +1029,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   clubProfile<T extends Prisma.User$clubProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubProfileArgs<ExtArgs>>): Prisma.Prisma__ClubProfileClient<runtime.Types.Result.GetResult<Prisma.$ClubProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   companyProfile<T extends Prisma.User$companyProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyProfileArgs<ExtArgs>>): Prisma.Prisma__CompanyProfileClient<runtime.Types.Result.GetResult<Prisma.$CompanyProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  receivedMessages<T extends Prisma.User$receivedMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1739,54 +1489,6 @@ export type User$companyProfileArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.CompanyProfileInclude<ExtArgs> | null
   where?: Prisma.CompanyProfileWhereInput
-}
-
-/**
- * User.sentMessages
- */
-export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ChatMessage
-   */
-  select?: Prisma.ChatMessageSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ChatMessage
-   */
-  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ChatMessageInclude<ExtArgs> | null
-  where?: Prisma.ChatMessageWhereInput
-  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
-  cursor?: Prisma.ChatMessageWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
-}
-
-/**
- * User.receivedMessages
- */
-export type User$receivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ChatMessage
-   */
-  select?: Prisma.ChatMessageSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ChatMessage
-   */
-  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ChatMessageInclude<ExtArgs> | null
-  where?: Prisma.ChatMessageWhereInput
-  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
-  cursor?: Prisma.ChatMessageWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
 }
 
 /**

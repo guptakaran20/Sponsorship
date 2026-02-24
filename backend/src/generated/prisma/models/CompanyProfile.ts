@@ -30,6 +30,8 @@ export type CompanyProfileMinAggregateOutputType = {
   industry: string | null
   budgetRange: string | null
   targetAudience: string | null
+  companySize: string | null
+  website: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -40,6 +42,8 @@ export type CompanyProfileMaxAggregateOutputType = {
   industry: string | null
   budgetRange: string | null
   targetAudience: string | null
+  companySize: string | null
+  website: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +54,8 @@ export type CompanyProfileCountAggregateOutputType = {
   industry: number
   budgetRange: number
   targetAudience: number
+  companySize: number
+  website: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -62,6 +68,8 @@ export type CompanyProfileMinAggregateInputType = {
   industry?: true
   budgetRange?: true
   targetAudience?: true
+  companySize?: true
+  website?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -72,6 +80,8 @@ export type CompanyProfileMaxAggregateInputType = {
   industry?: true
   budgetRange?: true
   targetAudience?: true
+  companySize?: true
+  website?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +92,8 @@ export type CompanyProfileCountAggregateInputType = {
   industry?: true
   budgetRange?: true
   targetAudience?: true
+  companySize?: true
+  website?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -165,6 +177,8 @@ export type CompanyProfileGroupByOutputType = {
   industry: string | null
   budgetRange: string | null
   targetAudience: string | null
+  companySize: string | null
+  website: string | null
   createdAt: Date
   updatedAt: Date
   _count: CompanyProfileCountAggregateOutputType | null
@@ -196,6 +210,8 @@ export type CompanyProfileWhereInput = {
   industry?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   budgetRange?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   targetAudience?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
+  companySize?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
+  website?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -208,6 +224,8 @@ export type CompanyProfileOrderByWithRelationInput = {
   industry?: Prisma.SortOrderInput | Prisma.SortOrder
   budgetRange?: Prisma.SortOrderInput | Prisma.SortOrder
   targetAudience?: Prisma.SortOrderInput | Prisma.SortOrder
+  companySize?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -223,6 +241,8 @@ export type CompanyProfileWhereUniqueInput = Prisma.AtLeast<{
   industry?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   budgetRange?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   targetAudience?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
+  companySize?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
+  website?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -235,6 +255,8 @@ export type CompanyProfileOrderByWithAggregationInput = {
   industry?: Prisma.SortOrderInput | Prisma.SortOrder
   budgetRange?: Prisma.SortOrderInput | Prisma.SortOrder
   targetAudience?: Prisma.SortOrderInput | Prisma.SortOrder
+  companySize?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CompanyProfileCountOrderByAggregateInput
@@ -251,6 +273,8 @@ export type CompanyProfileScalarWhereWithAggregatesInput = {
   industry?: Prisma.StringNullableWithAggregatesFilter<"CompanyProfile"> | string | null
   budgetRange?: Prisma.StringNullableWithAggregatesFilter<"CompanyProfile"> | string | null
   targetAudience?: Prisma.StringNullableWithAggregatesFilter<"CompanyProfile"> | string | null
+  companySize?: Prisma.StringNullableWithAggregatesFilter<"CompanyProfile"> | string | null
+  website?: Prisma.StringNullableWithAggregatesFilter<"CompanyProfile"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CompanyProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CompanyProfile"> | Date | string
 }
@@ -260,6 +284,8 @@ export type CompanyProfileCreateInput = {
   industry?: string | null
   budgetRange?: string | null
   targetAudience?: string | null
+  companySize?: string | null
+  website?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCompanyProfileInput
@@ -272,6 +298,8 @@ export type CompanyProfileUncheckedCreateInput = {
   industry?: string | null
   budgetRange?: string | null
   targetAudience?: string | null
+  companySize?: string | null
+  website?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deals?: Prisma.SponsorshipDealUncheckedCreateNestedManyWithoutCompanyInput
@@ -282,6 +310,8 @@ export type CompanyProfileUpdateInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCompanyProfileNestedInput
@@ -294,6 +324,8 @@ export type CompanyProfileUncheckedUpdateInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deals?: Prisma.SponsorshipDealUncheckedUpdateManyWithoutCompanyNestedInput
@@ -305,6 +337,8 @@ export type CompanyProfileCreateManyInput = {
   industry?: string | null
   budgetRange?: string | null
   targetAudience?: string | null
+  companySize?: string | null
+  website?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -314,6 +348,8 @@ export type CompanyProfileUpdateManyMutationInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -324,6 +360,8 @@ export type CompanyProfileUncheckedUpdateManyInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -339,6 +377,8 @@ export type CompanyProfileCountOrderByAggregateInput = {
   industry?: Prisma.SortOrder
   budgetRange?: Prisma.SortOrder
   targetAudience?: Prisma.SortOrder
+  companySize?: Prisma.SortOrder
+  website?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -349,6 +389,8 @@ export type CompanyProfileMaxOrderByAggregateInput = {
   industry?: Prisma.SortOrder
   budgetRange?: Prisma.SortOrder
   targetAudience?: Prisma.SortOrder
+  companySize?: Prisma.SortOrder
+  website?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -359,6 +401,8 @@ export type CompanyProfileMinOrderByAggregateInput = {
   industry?: Prisma.SortOrder
   budgetRange?: Prisma.SortOrder
   targetAudience?: Prisma.SortOrder
+  companySize?: Prisma.SortOrder
+  website?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -419,6 +463,8 @@ export type CompanyProfileCreateWithoutUserInput = {
   industry?: string | null
   budgetRange?: string | null
   targetAudience?: string | null
+  companySize?: string | null
+  website?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deals?: Prisma.SponsorshipDealCreateNestedManyWithoutCompanyInput
@@ -429,6 +475,8 @@ export type CompanyProfileUncheckedCreateWithoutUserInput = {
   industry?: string | null
   budgetRange?: string | null
   targetAudience?: string | null
+  companySize?: string | null
+  website?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deals?: Prisma.SponsorshipDealUncheckedCreateNestedManyWithoutCompanyInput
@@ -455,6 +503,8 @@ export type CompanyProfileUpdateWithoutUserInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deals?: Prisma.SponsorshipDealUpdateManyWithoutCompanyNestedInput
@@ -465,6 +515,8 @@ export type CompanyProfileUncheckedUpdateWithoutUserInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deals?: Prisma.SponsorshipDealUncheckedUpdateManyWithoutCompanyNestedInput
@@ -475,6 +527,8 @@ export type CompanyProfileCreateWithoutDealsInput = {
   industry?: string | null
   budgetRange?: string | null
   targetAudience?: string | null
+  companySize?: string | null
+  website?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCompanyProfileInput
@@ -486,6 +540,8 @@ export type CompanyProfileUncheckedCreateWithoutDealsInput = {
   industry?: string | null
   budgetRange?: string | null
   targetAudience?: string | null
+  companySize?: string | null
+  website?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -511,6 +567,8 @@ export type CompanyProfileUpdateWithoutDealsInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCompanyProfileNestedInput
@@ -522,6 +580,8 @@ export type CompanyProfileUncheckedUpdateWithoutDealsInput = {
   industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   budgetRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -563,6 +623,8 @@ export type CompanyProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   industry?: boolean
   budgetRange?: boolean
   targetAudience?: boolean
+  companySize?: boolean
+  website?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -576,6 +638,8 @@ export type CompanyProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   industry?: boolean
   budgetRange?: boolean
   targetAudience?: boolean
+  companySize?: boolean
+  website?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -587,6 +651,8 @@ export type CompanyProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   industry?: boolean
   budgetRange?: boolean
   targetAudience?: boolean
+  companySize?: boolean
+  website?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -598,11 +664,13 @@ export type CompanyProfileSelectScalar = {
   industry?: boolean
   budgetRange?: boolean
   targetAudience?: boolean
+  companySize?: boolean
+  website?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CompanyProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "industry" | "budgetRange" | "targetAudience" | "createdAt" | "updatedAt", ExtArgs["result"]["companyProfile"]>
+export type CompanyProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "industry" | "budgetRange" | "targetAudience" | "companySize" | "website" | "createdAt" | "updatedAt", ExtArgs["result"]["companyProfile"]>
 export type CompanyProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   deals?: boolean | Prisma.CompanyProfile$dealsArgs<ExtArgs>
@@ -627,6 +695,8 @@ export type $CompanyProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     industry: string | null
     budgetRange: string | null
     targetAudience: string | null
+    companySize: string | null
+    website: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["companyProfile"]>
@@ -1059,6 +1129,8 @@ export interface CompanyProfileFieldRefs {
   readonly industry: Prisma.FieldRef<"CompanyProfile", 'String'>
   readonly budgetRange: Prisma.FieldRef<"CompanyProfile", 'String'>
   readonly targetAudience: Prisma.FieldRef<"CompanyProfile", 'String'>
+  readonly companySize: Prisma.FieldRef<"CompanyProfile", 'String'>
+  readonly website: Prisma.FieldRef<"CompanyProfile", 'String'>
   readonly createdAt: Prisma.FieldRef<"CompanyProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CompanyProfile", 'DateTime'>
 }

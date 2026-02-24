@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
-import { Handshake, CheckCircle2, XCircle, Clock, MessageSquare, Compass } from 'lucide-react';
+import { Handshake, CheckCircle2, XCircle, Clock, Compass } from 'lucide-react';
 
 export default function CompanySponsorshipsPage() {
     const [deals, setDeals] = useState<any[]>([]);
@@ -82,15 +82,7 @@ export default function CompanySponsorshipsPage() {
                                 </p>
                             </div>
 
-                            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/5 md:border-t-0 relative z-10">
-                                <Link
-                                    href={`/chat/${deal.event.club.userId}`}
-                                    className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl font-medium transition-all flex items-center justify-center flex-1 md:flex-none border border-white/10"
-                                >
-                                    <MessageSquare className="w-4 h-4 mr-2 text-indigo-400" />
-                                    Message Club
-                                </Link>
-                            </div>
+
                         </div>
                     ))}
                 </div>

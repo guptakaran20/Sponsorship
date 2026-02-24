@@ -56,8 +56,7 @@ export const ModelName = {
   CompanyProfile: 'CompanyProfile',
   Event: 'Event',
   SponsorshipTier: 'SponsorshipTier',
-  SponsorshipDeal: 'SponsorshipDeal',
-  ChatMessage: 'ChatMessage'
+  SponsorshipDeal: 'SponsorshipDeal'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -111,6 +110,8 @@ export const CompanyProfileScalarFieldEnum = {
   industry: 'industry',
   budgetRange: 'budgetRange',
   targetAudience: 'targetAudience',
+  companySize: 'companySize',
+  website: 'website',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -159,17 +160,6 @@ export const SponsorshipDealScalarFieldEnum = {
 } as const
 
 export type SponsorshipDealScalarFieldEnum = (typeof SponsorshipDealScalarFieldEnum)[keyof typeof SponsorshipDealScalarFieldEnum]
-
-
-export const ChatMessageScalarFieldEnum = {
-  id: 'id',
-  senderId: 'senderId',
-  receiverId: 'receiverId',
-  message: 'message',
-  createdAt: 'createdAt'
-} as const
-
-export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
 export const SortOrder = {
