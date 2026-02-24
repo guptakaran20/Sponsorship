@@ -73,8 +73,8 @@ export default function RegisterPage() {
                                 type="button"
                                 onClick={() => setFormData({ ...formData, role: 'CLUB' })}
                                 className={`p-4 rounded-2xl flex flex-col items-center justify-center gap-2 border transition-all ${formData.role === 'CLUB'
-                                        ? 'bg-indigo-500/20 border-indigo-400 text-white'
-                                        : 'bg-white/5 border-white/10 text-indigo-200 hover:bg-white/10'
+                                    ? 'bg-indigo-500/20 border-indigo-400 text-white'
+                                    : 'bg-white/5 border-white/10 text-indigo-200 hover:bg-white/10'
                                     }`}
                             >
                                 <GraduationCap className={formData.role === 'CLUB' ? 'text-indigo-400' : 'text-indigo-400/50'} />
@@ -85,8 +85,8 @@ export default function RegisterPage() {
                                 type="button"
                                 onClick={() => setFormData({ ...formData, role: 'COMPANY' })}
                                 className={`p-4 rounded-2xl flex flex-col items-center justify-center gap-2 border transition-all ${formData.role === 'COMPANY'
-                                        ? 'bg-indigo-500/20 border-indigo-400 text-white'
-                                        : 'bg-white/5 border-white/10 text-indigo-200 hover:bg-white/10'
+                                    ? 'bg-indigo-500/20 border-indigo-400 text-white'
+                                    : 'bg-white/5 border-white/10 text-indigo-200 hover:bg-white/10'
                                     }`}
                             >
                                 <Briefcase className={formData.role === 'COMPANY' ? 'text-indigo-400' : 'text-indigo-400/50'} />
@@ -116,7 +116,7 @@ export default function RegisterPage() {
                                 <input
                                     type="email"
                                     value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value.toLowerCase() })}
                                     className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white placeholder-indigo-300/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                                     placeholder={formData.role === 'CLUB' ? 'club@college.edu' : 'marketing@company.com'}
                                     required

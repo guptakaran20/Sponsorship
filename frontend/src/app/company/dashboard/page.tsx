@@ -99,7 +99,7 @@ export default function CompanyDashboardPage() {
                     <div className="flex justify-between items-start mb-4">
                         <div>
                             <p className="text-sm font-medium text-slate-400 mb-1">Total Invested</p>
-                            <h3 className="text-4xl font-bold text-white">${totalInvested}</h3>
+                            <h3 className="text-4xl font-bold text-white">₹{totalInvested}</h3>
                         </div>
                         <div className="p-3 bg-emerald-500/20 rounded-2xl text-emerald-400">
                             <TrendingUp className="w-6 h-6" />

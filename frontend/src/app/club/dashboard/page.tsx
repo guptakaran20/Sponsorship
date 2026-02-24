@@ -105,7 +105,7 @@ export default function ClubDashboardPage() {
                     <div className="flex justify-between items-start mb-4">
                         <div>
                             <p className="text-sm font-medium text-slate-400 mb-1">Total Sponsored</p>
-                            <h3 className="text-4xl font-bold text-white">${totalRevenue}</h3>
+                            <h3 className="text-4xl font-bold text-white">₹{totalRevenue}</h3>
                         </div>
                         <div className="p-3 bg-emerald-500/20 rounded-2xl text-emerald-400">
                             <Briefcase className="w-6 h-6" />

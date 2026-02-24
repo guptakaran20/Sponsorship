@@ -10,8 +10,8 @@ export default function ClubProfilePage() {
         description: '',
         reach: '',
         pastEvents: '',
-        socialLinks: '',
     });
+    const [socials, setSocials] = useState({ instagram: '', website: '' });
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
     const [message, setMessage] = useState({ type: '', text: '' });
@@ -26,8 +26,18 @@ export default function ClubProfilePage() {
                         description: profile.description || '',
                         reach: profile.reach?.toString() || '',
                         pastEvents: profile.pastEvents ? JSON.parse(profile.pastEvents).join(', ') : '',
-                        socialLinks: profile.socialLinks || '',
                     });
+                    if (profile.socialLinks) {
+                        try {
+                            const parsed = JSON.parse(profile.socialLinks);
+                            setSocials({
+                                instagram: parsed.instagram || '',
+                                website: parsed.website || ''
+                            });
+                        } catch (e) {
+                            // ignore error
+                        }
+                    }
                 }
             } catch (error) {
                 // Profile might not exist yet, that's fine
@@ -46,6 +56,7 @@ export default function ClubProfilePage() {
         try {
             const payload = {
                 ...formData,
+                socialLinks: JSON.stringify(socials),
                 pastEvents: formData.pastEvents.split(',').map(s => s.trim()).filter(Boolean),
             };
 
@@ -83,8 +94,8 @@ export default function ClubProfilePage() {
             <div className="bg-slate-900 border border-white/5 rounded-3xl p-6 lg:p-8 shadow-xl">
                 {message.text && (
                     <div className={`p-4 rounded-xl mb-6 border ${message.type === 'success'
-                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                            : 'bg-red-500/10 border-red-500/20 text-red-400'
+                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                        : 'bg-red-500/10 border-red-500/20 text-red-400'
                         }`}>
                         {message.text}
                     </div>
@@ -125,7 +136,7 @@ export default function ClubProfilePage() {
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-300 flex items-center">
                                 <Users className="w-4 h-4 mr-2 text-indigo-400" />
-                                Estimated Audience Reach
+                                Current Club Members
                             </label>
                             <input
                                 type="number"
@@ -136,18 +147,33 @@ export default function ClubProfilePage() {
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300 flex items-center">
-                                <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
-                                Social Links (JSON)
-                            </label>
-                            <input
-                                type="text"
-                                value={formData.socialLinks}
-                                onChange={(e) => setFormData({ ...formData, socialLinks: e.target.value })}
-                                className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-mono text-sm"
-                                placeholder='{"instagram": "url", "website": "url"}'
-                            />
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300 flex items-center">
+                                    <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
+                                    Instagram URL
+                                </label>
+                                <input
+                                    type="url"
+                                    value={socials.instagram}
+                                    onChange={(e) => setSocials({ ...socials, instagram: e.target.value })}
+                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                    placeholder="https://instagram.com/yourclub"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300 flex items-center">
+                                    <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
+                                    Website URL
+                                </label>
+                                <input
+                                    type="url"
+                                    value={socials.website}
+                                    onChange={(e) => setSocials({ ...socials, website: e.target.value })}
+                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                    placeholder="https://yourclub.com"
+                                />
+                            </div>
                         </div>
                     </div>
 

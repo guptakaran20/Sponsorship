@@ -62,8 +62,8 @@ export default function CompanySponsorshipsPage() {
                             <div className="flex-1 relative z-10">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${deal.status === 'ACCEPTED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/20' :
-                                            deal.status === 'REJECTED' ? 'bg-red-500/20 text-red-400 border border-red-500/20' :
-                                                'bg-amber-500/20 text-amber-400 border border-amber-500/20'
+                                        deal.status === 'REJECTED' ? 'bg-red-500/20 text-red-400 border border-red-500/20' :
+                                            'bg-amber-500/20 text-amber-400 border border-amber-500/20'
                                         }`}>
                                         {deal.status === 'PENDING' && <Clock className="w-3 h-3 inline mr-1" />}
                                         {deal.status === 'ACCEPTED' && <CheckCircle2 className="w-3 h-3 inline mr-1" />}
@@ -71,7 +71,7 @@ export default function CompanySponsorshipsPage() {
                                         {deal.status}
                                     </span>
                                     <span className="text-slate-500 text-sm">Tier selected</span>
-                                    <span className="text-indigo-400 font-medium">{deal.tier.name} (${deal.tier.amount})</span>
+                                    <span className="text-indigo-400 font-medium">{deal.tier.name} (₹{deal.tier.amount})</span>
                                 </div>
 
                                 <h3 className="text-2xl font-bold text-white mb-1">

@@ -181,7 +181,7 @@ export default function DiscoverEventsPage() {
                                 </div>
                                 <div className="bg-white/5 border border-white/5 px-4 py-2 rounded-xl flex items-center text-sm text-slate-300">
                                     <Users className="w-4 h-4 mr-2 text-indigo-400" />
-                                    {selectedEvent.footfall.toLocaleString()} Expected Reach
+                                    {selectedEvent.footfall.toLocaleString()} Current Club Members
                                 </div>
                             </div>
 
@@ -201,7 +201,7 @@ export default function DiscoverEventsPage() {
                                                 <div className="flex-1">
                                                     <div className="flex items-end gap-3 mb-2">
                                                         <h4 className="text-xl font-bold text-white">{tier.name}</h4>
-                                                        <span className="text-2xl font-black text-emerald-400 mb-0.5">${tier.amount}</span>
+                                                        <span className="text-2xl font-black text-emerald-400 mb-0.5">₹{tier.amount}</span>
                                                     </div>
 
                                                     <div className="mt-3">

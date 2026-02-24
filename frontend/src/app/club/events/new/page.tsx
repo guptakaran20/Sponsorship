@@ -133,7 +133,7 @@ export default function CreateEventPage() {
 
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-slate-300 flex items-center">
-                                    <Users className="w-4 h-4 mr-2 text-indigo-400" /> Expected Footfall
+                                    <Users className="w-4 h-4 mr-2 text-indigo-400" /> Current Club Members
                                 </label>
                                 <input
                                     type="number"
@@ -215,7 +215,7 @@ export default function CreateEventPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs font-medium text-slate-400">Amount (USD)</label>
+                                        <label className="text-xs font-medium text-slate-400">Amount (INR)</label>
                                         <input
                                             type="number"
                                             value={tier.amount}
