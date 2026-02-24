@@ -31,6 +31,7 @@ export type SponsorshipDealMinAggregateOutputType = {
   tierId: string | null
   status: $Enums.DealStatus | null
   paymentStatus: $Enums.PaymentStatus | null
+  dealPin: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +43,7 @@ export type SponsorshipDealMaxAggregateOutputType = {
   tierId: string | null
   status: $Enums.DealStatus | null
   paymentStatus: $Enums.PaymentStatus | null
+  dealPin: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +55,7 @@ export type SponsorshipDealCountAggregateOutputType = {
   tierId: number
   status: number
   paymentStatus: number
+  dealPin: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -66,6 +69,7 @@ export type SponsorshipDealMinAggregateInputType = {
   tierId?: true
   status?: true
   paymentStatus?: true
+  dealPin?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +81,7 @@ export type SponsorshipDealMaxAggregateInputType = {
   tierId?: true
   status?: true
   paymentStatus?: true
+  dealPin?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +93,7 @@ export type SponsorshipDealCountAggregateInputType = {
   tierId?: true
   status?: true
   paymentStatus?: true
+  dealPin?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -172,6 +178,7 @@ export type SponsorshipDealGroupByOutputType = {
   tierId: string
   status: $Enums.DealStatus
   paymentStatus: $Enums.PaymentStatus
+  dealPin: string | null
   createdAt: Date
   updatedAt: Date
   _count: SponsorshipDealCountAggregateOutputType | null
@@ -204,6 +211,7 @@ export type SponsorshipDealWhereInput = {
   tierId?: Prisma.StringFilter<"SponsorshipDeal"> | string
   status?: Prisma.EnumDealStatusFilter<"SponsorshipDeal"> | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"SponsorshipDeal"> | $Enums.PaymentStatus
+  dealPin?: Prisma.StringNullableFilter<"SponsorshipDeal"> | string | null
   createdAt?: Prisma.DateTimeFilter<"SponsorshipDeal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SponsorshipDeal"> | Date | string
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
@@ -218,6 +226,7 @@ export type SponsorshipDealOrderByWithRelationInput = {
   tierId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  dealPin?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   event?: Prisma.EventOrderByWithRelationInput
@@ -235,6 +244,7 @@ export type SponsorshipDealWhereUniqueInput = Prisma.AtLeast<{
   tierId?: Prisma.StringFilter<"SponsorshipDeal"> | string
   status?: Prisma.EnumDealStatusFilter<"SponsorshipDeal"> | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"SponsorshipDeal"> | $Enums.PaymentStatus
+  dealPin?: Prisma.StringNullableFilter<"SponsorshipDeal"> | string | null
   createdAt?: Prisma.DateTimeFilter<"SponsorshipDeal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SponsorshipDeal"> | Date | string
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
@@ -249,6 +259,7 @@ export type SponsorshipDealOrderByWithAggregationInput = {
   tierId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  dealPin?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SponsorshipDealCountOrderByAggregateInput
@@ -266,6 +277,7 @@ export type SponsorshipDealScalarWhereWithAggregatesInput = {
   tierId?: Prisma.StringWithAggregatesFilter<"SponsorshipDeal"> | string
   status?: Prisma.EnumDealStatusWithAggregatesFilter<"SponsorshipDeal"> | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"SponsorshipDeal"> | $Enums.PaymentStatus
+  dealPin?: Prisma.StringNullableWithAggregatesFilter<"SponsorshipDeal"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SponsorshipDeal"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SponsorshipDeal"> | Date | string
 }
@@ -274,6 +286,7 @@ export type SponsorshipDealCreateInput = {
   id?: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   event: Prisma.EventCreateNestedOneWithoutDealsInput
@@ -288,6 +301,7 @@ export type SponsorshipDealUncheckedCreateInput = {
   tierId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -296,6 +310,7 @@ export type SponsorshipDealUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   event?: Prisma.EventUpdateOneRequiredWithoutDealsNestedInput
@@ -310,6 +325,7 @@ export type SponsorshipDealUncheckedUpdateInput = {
   tierId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -321,6 +337,7 @@ export type SponsorshipDealCreateManyInput = {
   tierId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -329,6 +346,7 @@ export type SponsorshipDealUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -340,6 +358,7 @@ export type SponsorshipDealUncheckedUpdateManyInput = {
   tierId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -361,6 +380,7 @@ export type SponsorshipDealCountOrderByAggregateInput = {
   tierId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  dealPin?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -372,6 +392,7 @@ export type SponsorshipDealMaxOrderByAggregateInput = {
   tierId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  dealPin?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -383,6 +404,7 @@ export type SponsorshipDealMinOrderByAggregateInput = {
   tierId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  dealPin?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -525,6 +547,7 @@ export type SponsorshipDealCreateWithoutCompanyInput = {
   id?: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   event: Prisma.EventCreateNestedOneWithoutDealsInput
@@ -537,6 +560,7 @@ export type SponsorshipDealUncheckedCreateWithoutCompanyInput = {
   tierId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -577,6 +601,7 @@ export type SponsorshipDealScalarWhereInput = {
   tierId?: Prisma.StringFilter<"SponsorshipDeal"> | string
   status?: Prisma.EnumDealStatusFilter<"SponsorshipDeal"> | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"SponsorshipDeal"> | $Enums.PaymentStatus
+  dealPin?: Prisma.StringNullableFilter<"SponsorshipDeal"> | string | null
   createdAt?: Prisma.DateTimeFilter<"SponsorshipDeal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SponsorshipDeal"> | Date | string
 }
@@ -585,6 +610,7 @@ export type SponsorshipDealCreateWithoutEventInput = {
   id?: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyProfileCreateNestedOneWithoutDealsInput
@@ -597,6 +623,7 @@ export type SponsorshipDealUncheckedCreateWithoutEventInput = {
   tierId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -631,6 +658,7 @@ export type SponsorshipDealCreateWithoutTierInput = {
   id?: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   event: Prisma.EventCreateNestedOneWithoutDealsInput
@@ -643,6 +671,7 @@ export type SponsorshipDealUncheckedCreateWithoutTierInput = {
   companyId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -679,6 +708,7 @@ export type SponsorshipDealCreateManyCompanyInput = {
   tierId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -687,6 +717,7 @@ export type SponsorshipDealUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   event?: Prisma.EventUpdateOneRequiredWithoutDealsNestedInput
@@ -699,6 +730,7 @@ export type SponsorshipDealUncheckedUpdateWithoutCompanyInput = {
   tierId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -709,6 +741,7 @@ export type SponsorshipDealUncheckedUpdateManyWithoutCompanyInput = {
   tierId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -719,6 +752,7 @@ export type SponsorshipDealCreateManyEventInput = {
   tierId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -727,6 +761,7 @@ export type SponsorshipDealUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyProfileUpdateOneRequiredWithoutDealsNestedInput
@@ -739,6 +774,7 @@ export type SponsorshipDealUncheckedUpdateWithoutEventInput = {
   tierId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -749,6 +785,7 @@ export type SponsorshipDealUncheckedUpdateManyWithoutEventInput = {
   tierId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -759,6 +796,7 @@ export type SponsorshipDealCreateManyTierInput = {
   companyId: string
   status?: $Enums.DealStatus
   paymentStatus?: $Enums.PaymentStatus
+  dealPin?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -767,6 +805,7 @@ export type SponsorshipDealUpdateWithoutTierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   event?: Prisma.EventUpdateOneRequiredWithoutDealsNestedInput
@@ -779,6 +818,7 @@ export type SponsorshipDealUncheckedUpdateWithoutTierInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -789,6 +829,7 @@ export type SponsorshipDealUncheckedUpdateManyWithoutTierInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDealStatusFieldUpdateOperationsInput | $Enums.DealStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  dealPin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -802,6 +843,7 @@ export type SponsorshipDealSelect<ExtArgs extends runtime.Types.Extensions.Inter
   tierId?: boolean
   status?: boolean
   paymentStatus?: boolean
+  dealPin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
@@ -816,6 +858,7 @@ export type SponsorshipDealSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   tierId?: boolean
   status?: boolean
   paymentStatus?: boolean
+  dealPin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
@@ -830,6 +873,7 @@ export type SponsorshipDealSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   tierId?: boolean
   status?: boolean
   paymentStatus?: boolean
+  dealPin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
@@ -844,11 +888,12 @@ export type SponsorshipDealSelectScalar = {
   tierId?: boolean
   status?: boolean
   paymentStatus?: boolean
+  dealPin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SponsorshipDealOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "companyId" | "tierId" | "status" | "paymentStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["sponsorshipDeal"]>
+export type SponsorshipDealOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "companyId" | "tierId" | "status" | "paymentStatus" | "dealPin" | "createdAt" | "updatedAt", ExtArgs["result"]["sponsorshipDeal"]>
 export type SponsorshipDealInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyProfileDefaultArgs<ExtArgs>
@@ -879,6 +924,7 @@ export type $SponsorshipDealPayload<ExtArgs extends runtime.Types.Extensions.Int
     tierId: string
     status: $Enums.DealStatus
     paymentStatus: $Enums.PaymentStatus
+    dealPin: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["sponsorshipDeal"]>
@@ -1313,6 +1359,7 @@ export interface SponsorshipDealFieldRefs {
   readonly tierId: Prisma.FieldRef<"SponsorshipDeal", 'String'>
   readonly status: Prisma.FieldRef<"SponsorshipDeal", 'DealStatus'>
   readonly paymentStatus: Prisma.FieldRef<"SponsorshipDeal", 'PaymentStatus'>
+  readonly dealPin: Prisma.FieldRef<"SponsorshipDeal", 'String'>
   readonly createdAt: Prisma.FieldRef<"SponsorshipDeal", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SponsorshipDeal", 'DateTime'>
 }

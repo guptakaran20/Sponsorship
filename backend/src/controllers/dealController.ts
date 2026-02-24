@@ -43,8 +43,20 @@ export const createDeal = async (req: AuthRequest, res: Response) => {
                 tierId,
                 status: 'PENDING',
                 paymentStatus: 'UNPAID'
-            }
+            },
+            include: { event: { include: { club: true } } }
         });
+
+        // Notify the Club
+        if (deal.event.club.userId) {
+            await prisma.notification.create({
+                data: {
+                    userId: deal.event.club.userId,
+                    title: 'New Sponsorship Request',
+                    message: `${companyProfile.industry || 'A company'} wants to sponsor ${deal.event.name} for ₹${tier.amount}.`
+                }
+            });
+        }
 
         res.status(201).json(deal);
     } catch (error) {
@@ -115,21 +127,103 @@ export const updateDealStatus = async (req: AuthRequest, res: Response) => {
 
         const deal = await prisma.sponsorshipDeal.findUnique({
             where: { id: id as string },
-            include: { event: true }
+            include: { event: true, company: true, tier: true }
         });
 
         if (!deal || deal.event.clubId !== clubProfile.id) {
             return res.status(404).json({ message: 'Deal not found or unauthorized' });
         }
 
+        let dealPin = null;
+        if (status === 'ACCEPTED') {
+            // Generate a 6 character alphanumeric PIN
+            dealPin = Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+
         const updatedDeal = await prisma.sponsorshipDeal.update({
             where: { id: id as string },
-            data: { status }
+            data: {
+                status: status as any,
+                ...(dealPin && { dealPin })
+            }
         });
+
+        // Notify the Company
+        if (status === 'ACCEPTED' || status === 'REJECTED') {
+            await prisma.notification.create({
+                data: {
+                    userId: deal.company.userId,
+                    title: `Sponsorship Request ${status === 'ACCEPTED' ? 'Accepted' : 'Declined'}`,
+                    message: `Your request to sponsor ${deal.event.name} has been ${status.toLowerCase()}. ${status === 'ACCEPTED' ? 'Check your sponsorships tab for the Deal PIN.' : ''}`
+                }
+            });
+        }
 
         res.status(200).json(updatedDeal);
     } catch (error) {
         console.error('Error updating deal:', error);
         res.status(500).json({ message: 'Server error updating deal' });
+    }
+};
+
+export const verifyDealPin = async (req: AuthRequest, res: Response) => {
+    try {
+        const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+        const { pin } = req.body;
+
+        const userId = req.user.id;
+        const clubProfile = await prisma.clubProfile.findUnique({ where: { userId } });
+
+        if (!clubProfile) return res.status(403).json({ message: 'Unauthorized' });
+
+        const deal = await prisma.sponsorshipDeal.findUnique({
+            where: { id: id as string },
+            include: { event: true, company: true, tier: true }
+        });
+
+        if (!deal || deal.event.clubId !== clubProfile.id) {
+            return res.status(404).json({ message: 'Deal not found' });
+        }
+
+        if (deal.status !== 'ACCEPTED') {
+            return res.status(400).json({ message: 'Deal is not accepted yet' });
+        }
+
+        if (deal.dealPin !== pin.toUpperCase()) {
+            return res.status(400).json({ message: 'Invalid PIN' });
+        }
+
+        // Transaction to complete deal and update totals safely
+        const updatedDeal = await prisma.$transaction(async (tx: any) => {
+            const completed = await tx.sponsorshipDeal.update({
+                where: { id: id as string },
+                data: { status: 'COMPLETED', paymentStatus: 'PAID' }
+            });
+
+            await tx.clubProfile.update({
+                where: { id: clubProfile.id },
+                data: { totalAmountRaised: { increment: deal.tier.amount } }
+            });
+
+            await tx.companyProfile.update({
+                where: { id: deal.companyId },
+                data: { totalAmountSpent: { increment: deal.tier.amount } }
+            });
+
+            await tx.notification.create({
+                data: {
+                    userId: deal.company.userId,
+                    title: 'Deal Completed 🎉',
+                    message: `The club has verified your PIN. Your sponsorship for ${deal.event.name} is now complete!`
+                }
+            });
+
+            return completed;
+        });
+
+        res.status(200).json(updatedDeal);
+    } catch (error) {
+        console.error('Error verifying PIN:', error);
+        res.status(500).json({ message: 'Server error verifying PIN' });
     }
 };

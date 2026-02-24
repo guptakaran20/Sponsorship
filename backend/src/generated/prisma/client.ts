@@ -67,3 +67,8 @@ export type SponsorshipTier = Prisma.SponsorshipTierModel
  * 
  */
 export type SponsorshipDeal = Prisma.SponsorshipDealModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel

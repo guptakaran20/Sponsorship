@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
-import { Building2, Users, Link as LinkIcon, Info, Save } from 'lucide-react';
+import { Building2, Users, Link as LinkIcon, Info, Save, Phone, User } from 'lucide-react';
 import { CalendarDays } from 'lucide-react';
 
 export default function ClubProfilePage() {
@@ -10,6 +10,8 @@ export default function ClubProfilePage() {
         description: '',
         reach: '',
         pastEvents: '',
+        contactPerson: '',
+        contactNumber: '',
     });
     const [socials, setSocials] = useState({ instagram: '', website: '' });
     const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +28,8 @@ export default function ClubProfilePage() {
                         description: profile.description || '',
                         reach: profile.reach?.toString() || '',
                         pastEvents: profile.pastEvents ? JSON.parse(profile.pastEvents).join(', ') : '',
+                        contactPerson: profile.contactPerson || '',
+                        contactNumber: profile.contactNumber || '',
                     });
                     if (profile.socialLinks) {
                         try {
@@ -172,6 +176,35 @@ export default function ClubProfilePage() {
                                     onChange={(e) => setSocials({ ...socials, website: e.target.value })}
                                     className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
                                     placeholder="https://yourclub.com"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300 flex items-center">
+                                    <User className="w-4 h-4 mr-2 text-indigo-400" />
+                                    Contact Person Name
+                                </label>
+                                <input
+                                    type="text"
+                                    value={formData.contactPerson}
+                                    onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
+                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                    placeholder="John Doe"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300 flex items-center">
+                                    <Phone className="w-4 h-4 mr-2 text-indigo-400" />
+                                    Contact Number
+                                </label>
+                                <input
+                                    type="tel"
+                                    value={formData.contactNumber}
+                                    onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
+                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                    placeholder="+91 9876543210"
                                 />
                             </div>
                         </div>

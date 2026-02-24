@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
-import { Handshake, CheckCircle2, XCircle, Clock, Compass } from 'lucide-react';
+import { Handshake, CheckCircle2, XCircle, Clock, Compass, ShieldAlert, CheckCircle } from 'lucide-react';
 
 export default function CompanySponsorshipsPage() {
     const [deals, setDeals] = useState<any[]>([]);
@@ -61,12 +61,13 @@ export default function CompanySponsorshipsPage() {
 
                             <div className="flex-1 relative z-10">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${deal.status === 'ACCEPTED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/20' :
+                                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${deal.status === 'COMPLETED' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/20' : deal.status === 'ACCEPTED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/20' :
                                         deal.status === 'REJECTED' ? 'bg-red-500/20 text-red-400 border border-red-500/20' :
                                             'bg-amber-500/20 text-amber-400 border border-amber-500/20'
                                         }`}>
                                         {deal.status === 'PENDING' && <Clock className="w-3 h-3 inline mr-1" />}
                                         {deal.status === 'ACCEPTED' && <CheckCircle2 className="w-3 h-3 inline mr-1" />}
+                                        {deal.status === 'COMPLETED' && <CheckCircle className="w-3 h-3 inline mr-1" />}
                                         {deal.status === 'REJECTED' && <XCircle className="w-3 h-3 inline mr-1" />}
                                         {deal.status}
                                     </span>
@@ -82,7 +83,26 @@ export default function CompanySponsorshipsPage() {
                                 </p>
                             </div>
 
-
+                            <div className="flex flex-col items-end gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/5 md:border-t-0 z-10">
+                                {deal.status === 'ACCEPTED' && deal.dealPin && (
+                                    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 flex flex-col items-end">
+                                        <p className="text-xs text-emerald-400 mb-1 flex items-center font-medium">
+                                            <ShieldAlert className="w-3 h-3 mr-1" /> Deal PIN (Share with Club)
+                                        </p>
+                                        <div className="bg-slate-950 px-4 py-2 rounded-lg font-mono text-xl tracking-widest text-white border border-white/5 shadow-inner">
+                                            {deal.dealPin}
+                                        </div>
+                                    </div>
+                                )}
+                                {deal.status === 'COMPLETED' && (
+                                    <div className="text-right">
+                                        <p className="text-indigo-400 font-medium text-sm flex items-center justify-end">
+                                            <CheckCircle className="w-4 h-4 mr-1" /> Deal Completed
+                                        </p>
+                                        <p className="text-slate-500 text-xs mt-1">Amount paid: ₹{deal.tier.amount}</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     ))}
                 </div>

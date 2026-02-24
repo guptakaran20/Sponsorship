@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
-import { Handshake, CheckCircle2, XCircle, Clock, Briefcase } from 'lucide-react';
+import { Handshake, CheckCircle2, XCircle, Clock, Briefcase, CheckCircle, ShieldCheck } from 'lucide-react';
 
 export default function ClubSponsorshipsPage() {
     const [deals, setDeals] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [pinInput, setPinInput] = useState<{ [key: string]: string }>({});
+    const [verifying, setVerifying] = useState<{ [key: string]: boolean }>({});
 
     useEffect(() => {
         loadDeals();
@@ -33,6 +35,25 @@ export default function ClubSponsorshipsPage() {
             loadDeals();
         } catch (error) {
             alert('Failed to update deal status');
+        }
+    };
+
+    const handleVerifyPin = async (dealId: string) => {
+        const pin = pinInput[dealId];
+        if (!pin || pin.length !== 6) return alert("Please enter a valid 6-character PIN.");
+
+        setVerifying({ ...verifying, [dealId]: true });
+        try {
+            await fetchApi(`/deals/${dealId}/verify`, {
+                method: 'POST',
+                body: JSON.stringify({ pin })
+            });
+            alert('Deal verified and completed successfully!');
+            loadDeals();
+        } catch (error: any) {
+            alert(error.message || 'Failed to verify PIN');
+        } finally {
+            setVerifying({ ...verifying, [dealId]: false });
         }
     };
 
@@ -66,12 +87,13 @@ export default function ClubSponsorshipsPage() {
                         <div key={deal.id} className="bg-slate-900 border border-white/5 rounded-3xl p-6 shadow-xl flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
                             <div className="flex-1">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${deal.status === 'ACCEPTED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/20' :
+                                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${deal.status === 'COMPLETED' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/20' : deal.status === 'ACCEPTED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/20' :
                                         deal.status === 'REJECTED' ? 'bg-red-500/20 text-red-400 border border-red-500/20' :
                                             'bg-amber-500/20 text-amber-400 border border-amber-500/20'
                                         }`}>
                                         {deal.status === 'PENDING' && <Clock className="w-3 h-3 inline mr-1" />}
                                         {deal.status === 'ACCEPTED' && <CheckCircle2 className="w-3 h-3 inline mr-1" />}
+                                        {deal.status === 'COMPLETED' && <CheckCircle className="w-3 h-3 inline mr-1" />}
                                         {deal.status === 'REJECTED' && <XCircle className="w-3 h-3 inline mr-1" />}
                                         {deal.status}
                                     </span>
@@ -84,9 +106,9 @@ export default function ClubSponsorshipsPage() {
                                 </h3>
                             </div>
 
-                            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/5 md:border-t-0">
+                            <div className="flex flex-col items-end gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/5 md:border-t-0">
                                 {deal.status === 'PENDING' && (
-                                    <>
+                                    <div className="flex gap-2 w-full justify-end">
                                         <button
                                             onClick={() => handleUpdateStatus(deal.id, 'REJECTED')}
                                             className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl font-medium transition-all flex-1 md:flex-none"
@@ -99,7 +121,39 @@ export default function ClubSponsorshipsPage() {
                                         >
                                             Accept Proposal
                                         </button>
-                                    </>
+                                    </div>
+                                )}
+                                {deal.status === 'ACCEPTED' && (
+                                    <div className="flex items-center p-1 bg-slate-950/50 rounded-xl border border-white/10 mt-2">
+                                        <input
+                                            type="text"
+                                            placeholder="Enter 6-char PIN"
+                                            maxLength={6}
+                                            value={pinInput[deal.id] || ''}
+                                            onChange={(e) => setPinInput({ ...pinInput, [deal.id]: e.target.value.toUpperCase() })}
+                                            className="bg-transparent text-white px-3 py-2 w-32 outline-none uppercase font-mono tracking-widest text-sm"
+                                        />
+                                        <button
+                                            onClick={() => handleVerifyPin(deal.id)}
+                                            disabled={verifying[deal.id]}
+                                            className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center"
+                                        >
+                                            {verifying[deal.id] ? (
+                                                <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin mr-1" />
+                                            ) : (
+                                                <ShieldCheck className="w-4 h-4 mr-1" />
+                                            )}
+                                            Verify
+                                        </button>
+                                    </div>
+                                )}
+                                {deal.status === 'COMPLETED' && (
+                                    <div className="text-right">
+                                        <p className="text-emerald-400 font-medium text-sm flex items-center justify-end">
+                                            <CheckCircle className="w-4 h-4 mr-1" /> Deal Completed
+                                        </p>
+                                        <p className="text-slate-500 text-xs mt-1">Amount received: ₹{deal.tier.amount}</p>
+                                    </div>
                                 )}
                             </div>
                         </div>

@@ -389,7 +389,8 @@ export const ModelName = {
   CompanyProfile: 'CompanyProfile',
   Event: 'Event',
   SponsorshipTier: 'SponsorshipTier',
-  SponsorshipDeal: 'SponsorshipDeal'
+  SponsorshipDeal: 'SponsorshipDeal',
+  Notification: 'Notification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "clubProfile" | "companyProfile" | "event" | "sponsorshipTier" | "sponsorshipDeal"
+    modelProps: "user" | "clubProfile" | "companyProfile" | "event" | "sponsorshipTier" | "sponsorshipDeal" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -853,6 +854,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Notification: {
+      payload: Prisma.$NotificationPayload<ExtArgs>
+      fields: Prisma.NotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.NotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        findMany: {
+          args: Prisma.NotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        create: {
+          args: Prisma.NotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        createMany: {
+          args: Prisma.NotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.NotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        update: {
+          args: Prisma.NotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.NotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.NotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNotification>
+        }
+        groupBy: {
+          args: Prisma.NotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -914,6 +989,10 @@ export const ClubProfileScalarFieldEnum = {
   pastEvents: 'pastEvents',
   reach: 'reach',
   socialLinks: 'socialLinks',
+  contactPerson: 'contactPerson',
+  contactNumber: 'contactNumber',
+  website: 'website',
+  totalAmountRaised: 'totalAmountRaised',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -929,6 +1008,10 @@ export const CompanyProfileScalarFieldEnum = {
   targetAudience: 'targetAudience',
   companySize: 'companySize',
   website: 'website',
+  contactPerson: 'contactPerson',
+  contactNumber: 'contactNumber',
+  socialLinks: 'socialLinks',
+  totalAmountSpent: 'totalAmountSpent',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -972,11 +1055,24 @@ export const SponsorshipDealScalarFieldEnum = {
   tierId: 'tierId',
   status: 'status',
   paymentStatus: 'paymentStatus',
+  dealPin: 'dealPin',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type SponsorshipDealScalarFieldEnum = (typeof SponsorshipDealScalarFieldEnum)[keyof typeof SponsorshipDealScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1214,6 +1310,7 @@ export type GlobalOmitConfig = {
   event?: Prisma.EventOmit
   sponsorshipTier?: Prisma.SponsorshipTierOmit
   sponsorshipDeal?: Prisma.SponsorshipDealOmit
+  notification?: Prisma.NotificationOmit
 }
 
 /* Types for Logging */

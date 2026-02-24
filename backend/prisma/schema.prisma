@@ -18,6 +18,7 @@ model User {
   updatedAt      DateTime        @updatedAt
   clubProfile    ClubProfile?
   companyProfile CompanyProfile?
+  notifications  Notification[]
 }
 
 enum Role {
@@ -35,6 +36,10 @@ model ClubProfile {
   pastEvents   String?  // Could be JSON array of strings
   reach        Int      @default(0) // Estimated audience reach
   socialLinks  String?  // JSON object of links
+  contactPerson String?
+  contactNumber String?
+  website      String?
+  totalAmountRaised Float @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   events       Event[]
@@ -49,6 +54,10 @@ model CompanyProfile {
   targetAudience String?
   companySize  String?
   website      String?
+  contactPerson String?
+  contactNumber String?
+  socialLinks   String?
+  totalAmountSpent Float @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   deals        SponsorshipDeal[]
@@ -92,6 +101,7 @@ model SponsorshipDeal {
   tier        SponsorshipTier @relation(fields: [tierId], references: [id])
   status      DealStatus @default(PENDING)
   paymentStatus PaymentStatus @default(UNPAID)
+  dealPin     String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -110,3 +120,12 @@ enum PaymentStatus {
   REFUNDED
 }
 
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

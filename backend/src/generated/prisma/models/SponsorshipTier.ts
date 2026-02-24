@@ -459,14 +459,6 @@ export type SponsorshipTierUncheckedUpdateManyWithoutEventNestedInput = {
   deleteMany?: Prisma.SponsorshipTierScalarWhereInput | Prisma.SponsorshipTierScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type SponsorshipTierCreateNestedOneWithoutDealsInput = {
   create?: Prisma.XOR<Prisma.SponsorshipTierCreateWithoutDealsInput, Prisma.SponsorshipTierUncheckedCreateWithoutDealsInput>
   connectOrCreate?: Prisma.SponsorshipTierCreateOrConnectWithoutDealsInput

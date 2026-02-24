@@ -56,7 +56,8 @@ export const ModelName = {
   CompanyProfile: 'CompanyProfile',
   Event: 'Event',
   SponsorshipTier: 'SponsorshipTier',
-  SponsorshipDeal: 'SponsorshipDeal'
+  SponsorshipDeal: 'SponsorshipDeal',
+  Notification: 'Notification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -97,6 +98,10 @@ export const ClubProfileScalarFieldEnum = {
   pastEvents: 'pastEvents',
   reach: 'reach',
   socialLinks: 'socialLinks',
+  contactPerson: 'contactPerson',
+  contactNumber: 'contactNumber',
+  website: 'website',
+  totalAmountRaised: 'totalAmountRaised',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -112,6 +117,10 @@ export const CompanyProfileScalarFieldEnum = {
   targetAudience: 'targetAudience',
   companySize: 'companySize',
   website: 'website',
+  contactPerson: 'contactPerson',
+  contactNumber: 'contactNumber',
+  socialLinks: 'socialLinks',
+  totalAmountSpent: 'totalAmountSpent',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -155,11 +164,24 @@ export const SponsorshipDealScalarFieldEnum = {
   tierId: 'tierId',
   status: 'status',
   paymentStatus: 'paymentStatus',
+  dealPin: 'dealPin',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type SponsorshipDealScalarFieldEnum = (typeof SponsorshipDealScalarFieldEnum)[keyof typeof SponsorshipDealScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const SortOrder = {

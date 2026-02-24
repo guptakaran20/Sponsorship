@@ -28,10 +28,12 @@ export type AggregateClubProfile = {
 
 export type ClubProfileAvgAggregateOutputType = {
   reach: number | null
+  totalAmountRaised: number | null
 }
 
 export type ClubProfileSumAggregateOutputType = {
   reach: number | null
+  totalAmountRaised: number | null
 }
 
 export type ClubProfileMinAggregateOutputType = {
@@ -42,6 +44,10 @@ export type ClubProfileMinAggregateOutputType = {
   pastEvents: string | null
   reach: number | null
   socialLinks: string | null
+  contactPerson: string | null
+  contactNumber: string | null
+  website: string | null
+  totalAmountRaised: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +60,10 @@ export type ClubProfileMaxAggregateOutputType = {
   pastEvents: string | null
   reach: number | null
   socialLinks: string | null
+  contactPerson: string | null
+  contactNumber: string | null
+  website: string | null
+  totalAmountRaised: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +76,10 @@ export type ClubProfileCountAggregateOutputType = {
   pastEvents: number
   reach: number
   socialLinks: number
+  contactPerson: number
+  contactNumber: number
+  website: number
+  totalAmountRaised: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,10 +88,12 @@ export type ClubProfileCountAggregateOutputType = {
 
 export type ClubProfileAvgAggregateInputType = {
   reach?: true
+  totalAmountRaised?: true
 }
 
 export type ClubProfileSumAggregateInputType = {
   reach?: true
+  totalAmountRaised?: true
 }
 
 export type ClubProfileMinAggregateInputType = {
@@ -88,6 +104,10 @@ export type ClubProfileMinAggregateInputType = {
   pastEvents?: true
   reach?: true
   socialLinks?: true
+  contactPerson?: true
+  contactNumber?: true
+  website?: true
+  totalAmountRaised?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +120,10 @@ export type ClubProfileMaxAggregateInputType = {
   pastEvents?: true
   reach?: true
   socialLinks?: true
+  contactPerson?: true
+  contactNumber?: true
+  website?: true
+  totalAmountRaised?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +136,10 @@ export type ClubProfileCountAggregateInputType = {
   pastEvents?: true
   reach?: true
   socialLinks?: true
+  contactPerson?: true
+  contactNumber?: true
+  website?: true
+  totalAmountRaised?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -211,6 +239,10 @@ export type ClubProfileGroupByOutputType = {
   pastEvents: string | null
   reach: number
   socialLinks: string | null
+  contactPerson: string | null
+  contactNumber: string | null
+  website: string | null
+  totalAmountRaised: number
   createdAt: Date
   updatedAt: Date
   _count: ClubProfileCountAggregateOutputType | null
@@ -246,6 +278,10 @@ export type ClubProfileWhereInput = {
   pastEvents?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   reach?: Prisma.IntFilter<"ClubProfile"> | number
   socialLinks?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  contactNumber?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  website?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  totalAmountRaised?: Prisma.FloatFilter<"ClubProfile"> | number
   createdAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -260,6 +296,10 @@ export type ClubProfileOrderByWithRelationInput = {
   pastEvents?: Prisma.SortOrderInput | Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalAmountRaised?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -277,6 +317,10 @@ export type ClubProfileWhereUniqueInput = Prisma.AtLeast<{
   pastEvents?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   reach?: Prisma.IntFilter<"ClubProfile"> | number
   socialLinks?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  contactNumber?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  website?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  totalAmountRaised?: Prisma.FloatFilter<"ClubProfile"> | number
   createdAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -291,6 +335,10 @@ export type ClubProfileOrderByWithAggregationInput = {
   pastEvents?: Prisma.SortOrderInput | Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalAmountRaised?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ClubProfileCountOrderByAggregateInput
@@ -311,6 +359,10 @@ export type ClubProfileScalarWhereWithAggregatesInput = {
   pastEvents?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
   reach?: Prisma.IntWithAggregatesFilter<"ClubProfile"> | number
   socialLinks?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
+  contactPerson?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
+  contactNumber?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
+  website?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
+  totalAmountRaised?: Prisma.FloatWithAggregatesFilter<"ClubProfile"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClubProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ClubProfile"> | Date | string
 }
@@ -322,6 +374,10 @@ export type ClubProfileCreateInput = {
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  website?: string | null
+  totalAmountRaised?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutClubProfileInput
@@ -336,6 +392,10 @@ export type ClubProfileUncheckedCreateInput = {
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  website?: string | null
+  totalAmountRaised?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EventUncheckedCreateNestedManyWithoutClubInput
@@ -348,6 +408,10 @@ export type ClubProfileUpdateInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutClubProfileNestedInput
@@ -362,6 +426,10 @@ export type ClubProfileUncheckedUpdateInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EventUncheckedUpdateManyWithoutClubNestedInput
@@ -375,6 +443,10 @@ export type ClubProfileCreateManyInput = {
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  website?: string | null
+  totalAmountRaised?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -386,6 +458,10 @@ export type ClubProfileUpdateManyMutationInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -398,6 +474,10 @@ export type ClubProfileUncheckedUpdateManyInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -415,12 +495,17 @@ export type ClubProfileCountOrderByAggregateInput = {
   pastEvents?: Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  totalAmountRaised?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ClubProfileAvgOrderByAggregateInput = {
   reach?: Prisma.SortOrder
+  totalAmountRaised?: Prisma.SortOrder
 }
 
 export type ClubProfileMaxOrderByAggregateInput = {
@@ -431,6 +516,10 @@ export type ClubProfileMaxOrderByAggregateInput = {
   pastEvents?: Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  totalAmountRaised?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -443,12 +532,17 @@ export type ClubProfileMinOrderByAggregateInput = {
   pastEvents?: Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  totalAmountRaised?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ClubProfileSumOrderByAggregateInput = {
   reach?: Prisma.SortOrder
+  totalAmountRaised?: Prisma.SortOrder
 }
 
 export type ClubProfileScalarRelationFilter = {
@@ -500,6 +594,14 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ClubProfileCreateNestedOneWithoutEventsInput = {
   create?: Prisma.XOR<Prisma.ClubProfileCreateWithoutEventsInput, Prisma.ClubProfileUncheckedCreateWithoutEventsInput>
   connectOrCreate?: Prisma.ClubProfileCreateOrConnectWithoutEventsInput
@@ -521,6 +623,10 @@ export type ClubProfileCreateWithoutUserInput = {
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  website?: string | null
+  totalAmountRaised?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EventCreateNestedManyWithoutClubInput
@@ -533,6 +639,10 @@ export type ClubProfileUncheckedCreateWithoutUserInput = {
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  website?: string | null
+  totalAmountRaised?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EventUncheckedCreateNestedManyWithoutClubInput
@@ -561,6 +671,10 @@ export type ClubProfileUpdateWithoutUserInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EventUpdateManyWithoutClubNestedInput
@@ -573,6 +687,10 @@ export type ClubProfileUncheckedUpdateWithoutUserInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EventUncheckedUpdateManyWithoutClubNestedInput
@@ -585,6 +703,10 @@ export type ClubProfileCreateWithoutEventsInput = {
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  website?: string | null
+  totalAmountRaised?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutClubProfileInput
@@ -598,6 +720,10 @@ export type ClubProfileUncheckedCreateWithoutEventsInput = {
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  website?: string | null
+  totalAmountRaised?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -625,6 +751,10 @@ export type ClubProfileUpdateWithoutEventsInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutClubProfileNestedInput
@@ -638,6 +768,10 @@ export type ClubProfileUncheckedUpdateWithoutEventsInput = {
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -681,6 +815,10 @@ export type ClubProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
+  contactPerson?: boolean
+  contactNumber?: boolean
+  website?: boolean
+  totalAmountRaised?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -696,6 +834,10 @@ export type ClubProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
+  contactPerson?: boolean
+  contactNumber?: boolean
+  website?: boolean
+  totalAmountRaised?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -709,6 +851,10 @@ export type ClubProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
+  contactPerson?: boolean
+  contactNumber?: boolean
+  website?: boolean
+  totalAmountRaised?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -722,11 +868,15 @@ export type ClubProfileSelectScalar = {
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
+  contactPerson?: boolean
+  contactNumber?: boolean
+  website?: boolean
+  totalAmountRaised?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ClubProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "collegeName" | "description" | "pastEvents" | "reach" | "socialLinks" | "createdAt" | "updatedAt", ExtArgs["result"]["clubProfile"]>
+export type ClubProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "collegeName" | "description" | "pastEvents" | "reach" | "socialLinks" | "contactPerson" | "contactNumber" | "website" | "totalAmountRaised" | "createdAt" | "updatedAt", ExtArgs["result"]["clubProfile"]>
 export type ClubProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   events?: boolean | Prisma.ClubProfile$eventsArgs<ExtArgs>
@@ -753,6 +903,10 @@ export type $ClubProfilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     pastEvents: string | null
     reach: number
     socialLinks: string | null
+    contactPerson: string | null
+    contactNumber: string | null
+    website: string | null
+    totalAmountRaised: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["clubProfile"]>
@@ -1187,6 +1341,10 @@ export interface ClubProfileFieldRefs {
   readonly pastEvents: Prisma.FieldRef<"ClubProfile", 'String'>
   readonly reach: Prisma.FieldRef<"ClubProfile", 'Int'>
   readonly socialLinks: Prisma.FieldRef<"ClubProfile", 'String'>
+  readonly contactPerson: Prisma.FieldRef<"ClubProfile", 'String'>
+  readonly contactNumber: Prisma.FieldRef<"ClubProfile", 'String'>
+  readonly website: Prisma.FieldRef<"ClubProfile", 'String'>
+  readonly totalAmountRaised: Prisma.FieldRef<"ClubProfile", 'Float'>
   readonly createdAt: Prisma.FieldRef<"ClubProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ClubProfile", 'DateTime'>
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
-import { Building2, Save, Target, DollarSign, Users, Globe } from 'lucide-react';
+import { Building2, Save, Target, DollarSign, Users, Globe, Phone, User, Link as LinkIcon } from 'lucide-react';
 
 export default function CompanyProfilePage() {
     const [formData, setFormData] = useState({
@@ -11,6 +11,9 @@ export default function CompanyProfilePage() {
         targetAudience: '',
         companySize: '',
         website: '',
+        contactPerson: '',
+        contactNumber: '',
+        socialLinks: '',
     });
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
@@ -27,6 +30,9 @@ export default function CompanyProfilePage() {
                         targetAudience: profile.targetAudience || '',
                         companySize: profile.companySize || '',
                         website: profile.website || '',
+                        contactPerson: profile.contactPerson || '',
+                        contactNumber: profile.contactNumber || '',
+                        socialLinks: profile.socialLinks || '',
                     });
                 }
             } catch (error) {
@@ -162,6 +168,48 @@ export default function CompanyProfilePage() {
                             onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                             className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                             placeholder="https://yourcompany.com"
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <User className="w-4 h-4 mr-2 text-indigo-400" />
+                            Contact Person Name
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.contactPerson}
+                            onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            placeholder="John Doe"
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <Phone className="w-4 h-4 mr-2 text-indigo-400" />
+                            Contact Number
+                        </label>
+                        <input
+                            type="tel"
+                            value={formData.contactNumber}
+                            onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            placeholder="+91 9876543210"
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
+                            Social Media Links / LinkedIn
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.socialLinks}
+                            onChange={(e) => setFormData({ ...formData, socialLinks: e.target.value })}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            placeholder="https://linkedin.com/company/..."
                         />
                     </div>
 

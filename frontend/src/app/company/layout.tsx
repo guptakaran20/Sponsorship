@@ -20,6 +20,8 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
     const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [user, setUser] = useState<any>(null);
+    const [notifications, setNotifications] = useState<any[]>([]);
+    const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -34,14 +36,41 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
                     router.push('/club/dashboard');
                 } else {
                     setUser(u);
+                    fetchNotifications();
                 }
             } catch (e) {
                 removeAuthToken();
                 router.push('/login');
             }
         };
+
+        const fetchNotifications = async () => {
+            try {
+                const data = await fetchApi('/notifications');
+                setNotifications(data || []);
+            } catch (e) {
+                console.error("Failed to load notifications");
+            }
+        };
+
         checkAuth();
     }, [router]);
+
+    const handleMarkAsRead = async (id: string) => {
+        try {
+            await fetchApi(`/notifications/${id}/read`, { method: 'PUT' });
+            setNotifications(notifications.map(n => n.id === id ? { ...n, isRead: true } : n));
+        } catch (e) { }
+    };
+
+    const handleMarkAllRead = async () => {
+        try {
+            await fetchApi(`/notifications/mark-all-read`, { method: 'PUT' });
+            setNotifications(notifications.map(n => ({ ...n, isRead: true })));
+        } catch (e) { }
+    };
+
+    const unreadCount = notifications.filter(n => !n.isRead).length;
 
     const handleLogout = () => {
         removeAuthToken();
@@ -92,8 +121,8 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
                                 key={item.name}
                                 href={item.href}
                                 className={`flex items-center px-4 py-3 rounded-xl transition-all ${isActive
-                                        ? 'bg-indigo-500/10 text-indigo-400'
-                                        : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                                    ? 'bg-indigo-500/10 text-indigo-400'
+                                    : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
                                     }`}
                             >
                                 <Icon className={`w-5 h-5 mr-3 ${isActive ? 'text-indigo-400' : 'text-slate-500'}`} />
@@ -134,11 +163,54 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
                         <Menu className="w-6 h-6" />
                     </button>
 
-                    <div className="flex items-center ml-auto">
-                        <button className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-full transition-all relative">
+                    <div className="flex items-center ml-auto relative">
+                        <button
+                            onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                            className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-full transition-all relative"
+                        >
                             <Bell className="w-5 h-5" />
-                            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-500 rounded-full border border-slate-900"></span>
+                            {unreadCount > 0 && (
+                                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-500 rounded-full border border-slate-900"></span>
+                            )}
                         </button>
+
+                        {isNotificationsOpen && (
+                            <div className="absolute top-full right-0 mt-2 w-80 bg-slate-900 border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[80vh]">
+                                <div className="p-4 border-b border-white/10 flex items-center justify-between bg-slate-800/50">
+                                    <h3 className="font-semibold text-white">Notifications</h3>
+                                    {unreadCount > 0 && (
+                                        <button onClick={handleMarkAllRead} className="text-xs text-indigo-400 hover:text-indigo-300">
+                                            Mark all read
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="overflow-y-auto flex-1 p-2 space-y-1">
+                                    {notifications.length === 0 ? (
+                                        <div className="p-4 text-center text-slate-500 text-sm">No notifications yet</div>
+                                    ) : (
+                                        notifications.map(notif => (
+                                            <div
+                                                key={notif.id}
+                                                onClick={() => !notif.isRead && handleMarkAsRead(notif.id)}
+                                                className={`p-3 rounded-xl transition-colors cursor-pointer ${notif.isRead ? 'opacity-70 hover:bg-white/5' : 'bg-indigo-500/10 hover:bg-indigo-500/20'
+                                                    }`}
+                                            >
+                                                <div className="flex justify-between items-start mb-1">
+                                                    <h4 className={`text-sm ${notif.isRead ? 'text-slate-300 font-medium' : 'text-indigo-300 font-semibold'}`}>
+                                                        {notif.title}
+                                                    </h4>
+                                                    {!notif.isRead && <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0 mt-1"></span>}
+                                                </div>
+                                                <p className="text-xs text-slate-400 line-clamp-2">{notif.message}</p>
+                                                <p className="text-[10px] text-slate-500 mt-2">
+                                                    {new Date(notif.createdAt).toLocaleDateString()}
+                                                </p>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </header>
 

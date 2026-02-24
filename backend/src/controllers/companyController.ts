@@ -7,7 +7,7 @@ import { AuthRequest } from '../middlewares/auth';
 export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => {
     try {
         const userId = req.user.id;
-        const { industry, budgetRange, targetAudience, companySize, website } = req.body;
+        const { industry, budgetRange, targetAudience, companySize, website, contactPerson, contactNumber, socialLinks } = req.body;
 
         const existingProfile = await prisma.companyProfile.findUnique({
             where: { userId },
@@ -22,6 +22,9 @@ export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => 
                     targetAudience,
                     companySize,
                     website,
+                    contactPerson,
+                    contactNumber,
+                    socialLinks,
                 },
             });
             return res.status(200).json(updatedProfile);
@@ -35,6 +38,9 @@ export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => 
                 targetAudience,
                 companySize,
                 website,
+                contactPerson,
+                contactNumber,
+                socialLinks,
             },
         });
 
