@@ -11,6 +11,7 @@ export default function ManageEventPage() {
     const router = useRouter();
     const [event, setEvent] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         const fetchEventDetails = async () => {
@@ -28,6 +29,21 @@ export default function ManageEventPage() {
             fetchEventDetails();
         }
     }, [params.id]);
+
+    const handleDelete = async () => {
+        if (!confirm('Are you sure you want to delete this event? This will also delete all associated sponsorship deals and tiers permanently.')) {
+            return;
+        }
+        setIsDeleting(true);
+        try {
+            await fetchApi(`/events/${params.id}`, { method: 'DELETE' });
+            router.push('/club/events');
+        } catch (error) {
+            console.error('Failed to delete event:', error);
+            alert('Failed to delete event. Please try again.');
+            setIsDeleting(false);
+        }
+    };
 
     if (isLoading) {
         return <div className="animate-pulse h-96 bg-slate-900 rounded-3xl" />;
@@ -57,6 +73,21 @@ export default function ManageEventPage() {
                         </div>
                         <h1 className="text-4xl font-bold text-white mb-4">{event.name}</h1>
                         <p className="text-slate-400 text-lg leading-relaxed max-w-3xl">{event.description}</p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto mt-4 md:mt-0">
+                        <Link
+                            href={`/club/events/${event.id}/edit`}
+                            className="px-5 py-2.5 bg-indigo-500/20 text-indigo-400 hover:bg-indigo-500 hover:text-white rounded-xl text-sm font-medium transition-colors border border-indigo-500/30 shadow-sm whitespace-nowrap"
+                        >
+                            Edit Event
+                        </Link>
+                        <button
+                            onClick={handleDelete}
+                            disabled={isDeleting}
+                            className="px-5 py-2.5 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-xl text-sm font-medium transition-colors border border-red-500/20 shadow-sm disabled:opacity-50 whitespace-nowrap"
+                        >
+                            {isDeleting ? 'Deleting...' : 'Delete Event'}
+                        </button>
                     </div>
                 </div>
 

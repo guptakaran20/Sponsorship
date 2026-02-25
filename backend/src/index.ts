@@ -45,6 +45,36 @@ app.get('/', (req, res) => {
   res.send('SponsorBridge API Driver is running!');
 });
 
+import { prisma } from './lib/prisma';
+
+// Auto-cleanup expired events
+const cleanupExpiredEvents = async () => {
+  try {
+    const expiredEvents = await prisma.event.findMany({
+      where: { date: { lt: new Date() } }
+    });
+
+    if (expiredEvents.length > 0) {
+      console.log(`Found ${expiredEvents.length} expired events to clean up.`);
+      for (const event of expiredEvents) {
+        // Must delete related records manually inside a transaction
+        await prisma.$transaction([
+          prisma.sponsorshipDeal.deleteMany({ where: { eventId: event.id } }),
+          prisma.sponsorshipTier.deleteMany({ where: { eventId: event.id } }),
+          prisma.event.delete({ where: { id: event.id } })
+        ]);
+        console.log(`Deleted expired event: ${event.name}`);
+      }
+    }
+  } catch (error) {
+    console.error('Error auto-cleaning expired events:', error);
+  }
+};
+
+// Run cleanup immediately on startup, then every 24 hours
+cleanupExpiredEvents();
+setInterval(cleanupExpiredEvents, 24 * 60 * 60 * 1000);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
