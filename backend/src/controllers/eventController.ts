@@ -62,7 +62,7 @@ export const getEvents = async (req: Request, res: Response) => {
             where: whereClause,
             include: {
                 club: {
-                    select: { collegeName: true, reach: true, description: true, pastEvents: true, socialLinks: true }
+                    select: { collegeName: true, reach: true, description: true, pastEvents: true, socialLinks: true, profilePhoto: true }
                 },
                 tiers: true
             },

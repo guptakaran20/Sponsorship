@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
-import { Handshake, CheckCircle2, XCircle, Clock, Briefcase, CheckCircle, ShieldCheck } from 'lucide-react';
+import { Handshake, CheckCircle2, XCircle, Clock, Briefcase, CheckCircle, ShieldCheck, ChevronRight } from 'lucide-react';
 
 export default function ClubSponsorshipsPage() {
     const [deals, setDeals] = useState<any[]>([]);
@@ -101,9 +101,22 @@ export default function ClubSponsorshipsPage() {
                                     <span className="text-indigo-400 font-medium">{deal.tier.name} (₹{deal.tier.amount})</span>
                                 </div>
 
-                                <h3 className="text-2xl font-bold text-white mb-1">
-                                    {deal.company.industry || 'Company'} <span className="text-slate-500 text-lg font-normal mx-2">for</span> {deal.event.name}
-                                </h3>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <h3 className="text-2xl font-bold text-white">
+                                        {deal.company.industry || 'Company'}
+                                    </h3>
+                                    <a
+                                        href={`/view/company/${deal.companyId}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-indigo-400 hover:text-indigo-300 font-bold hover:underline transition-all flex items-center bg-indigo-500/10 px-2 py-0.5 rounded-lg text-sm border border-indigo-500/20"
+                                    >
+                                        View Profile <ChevronRight className="w-4 h-4 ml-0.5" />
+                                    </a>
+                                </div>
+                                <h4 className="text-slate-400 font-medium">
+                                    for {deal.event.name}
+                                </h4>
 
                                 {/* Contact Details Section */}
                                 {['PENDING', 'ACCEPTED', 'COMPLETED'].includes(deal.status) && (deal.company.contactPerson || deal.company.contactNumber || deal.company.website || deal.company.socialLinks) && (

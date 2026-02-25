@@ -1,7 +1,5 @@
-contact us link to db
-instaed of url store in database and then show
-footfall instad of current club memebers in events page
-+2 this month is constant an dnot changing
-image not showing in events page
-gmail authentication
-maps
+Contact us page data after sending essage should be stored in db so that superadmin can view the message later
+Upload a image from the user store in database and whenever a event is created by the club the image should apper as its logo.
+In events page there is current club members showing instead of footfall, footfall should be there.
+Active sponsor +2 is constant and is not changing but it should change.
+Enhance the club profile and company profile both while displaying it to each other it should look like a portfolio when seen by each other.

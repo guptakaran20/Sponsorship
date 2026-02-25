@@ -150,12 +150,18 @@ export default function DiscoverEventsPage() {
                             className="bg-slate-900 border border-white/5 rounded-3xl overflow-hidden hover:border-indigo-500/50 hover:shadow-[0_0_30px_-5px_var(--color-indigo-500)] hover:shadow-indigo-500/20 transition-all duration-300 group flex flex-col cursor-pointer"
                             onClick={() => setSelectedEvent(event)}
                         >
-                            <div className="h-32 bg-gradient-to-br from-indigo-900/50 to-slate-900 p-6 relative">
-                                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-xs font-medium text-indigo-300 flex items-center">
+                            <div
+                                className={`h-32 p-6 relative bg-cover bg-center ${!event.club?.profilePhoto ? 'bg-gradient-to-br from-indigo-900/50 to-slate-900' : ''}`}
+                                style={event.club?.profilePhoto ? { backgroundImage: `url(${event.club.profilePhoto})` } : undefined}
+                            >
+                                <div className="absolute inset-0 bg-black/40"></div>
+                                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-xs font-medium text-indigo-300 flex items-center z-10">
                                     <Tag className="w-3 h-3 mr-1" /> {event.eventType}
                                 </div>
-                                <h3 className="text-xl font-bold text-white leading-tight mt-4 group-hover:text-indigo-400 transition-colors">{event.name}</h3>
-                                <p className="text-sm text-slate-300 font-medium mt-1">{event.club?.collegeName || 'Unknown College'}</p>
+                                <div className="relative z-10">
+                                    <h3 className="text-xl font-bold text-white leading-tight mt-4 group-hover:text-indigo-400 transition-colors drop-shadow-md">{event.name}</h3>
+                                    <p className="text-sm text-slate-200 font-medium mt-1 drop-shadow-md">{event.club?.collegeName || 'Unknown College'}</p>
+                                </div>
                             </div>
 
                             <div className="p-6 flex-1 flex flex-col">
@@ -227,7 +233,7 @@ export default function DiscoverEventsPage() {
                                 </div>
                                 <div className="bg-white/5 border border-white/5 px-4 py-2 rounded-xl flex items-center text-sm text-slate-300">
                                     <Users className="w-4 h-4 mr-2 text-indigo-400" />
-                                    {selectedEvent.footfall.toLocaleString()} Current Club Members
+                                    {selectedEvent.footfall.toLocaleString()} Footfall
                                 </div>
                             </div>
 
@@ -239,59 +245,75 @@ export default function DiscoverEventsPage() {
                             </div>
 
                             {selectedEvent.club?.description && (
-                                <div className="mb-8 p-6 bg-indigo-500/5 rounded-2xl border border-indigo-500/10">
-                                    <div className="flex items-center gap-4 mb-3">
-                                        {selectedEvent.club.profilePhoto && (
-                                            <img src={selectedEvent.club.profilePhoto} alt={selectedEvent.club.collegeName} className="w-12 h-12 rounded-xl object-cover border border-indigo-500/30" />
-                                        )}
-                                        <h3 className="text-xl font-semibold text-white">About the Club</h3>
-                                    </div>
-                                    <p className="text-slate-300 leading-relaxed mb-4">
-                                        {selectedEvent.club.description}
-                                    </p>
-                                    {selectedEvent.club.about && (
-                                        <p className="text-slate-400 leading-relaxed mb-4 whitespace-pre-wrap text-sm">
-                                            {selectedEvent.club.about}
-                                        </p>
-                                    )}
-
-                                    {selectedEvent.club.pastEvents && JSON.parse(selectedEvent.club.pastEvents).length > 0 && (
-                                        <div className="mb-4">
-                                            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Past Events</h4>
-                                            <div className="flex flex-wrap gap-2">
-                                                {JSON.parse(selectedEvent.club.pastEvents).map((event: string, i: number) => (
-                                                    <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-300">
-                                                        {event}
-                                                    </span>
-                                                ))}
+                                <div className="mb-8 p-6 bg-indigo-500/5 rounded-2xl border border-indigo-500/10 relative overflow-hidden group">
+                                    <div className="absolute -right-12 -top-12 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
+                                    <div className="relative z-10">
+                                        <div className="flex items-center justify-between mb-4">
+                                            <div className="flex items-center gap-4">
+                                                {selectedEvent.club.profilePhoto && (
+                                                    <img src={selectedEvent.club.profilePhoto} alt={selectedEvent.club.collegeName} className="w-14 h-14 rounded-xl object-cover border border-indigo-500/30 shadow-md" />
+                                                )}
+                                                <div>
+                                                    <h3 className="text-xl font-semibold text-white">{selectedEvent.club.collegeName}</h3>
+                                                    <p className="text-sm text-indigo-400">Event Organizer</p>
+                                                </div>
                                             </div>
+                                            <a
+                                                href={`/view/club/${selectedEvent.clubId}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="px-4 py-2 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 hover:text-white rounded-xl text-sm font-medium transition-colors border border-indigo-500/30 flex items-center shadow-lg shadow-indigo-500/10"
+                                            >
+                                                View Portfolio <ChevronRight className="w-4 h-4 ml-1" />
+                                            </a>
                                         </div>
-                                    )}
+                                        <p className="text-slate-300 leading-relaxed mb-4">
+                                            {selectedEvent.club.description}
+                                        </p>
+                                        {selectedEvent.club.about && (
+                                            <p className="text-slate-400 leading-relaxed mb-4 whitespace-pre-wrap text-sm">
+                                                {selectedEvent.club.about}
+                                            </p>
+                                        )}
 
-                                    {selectedEvent.club.socialLinks && (
-                                        <div>
-                                            {(() => {
-                                                try {
-                                                    const socials = JSON.parse(selectedEvent.club.socialLinks);
-                                                    if (!socials.instagram && !socials.website) return null;
-                                                    return (
-                                                        <div className="flex gap-4">
-                                                            {socials.instagram && (
-                                                                <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-pink-400 hover:text-pink-300 hover:underline">
-                                                                    Instagram
-                                                                </a>
-                                                            )}
-                                                            {socials.website && (
-                                                                <a href={socials.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-blue-400 hover:text-blue-300 hover:underline">
-                                                                    Website
-                                                                </a>
-                                                            )}
-                                                        </div>
-                                                    );
-                                                } catch (e) { return null; }
-                                            })()}
-                                        </div>
-                                    )}
+                                        {selectedEvent.club.pastEvents && JSON.parse(selectedEvent.club.pastEvents).length > 0 && (
+                                            <div className="mb-4">
+                                                <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Past Events</h4>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {JSON.parse(selectedEvent.club.pastEvents).map((event: string, i: number) => (
+                                                        <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-300">
+                                                            {event}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {selectedEvent.club.socialLinks && (
+                                            <div>
+                                                {(() => {
+                                                    try {
+                                                        const socials = JSON.parse(selectedEvent.club.socialLinks);
+                                                        if (!socials.instagram && !socials.website) return null;
+                                                        return (
+                                                            <div className="flex gap-4">
+                                                                {socials.instagram && (
+                                                                    <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-pink-400 hover:text-pink-300 hover:underline">
+                                                                        Instagram
+                                                                    </a>
+                                                                )}
+                                                                {socials.website && (
+                                                                    <a href={socials.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-blue-400 hover:text-blue-300 hover:underline">
+                                                                        Website
+                                                                    </a>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    } catch (e) { return null; }
+                                                })()}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             )}
 

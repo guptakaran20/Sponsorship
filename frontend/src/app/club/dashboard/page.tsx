@@ -53,6 +53,15 @@ export default function ClubDashboardPage() {
     const pendingRequests = deals.filter(d => d.status === 'PENDING').length;
     const totalRevenue = profile?.totalAmountRaised || 0;
 
+    // Calculate new active sponsors this month
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    const newSponsorsThisMonth = deals.filter(d => {
+        if (d.status !== 'ACCEPTED') return false;
+        const dealDate = new Date(d.updatedAt || d.createdAt);
+        return dealDate.getMonth() === currentMonth && dealDate.getFullYear() === currentYear;
+    }).length;
+
     return (
         <div className="space-y-8 pb-12">
             {/* Welcome Banner */}
@@ -95,7 +104,7 @@ export default function ClubDashboardPage() {
                     </div>
                     <div className="flex items-center text-sm">
                         <TrendingUp className="w-4 h-4 text-emerald-400 mr-1" />
-                        <span className="text-emerald-400 font-medium">+2 this month</span>
+                        <span className="text-emerald-400 font-medium">+{newSponsorsThisMonth} this month</span>
                     </div>
                 </div>
 
@@ -158,19 +167,27 @@ export default function ClubDashboardPage() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {events.slice(0, 3).map(event => (
-                            <Link href={`/club/events/${event.id}`} key={event.id} className="block bg-black/20 border border-white/5 rounded-2xl p-6 hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all group">
-                                <span className="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-400 text-xs font-medium rounded-full mb-4">
-                                    {event.eventType}
-                                </span>
-                                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
-                                    {event.name}
-                                </h3>
-                                <div className="text-sm text-slate-400 flex items-center mb-1">
-                                    <Calendar className="w-4 h-4 mr-2 opacity-70" /> {new Date(event.date).toLocaleDateString()}
+                        {events.map((event: any) => (
+                            <Link href={`/club/events/${event.id}`} key={event.id} className="block bg-black/20 border border-white/5 rounded-2xl overflow-hidden hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all group">
+                                <div
+                                    className={`h-24 relative bg-cover bg-center ${!profile?.profilePhoto ? 'bg-gradient-to-br from-indigo-900/50 to-slate-900' : ''}`}
+                                    style={profile?.profilePhoto ? { backgroundImage: `url(${profile.profilePhoto})` } : undefined}
+                                >
+                                    <div className="absolute inset-0 bg-black/40"></div>
                                 </div>
-                                <div className="text-sm text-slate-400 flex items-center">
-                                    <Users className="w-4 h-4 mr-2 opacity-70" /> {event.footfall} reach
+                                <div className="p-6">
+                                    <span className="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-400 text-xs font-medium rounded-full mb-4">
+                                        {event.eventType}
+                                    </span>
+                                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                                        {event.name}
+                                    </h3>
+                                    <div className="text-sm text-slate-400 flex items-center mb-1">
+                                        <Calendar className="w-4 h-4 mr-2 opacity-70" /> {new Date(event.date).toLocaleDateString()}
+                                    </div>
+                                    <div className="text-sm text-slate-400 flex items-center">
+                                        <Users className="w-4 h-4 mr-2 opacity-70" /> {event.footfall} reach
+                                    </div>
                                 </div>
                             </Link>
                         ))}

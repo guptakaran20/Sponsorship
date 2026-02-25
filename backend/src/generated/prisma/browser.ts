@@ -52,3 +52,8 @@ export type SponsorshipDeal = Prisma.SponsorshipDealModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel

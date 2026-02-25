@@ -157,15 +157,48 @@ export default function ClubProfilePage() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-300 flex items-center">
                             <ImageIcon className="w-4 h-4 mr-2 text-indigo-400" />
-                            Profile Photo URL
+                            Profile Photo
                         </label>
-                        <input
-                            type="url"
-                            value={formData.profilePhoto}
-                            onChange={(e) => setFormData({ ...formData, profilePhoto: e.target.value })}
-                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                            placeholder="https://example.com/logo.png"
-                        />
+                        <div className="flex items-center gap-4">
+                            {formData.profilePhoto && (
+                                <img src={formData.profilePhoto} alt="Profile Preview" className="w-16 h-16 rounded-xl object-cover border border-white/10" />
+                            )}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={async (e) => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+
+                                    const uploadData = new FormData();
+                                    uploadData.append('image', file);
+
+                                    try {
+                                        setIsLoading(true);
+                                        const token = localStorage.getItem('token');
+                                        const res = await fetch('http://localhost:5000/api/upload', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Authorization': `Bearer ${token}`
+                                            },
+                                            body: uploadData
+                                        });
+                                        const data = await res.json();
+                                        if (res.ok) {
+                                            setFormData(prev => ({ ...prev, profilePhoto: data.url }));
+                                            setMessage({ type: 'success', text: 'Image uploaded successfully. Remember to Save Profile.' });
+                                        } else {
+                                            throw new Error(data.message || 'Upload failed');
+                                        }
+                                    } catch (err: any) {
+                                        setMessage({ type: 'error', text: err.message });
+                                    } finally {
+                                        setIsLoading(false);
+                                    }
+                                }}
+                                className="w-full bg-black/20 border border-white/10 rounded-xl py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-500/10 file:text-indigo-400 hover:file:bg-indigo-500/20"
+                            />
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

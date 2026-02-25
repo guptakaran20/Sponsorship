@@ -144,3 +144,41 @@ export const getLeaderboard = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Server error fetching leaderboard' });
     }
 };
+
+export const createContactMessage = async (req: Request, res: Response) => {
+    try {
+        const { name, email, message } = req.body;
+
+        if (!name || !email || !message) {
+            return res.status(400).json({ message: 'Name, email, and message are required' });
+        }
+
+        await prisma.contactMessage.create({
+            data: { name, email, message }
+        });
+
+        res.status(201).json({ message: 'Message sent successfully' });
+    } catch (error) {
+        console.error('Error creating contact message:', error);
+        res.status(500).json({ message: 'Server error saving message' });
+    }
+};
+
+export const getContactMessages = async (req: AuthRequest, res: Response) => {
+    try {
+        // Enforce basic admin check if we want, but since 'ADMIN' role isn't strictly implemented for dashboard yet, 
+        // we check if they are logged in at least, or ideally restrict by req.user.role === 'ADMIN'
+        if (req.user.role !== 'ADMIN') {
+            return res.status(403).json({ message: 'Unauthorized access' });
+        }
+
+        const messages = await prisma.contactMessage.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+
+        res.status(200).json(messages);
+    } catch (error) {
+        console.error('Error fetching contact messages:', error);
+        res.status(500).json({ message: 'Server error retrieving messages' });
+    }
+};

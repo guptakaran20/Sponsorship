@@ -7,14 +7,18 @@ import { Calendar, Users, MapPin, Tag, Plus, Sparkles, ChevronRight } from 'luci
 
 export default function ClubEventsPage() {
     const [events, setEvents] = useState<any[]>([]);
+    const [profile, setProfile] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchClubEvents = async () => {
             try {
-                const profile = await fetchApi('/clubs/profile');
-                if (profile && profile.events) {
-                    setEvents(profile.events);
+                const profileData = await fetchApi('/clubs/profile');
+                if (profileData) {
+                    setProfile(profileData);
+                    if (profileData.events) {
+                        setEvents(profileData.events);
+                    }
                 }
             } catch (error) {
                 console.error("Failed to fetch club events", error);
@@ -68,11 +72,17 @@ export default function ClubEventsPage() {
                             key={event.id}
                             className="bg-slate-900 border border-white/5 rounded-3xl overflow-hidden hover:border-indigo-500/50 hover:shadow-[0_0_30px_-5px_var(--color-indigo-500)] hover:shadow-indigo-500/20 transition-all duration-300 flex flex-col group"
                         >
-                            <div className="h-32 bg-gradient-to-br from-indigo-900/50 to-slate-900 p-6 relative">
-                                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-xs font-medium text-indigo-300 flex items-center">
+                            <div
+                                className={`h-32 p-6 relative bg-cover bg-center ${!profile?.profilePhoto ? 'bg-gradient-to-br from-indigo-900/50 to-slate-900' : ''}`}
+                                style={profile?.profilePhoto ? { backgroundImage: `url(${profile.profilePhoto})` } : undefined}
+                            >
+                                <div className="absolute inset-0 bg-black/40"></div>
+                                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-xs font-medium text-indigo-300 flex items-center z-10">
                                     <Tag className="w-3 h-3 mr-1" /> {event.eventType}
                                 </div>
-                                <h3 className="text-xl font-bold text-white leading-tight mt-4 group-hover:text-indigo-400 transition-colors">{event.name}</h3>
+                                <div className="relative z-10">
+                                    <h3 className="text-xl font-bold text-white leading-tight mt-4 group-hover:text-indigo-400 transition-colors drop-shadow-md">{event.name}</h3>
+                                </div>
                             </div>
 
                             <div className="p-6 flex-1 flex flex-col">

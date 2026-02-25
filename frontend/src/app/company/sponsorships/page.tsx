@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
-import { Handshake, CheckCircle2, XCircle, Clock, Compass, ShieldAlert, CheckCircle } from 'lucide-react';
+import { Handshake, CheckCircle2, XCircle, Clock, Compass, ShieldAlert, CheckCircle, ChevronRight } from 'lucide-react';
 
 export default function CompanySponsorshipsPage() {
     const [deals, setDeals] = useState<any[]>([]);
@@ -75,12 +75,21 @@ export default function CompanySponsorshipsPage() {
                                     <span className="text-indigo-400 font-medium">{deal.tier.name} (₹{deal.tier.amount})</span>
                                 </div>
 
-                                <h3 className="text-2xl font-bold text-white mb-1">
+                                <h3 className="text-2xl font-bold text-white mb-2">
                                     {deal.event.name}
                                 </h3>
-                                <p className="text-slate-400 font-medium">
-                                    Organized by {deal.event.club?.collegeName || 'Unknown Club'}
-                                </p>
+                                <div className="flex items-center gap-2 mb-4">
+                                    <span className="text-slate-400 font-medium">Organized by</span>
+                                    <a
+                                        href={`/view/club/${deal.event.clubId}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-indigo-400 hover:text-indigo-300 font-bold hover:underline transition-all flex items-center"
+                                    >
+                                        {deal.event.club?.collegeName || 'Unknown Club'}
+                                        <ChevronRight className="w-4 h-4 ml-0.5" />
+                                    </a>
+                                </div>
 
                                 {/* Contact Details Section */}
                                 {['ACCEPTED', 'COMPLETED'].includes(deal.status) && deal.event.club && (deal.event.club.contactPerson || deal.event.club.contactNumber || deal.event.club.website || deal.event.club.socialLinks) && (
