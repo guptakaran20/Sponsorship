@@ -71,6 +71,12 @@ export default function PublicCompanyProfilePage() {
                     <div className="pt-16 pb-8 px-8 border-b border-white/5">
                         <h1 className="text-3xl font-bold text-white mb-2">{profile.userName || 'Company'}</h1>
                         <p className="text-amber-400 font-medium">{profile.industry || 'Unspecified Industry'}</p>
+                        {profile.about && (
+                            <div className="mt-6">
+                                <h3 className="text-lg font-semibold text-white mb-2">About Company</h3>
+                                <p className="text-slate-300 max-w-3xl leading-relaxed whitespace-pre-wrap">{profile.about}</p>
+                            </div>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">

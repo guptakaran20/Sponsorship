@@ -1,7 +1,7 @@
-Manage events is not Working
-Notification bell icon is not Working
-Both company and club should be allowed to view each other profile.
-In company profile add more details like website, social media links, etc , contact number of company and details of person who will deal with this deal so that club is able to contact him.
-In club profile add more details like website, social media links, etc , contact number of club and details of person who will deal with this deal so that company is able to contact him.
-create a system that it will generate a pin different for each event and send it to the company and when the deal is final company will provide the pin to the club and club will enter that pin then only deal accepted will be taken in consideration jsut tel  company to this.
-also add some more things in homepage of website (before login and register) like top clubs sponsered and top companies sponsering.
+contact us link to db
+instaed of url store in database and then show
+footfall instad of current club memebers in events page
++2 this month is constant an dnot changing
+image not showing in events page
+gmail authentication
+maps

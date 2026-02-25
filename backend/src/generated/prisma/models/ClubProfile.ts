@@ -41,6 +41,8 @@ export type ClubProfileMinAggregateOutputType = {
   userId: string | null
   collegeName: string | null
   description: string | null
+  profilePhoto: string | null
+  about: string | null
   pastEvents: string | null
   reach: number | null
   socialLinks: string | null
@@ -57,6 +59,8 @@ export type ClubProfileMaxAggregateOutputType = {
   userId: string | null
   collegeName: string | null
   description: string | null
+  profilePhoto: string | null
+  about: string | null
   pastEvents: string | null
   reach: number | null
   socialLinks: string | null
@@ -73,6 +77,8 @@ export type ClubProfileCountAggregateOutputType = {
   userId: number
   collegeName: number
   description: number
+  profilePhoto: number
+  about: number
   pastEvents: number
   reach: number
   socialLinks: number
@@ -101,6 +107,8 @@ export type ClubProfileMinAggregateInputType = {
   userId?: true
   collegeName?: true
   description?: true
+  profilePhoto?: true
+  about?: true
   pastEvents?: true
   reach?: true
   socialLinks?: true
@@ -117,6 +125,8 @@ export type ClubProfileMaxAggregateInputType = {
   userId?: true
   collegeName?: true
   description?: true
+  profilePhoto?: true
+  about?: true
   pastEvents?: true
   reach?: true
   socialLinks?: true
@@ -133,6 +143,8 @@ export type ClubProfileCountAggregateInputType = {
   userId?: true
   collegeName?: true
   description?: true
+  profilePhoto?: true
+  about?: true
   pastEvents?: true
   reach?: true
   socialLinks?: true
@@ -236,6 +248,8 @@ export type ClubProfileGroupByOutputType = {
   userId: string
   collegeName: string
   description: string | null
+  profilePhoto: string | null
+  about: string | null
   pastEvents: string | null
   reach: number
   socialLinks: string | null
@@ -275,6 +289,8 @@ export type ClubProfileWhereInput = {
   userId?: Prisma.StringFilter<"ClubProfile"> | string
   collegeName?: Prisma.StringFilter<"ClubProfile"> | string
   description?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  profilePhoto?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  about?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   pastEvents?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   reach?: Prisma.IntFilter<"ClubProfile"> | number
   socialLinks?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
@@ -293,6 +309,8 @@ export type ClubProfileOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   collegeName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
+  about?: Prisma.SortOrderInput | Prisma.SortOrder
   pastEvents?: Prisma.SortOrderInput | Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -314,6 +332,8 @@ export type ClubProfileWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClubProfileWhereInput | Prisma.ClubProfileWhereInput[]
   collegeName?: Prisma.StringFilter<"ClubProfile"> | string
   description?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  profilePhoto?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
+  about?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   pastEvents?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   reach?: Prisma.IntFilter<"ClubProfile"> | number
   socialLinks?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
@@ -332,6 +352,8 @@ export type ClubProfileOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   collegeName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
+  about?: Prisma.SortOrderInput | Prisma.SortOrder
   pastEvents?: Prisma.SortOrderInput | Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -356,6 +378,8 @@ export type ClubProfileScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"ClubProfile"> | string
   collegeName?: Prisma.StringWithAggregatesFilter<"ClubProfile"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
+  profilePhoto?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
+  about?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
   pastEvents?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
   reach?: Prisma.IntWithAggregatesFilter<"ClubProfile"> | number
   socialLinks?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
@@ -371,6 +395,8 @@ export type ClubProfileCreateInput = {
   id?: string
   collegeName: string
   description?: string | null
+  profilePhoto?: string | null
+  about?: string | null
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
@@ -389,6 +415,8 @@ export type ClubProfileUncheckedCreateInput = {
   userId: string
   collegeName: string
   description?: string | null
+  profilePhoto?: string | null
+  about?: string | null
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
@@ -405,6 +433,8 @@ export type ClubProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -423,6 +453,8 @@ export type ClubProfileUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -440,6 +472,8 @@ export type ClubProfileCreateManyInput = {
   userId: string
   collegeName: string
   description?: string | null
+  profilePhoto?: string | null
+  about?: string | null
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
@@ -455,6 +489,8 @@ export type ClubProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -471,6 +507,8 @@ export type ClubProfileUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -492,6 +530,8 @@ export type ClubProfileCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   collegeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrder
+  about?: Prisma.SortOrder
   pastEvents?: Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
@@ -513,6 +553,8 @@ export type ClubProfileMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   collegeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrder
+  about?: Prisma.SortOrder
   pastEvents?: Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
@@ -529,6 +571,8 @@ export type ClubProfileMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   collegeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrder
+  about?: Prisma.SortOrder
   pastEvents?: Prisma.SortOrder
   reach?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
@@ -620,6 +664,8 @@ export type ClubProfileCreateWithoutUserInput = {
   id?: string
   collegeName: string
   description?: string | null
+  profilePhoto?: string | null
+  about?: string | null
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
@@ -636,6 +682,8 @@ export type ClubProfileUncheckedCreateWithoutUserInput = {
   id?: string
   collegeName: string
   description?: string | null
+  profilePhoto?: string | null
+  about?: string | null
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
@@ -668,6 +716,8 @@ export type ClubProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -684,6 +734,8 @@ export type ClubProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -700,6 +752,8 @@ export type ClubProfileCreateWithoutEventsInput = {
   id?: string
   collegeName: string
   description?: string | null
+  profilePhoto?: string | null
+  about?: string | null
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
@@ -717,6 +771,8 @@ export type ClubProfileUncheckedCreateWithoutEventsInput = {
   userId: string
   collegeName: string
   description?: string | null
+  profilePhoto?: string | null
+  about?: string | null
   pastEvents?: string | null
   reach?: number
   socialLinks?: string | null
@@ -748,6 +804,8 @@ export type ClubProfileUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -765,6 +823,8 @@ export type ClubProfileUncheckedUpdateWithoutEventsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   collegeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  about?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pastEvents?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reach?: Prisma.IntFieldUpdateOperationsInput | number
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -812,6 +872,8 @@ export type ClubProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   userId?: boolean
   collegeName?: boolean
   description?: boolean
+  profilePhoto?: boolean
+  about?: boolean
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
@@ -831,6 +893,8 @@ export type ClubProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   userId?: boolean
   collegeName?: boolean
   description?: boolean
+  profilePhoto?: boolean
+  about?: boolean
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
@@ -848,6 +912,8 @@ export type ClubProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   userId?: boolean
   collegeName?: boolean
   description?: boolean
+  profilePhoto?: boolean
+  about?: boolean
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
@@ -865,6 +931,8 @@ export type ClubProfileSelectScalar = {
   userId?: boolean
   collegeName?: boolean
   description?: boolean
+  profilePhoto?: boolean
+  about?: boolean
   pastEvents?: boolean
   reach?: boolean
   socialLinks?: boolean
@@ -876,7 +944,7 @@ export type ClubProfileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ClubProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "collegeName" | "description" | "pastEvents" | "reach" | "socialLinks" | "contactPerson" | "contactNumber" | "website" | "totalAmountRaised" | "createdAt" | "updatedAt", ExtArgs["result"]["clubProfile"]>
+export type ClubProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "collegeName" | "description" | "profilePhoto" | "about" | "pastEvents" | "reach" | "socialLinks" | "contactPerson" | "contactNumber" | "website" | "totalAmountRaised" | "createdAt" | "updatedAt", ExtArgs["result"]["clubProfile"]>
 export type ClubProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   events?: boolean | Prisma.ClubProfile$eventsArgs<ExtArgs>
@@ -900,6 +968,8 @@ export type $ClubProfilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     userId: string
     collegeName: string
     description: string | null
+    profilePhoto: string | null
+    about: string | null
     pastEvents: string | null
     reach: number
     socialLinks: string | null
@@ -1338,6 +1408,8 @@ export interface ClubProfileFieldRefs {
   readonly userId: Prisma.FieldRef<"ClubProfile", 'String'>
   readonly collegeName: Prisma.FieldRef<"ClubProfile", 'String'>
   readonly description: Prisma.FieldRef<"ClubProfile", 'String'>
+  readonly profilePhoto: Prisma.FieldRef<"ClubProfile", 'String'>
+  readonly about: Prisma.FieldRef<"ClubProfile", 'String'>
   readonly pastEvents: Prisma.FieldRef<"ClubProfile", 'String'>
   readonly reach: Prisma.FieldRef<"ClubProfile", 'Int'>
   readonly socialLinks: Prisma.FieldRef<"ClubProfile", 'String'>

@@ -33,6 +33,8 @@ model ClubProfile {
   user         User     @relation(fields: [userId], references: [id])
   collegeName  String
   description  String?
+  profilePhoto String?
+  about        String?
   pastEvents   String?  // Could be JSON array of strings
   reach        Int      @default(0) // Estimated audience reach
   socialLinks  String?  // JSON object of links
@@ -50,6 +52,7 @@ model CompanyProfile {
   userId       String   @unique
   user         User     @relation(fields: [userId], references: [id])
   industry     String?
+  about        String?
   budgetRange  String?
   targetAudience String?
   companySize  String?

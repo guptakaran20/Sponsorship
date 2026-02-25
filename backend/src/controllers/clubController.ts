@@ -7,7 +7,7 @@ import { AuthRequest } from '../middlewares/auth';
 export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => {
     try {
         const userId = req.user.id;
-        const { collegeName, description, pastEvents, reach, socialLinks, contactPerson, contactNumber, website } = req.body;
+        const { collegeName, description, profilePhoto, about, pastEvents, reach, socialLinks, contactPerson, contactNumber, website } = req.body;
 
         if (!collegeName) {
             return res.status(400).json({ message: 'College name is required' });
@@ -23,6 +23,8 @@ export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => 
                 data: {
                     collegeName,
                     description,
+                    profilePhoto,
+                    about,
                     pastEvents: pastEvents ? JSON.stringify(pastEvents) : undefined,
                     reach: reach ? parseInt(reach) : existingProfile.reach,
                     socialLinks: socialLinks ? JSON.stringify(socialLinks) : undefined,
@@ -39,6 +41,8 @@ export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => 
                 userId,
                 collegeName,
                 description,
+                profilePhoto,
+                about,
                 pastEvents: pastEvents ? JSON.stringify(pastEvents) : undefined,
                 reach: reach ? parseInt(reach) : 0,
                 socialLinks: socialLinks ? JSON.stringify(socialLinks) : undefined,

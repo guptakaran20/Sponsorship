@@ -2,12 +2,14 @@
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
 import { Building2, Users, Link as LinkIcon, Info, Save, Phone, User } from 'lucide-react';
-import { CalendarDays } from 'lucide-react';
+import { CalendarDays, Image as ImageIcon } from 'lucide-react';
 
 export default function ClubProfilePage() {
     const [formData, setFormData] = useState({
         collegeName: '',
         description: '',
+        profilePhoto: '',
+        about: '',
         reach: '',
         pastEvents: '',
         contactPerson: '',
@@ -26,6 +28,8 @@ export default function ClubProfilePage() {
                     setFormData({
                         collegeName: profile.collegeName || '',
                         description: profile.description || '',
+                        profilePhoto: profile.profilePhoto || '',
+                        about: profile.about || '',
                         reach: profile.reach?.toString() || '',
                         pastEvents: profile.pastEvents ? JSON.parse(profile.pastEvents).join(', ') : '',
                         contactPerson: profile.contactPerson || '',
@@ -124,15 +128,43 @@ export default function ClubProfilePage() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-300 flex items-center">
                             <Info className="w-4 h-4 mr-2 text-indigo-400" />
-                            Club Description
+                            Club Description (Short)
                         </label>
                         <textarea
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            rows={2}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
+                            placeholder="Brief description of your club..."
+                            required
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <Info className="w-4 h-4 mr-2 text-indigo-400" />
+                            About Club (Detailed)
+                        </label>
+                        <textarea
+                            value={formData.about}
+                            onChange={(e) => setFormData({ ...formData, about: e.target.value })}
                             rows={4}
                             className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
-                            placeholder="Tell sponsors about your club's mission and history..."
-                            required
+                            placeholder="Detailed information about your club's history, mission, and major achievements..."
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <ImageIcon className="w-4 h-4 mr-2 text-indigo-400" />
+                            Profile Photo URL
+                        </label>
+                        <input
+                            type="url"
+                            value={formData.profilePhoto}
+                            onChange={(e) => setFormData({ ...formData, profilePhoto: e.target.value })}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            placeholder="https://example.com/logo.png"
                         />
                     </div>
 

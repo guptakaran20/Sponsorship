@@ -64,14 +64,24 @@ export default function PublicClubProfilePage() {
 
                 <div className="bg-slate-900 border border-white/5 rounded-3xl overflow-hidden shadow-xl">
                     <div className="h-32 bg-gradient-to-r from-indigo-600/20 to-purple-600/20 px-8 flex items-end pb-6">
-                        <div className="w-24 h-24 bg-indigo-500 rounded-2xl flex items-center justify-center text-4xl font-bold text-white shadow-lg translate-y-12 border-4 border-slate-900">
-                            {profile.collegeName.charAt(0)}
+                        <div className="w-24 h-24 bg-indigo-500 rounded-2xl flex items-center justify-center text-4xl font-bold text-white shadow-lg translate-y-12 border-4 border-slate-900 overflow-hidden">
+                            {profile.profilePhoto ? (
+                                <img src={profile.profilePhoto} alt={profile.collegeName} className="w-full h-full object-cover" />
+                            ) : (
+                                profile.collegeName.charAt(0)
+                            )}
                         </div>
                     </div>
 
                     <div className="pt-16 pb-8 px-8 border-b border-white/5">
                         <h1 className="text-3xl font-bold text-white mb-2">{profile.collegeName}</h1>
                         <p className="text-slate-400 max-w-2xl">{profile.description || 'No description provided.'}</p>
+                        {profile.about && (
+                            <div className="mt-6">
+                                <h3 className="text-lg font-semibold text-white mb-2">About Us</h3>
+                                <p className="text-slate-300 max-w-3xl leading-relaxed whitespace-pre-wrap">{profile.about}</p>
+                            </div>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">

@@ -240,10 +240,20 @@ export default function DiscoverEventsPage() {
 
                             {selectedEvent.club?.description && (
                                 <div className="mb-8 p-6 bg-indigo-500/5 rounded-2xl border border-indigo-500/10">
-                                    <h3 className="text-xl font-semibold text-white mb-3">About the Club</h3>
+                                    <div className="flex items-center gap-4 mb-3">
+                                        {selectedEvent.club.profilePhoto && (
+                                            <img src={selectedEvent.club.profilePhoto} alt={selectedEvent.club.collegeName} className="w-12 h-12 rounded-xl object-cover border border-indigo-500/30" />
+                                        )}
+                                        <h3 className="text-xl font-semibold text-white">About the Club</h3>
+                                    </div>
                                     <p className="text-slate-300 leading-relaxed mb-4">
                                         {selectedEvent.club.description}
                                     </p>
+                                    {selectedEvent.club.about && (
+                                        <p className="text-slate-400 leading-relaxed mb-4 whitespace-pre-wrap text-sm">
+                                            {selectedEvent.club.about}
+                                        </p>
+                                    )}
 
                                     {selectedEvent.club.pastEvents && JSON.parse(selectedEvent.club.pastEvents).length > 0 && (
                                         <div className="mb-4">

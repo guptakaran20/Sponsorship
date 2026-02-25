@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
-import { Building2, Save, Target, DollarSign, Users, Globe, Phone, User, Link as LinkIcon } from 'lucide-react';
+import { Building2, Save, Target, DollarSign, Users, Globe, Phone, User, Link as LinkIcon, Info } from 'lucide-react';
 
 export default function CompanyProfilePage() {
     const [formData, setFormData] = useState({
         industry: 'Technology',
+        about: '',
         budgetRange: '',
         targetAudience: '',
         companySize: '',
@@ -26,6 +27,7 @@ export default function CompanyProfilePage() {
                 if (profile) {
                     setFormData({
                         industry: profile.industry || 'Technology',
+                        about: profile.about || '',
                         budgetRange: profile.budgetRange || '',
                         targetAudience: profile.targetAudience || '',
                         companySize: profile.companySize || '',
@@ -101,6 +103,20 @@ export default function CompanyProfilePage() {
                             <option className="bg-slate-900">EdTech</option>
                             <option className="bg-slate-900">Retail</option>
                         </select>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <Info className="w-4 h-4 mr-2 text-indigo-400" />
+                            About Company
+                        </label>
+                        <textarea
+                            value={formData.about}
+                            onChange={(e) => setFormData({ ...formData, about: e.target.value })}
+                            rows={4}
+                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
+                            placeholder="Tell clubs about your company's mission and goals..."
+                        />
                     </div>
 
                     <div className="space-y-2">
