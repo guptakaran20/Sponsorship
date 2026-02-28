@@ -74,7 +74,9 @@ app.get('/api/csrf-token', (req, res) => {
 });
 
 // Apply CSRF protection to all state-changing API routes
-app.use('/api', doubleCsrfProtection);
+if (env.NODE_ENV === 'production') {
+  app.use('/api', doubleCsrfProtection);
+}
 
 app.use('/api/auth', authRoutes);
 app.use('/api/clubs', clubRoutes);
