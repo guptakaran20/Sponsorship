@@ -10,6 +10,7 @@ export default function LoginPage() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +22,7 @@ export default function LoginPage() {
         try {
             const data = await fetchApi('/auth/login', {
                 method: 'POST',
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password, rememberMe }),
             });
 
             const role = data?.data?.user?.role;
@@ -93,6 +94,19 @@ export default function LoginPage() {
                                     required
                                 />
                             </div>
+                        </div>
+
+                        <div className="flex items-center pl-1">
+                            <input
+                                type="checkbox"
+                                id="remember-me"
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
+                                className="w-4 h-4 rounded bg-white/5 border border-white/20 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-0"
+                            />
+                            <label htmlFor="remember-me" className="ml-2 text-sm text-indigo-200 cursor-pointer">
+                                Remember me
+                            </label>
                         </div>
 
                         <button

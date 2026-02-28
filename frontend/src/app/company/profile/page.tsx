@@ -89,6 +89,11 @@ export default function CompanyProfilePage() {
                 <p className="text-slate-400">Set up your preferences to find the best college events.</p>
             </div>
 
+            <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-2xl p-4 mb-6 flex items-start gap-3">
+                <Info className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+                <p className="text-sm text-indigo-300">Complete profiles get 3x more sponsorship requests. Fill in all fields to maximize your visibility.</p>
+            </div>
+
             <div className="bg-slate-900 border border-white/5 rounded-3xl p-6 lg:p-8 shadow-xl">
                 {message.text && (
                     <div className={`p-4 rounded-xl mb-6 border ${message.type === 'success'
@@ -99,12 +104,15 @@ export default function CompanyProfilePage() {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300 flex items-center">
-                            <Building2 className="w-4 h-4 mr-2 text-indigo-400" />
-                            Industry
-                        </label>
+                <form onSubmit={handleSubmit} className="space-y-8">
+                    {/* Business Information */}
+                    <div className="space-y-6">
+                        <h3 className="text-lg font-semibold text-white border-b border-white/5 pb-3">Business Information</h3>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-slate-300 flex items-center">
+                                <Building2 className="w-4 h-4 mr-2 text-indigo-400" />
+                                Industry
+                            </label>
                         <select
                             value={formData.industry}
                             onChange={(e) => setFormData({ ...formData, industry: e.target.value, customIndustry: e.target.value !== 'Other' ? '' : formData.customIndustry })}
@@ -143,11 +151,16 @@ export default function CompanyProfilePage() {
                         />
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300 flex items-center">
-                            <DollarSign className="w-4 h-4 mr-2 text-indigo-400" />
-                            Sponsorship Budget Range
-                        </label>
+                    </div>
+
+                    {/* Sponsorship Preferences */}
+                    <div className="space-y-6">
+                        <h3 className="text-lg font-semibold text-white border-b border-white/5 pb-3">Sponsorship Preferences</h3>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-slate-300 flex items-center">
+                                <DollarSign className="w-4 h-4 mr-2 text-indigo-400" />
+                                Sponsorship Budget Range
+                            </label>
                         <select
                             value={formData.budgetRange}
                             onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
@@ -197,11 +210,16 @@ export default function CompanyProfilePage() {
                         </select>
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300 flex items-center">
-                            <Globe className="w-4 h-4 mr-2 text-indigo-400" />
-                            Company Website
-                        </label>
+                    </div>
+
+                    {/* Contact & Social */}
+                    <div className="space-y-6">
+                        <h3 className="text-lg font-semibold text-white border-b border-white/5 pb-3">Contact & Social</h3>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-slate-300 flex items-center">
+                                <Globe className="w-4 h-4 mr-2 text-indigo-400" />
+                                Company Website
+                            </label>
                         <input
                             type="url"
                             value={formData.website}
@@ -251,6 +269,8 @@ export default function CompanyProfilePage() {
                             className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                             placeholder="https://linkedin.com/company/..."
                         />
+                    </div>
+
                     </div>
 
                     <div className="pt-4 flex justify-end">

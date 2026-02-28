@@ -1,10 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { fetchApi } from '@/lib/api';
-import { Mail, Lock, User, Briefcase, GraduationCap, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Mail, Lock, User, Briefcase, GraduationCap, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+
+function getPasswordStrength(password: string) {
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+    return score;
+}
+
+const strengthLabels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+const strengthColors = ['', 'bg-red-500', 'bg-amber-500', 'bg-blue-500', 'bg-emerald-500'];
+const strengthTextColors = ['', 'text-red-400', 'text-amber-400', 'text-blue-400', 'text-emerald-400'];
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -16,6 +29,7 @@ export default function RegisterPage() {
     });
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const passwordStrength = useMemo(() => getPasswordStrength(formData.password), [formData.password]);
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -54,6 +68,25 @@ export default function RegisterPage() {
                     </div>
                     <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Join SponsorBridge</h1>
                     <p className="text-indigo-200">Create an account to connect and sponsor</p>
+                </div>
+
+                {/* Why Join Section */}
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-5 mb-6 backdrop-blur-md">
+                    <h3 className="text-sm font-semibold text-white mb-3">Why join SponsorBridge?</h3>
+                    <ul className="space-y-2">
+                        <li className="flex items-start text-sm text-indigo-200">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-2 shrink-0 mt-0.5" />
+                            Access 500+ college clubs and top brands
+                        </li>
+                        <li className="flex items-start text-sm text-indigo-200">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-2 shrink-0 mt-0.5" />
+                            Secure deal verification with PIN system
+                        </li>
+                        <li className="flex items-start text-sm text-indigo-200">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-2 shrink-0 mt-0.5" />
+                            Free to get started — no hidden fees
+                        </li>
+                    </ul>
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
@@ -134,6 +167,21 @@ export default function RegisterPage() {
                                     required
                                 />
                             </div>
+                            {formData.password && (
+                                <div className="space-y-1.5 pt-1">
+                                    <div className="flex gap-1">
+                                        {[1, 2, 3, 4].map((level) => (
+                                            <div
+                                                key={level}
+                                                className={`h-1 flex-1 rounded-full transition-colors ${passwordStrength >= level ? strengthColors[passwordStrength] : 'bg-white/10'}`}
+                                            />
+                                        ))}
+                                    </div>
+                                    <p className={`text-xs ${strengthTextColors[passwordStrength]}`}>
+                                        {strengthLabels[passwordStrength]} {passwordStrength < 3 ? '— try adding uppercase, numbers, or symbols' : ''}
+                                    </p>
+                                </div>
+                            )}
                         </div>
 
                         <button

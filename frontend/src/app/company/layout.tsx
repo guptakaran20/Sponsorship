@@ -14,6 +14,7 @@ import {
     Sparkles,
     Menu,
 } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export default function CompanyLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -214,6 +215,7 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
                 {/* Page Content */}
                 <div className="flex-1 overflow-auto p-4 lg:p-8">
                     <div className="max-w-7xl mx-auto">
+                        <Breadcrumbs />
                         {children}
                     </div>
                 </div>

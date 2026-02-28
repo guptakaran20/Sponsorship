@@ -101,6 +101,26 @@ export default function ClubSponsorshipsPage() {
                                     <span className="text-indigo-400 font-medium">{deal.tier.name} (₹{deal.tier.amount})</span>
                                 </div>
 
+                                {/* Deal Status Timeline */}
+                                <div className="flex items-center gap-1 my-3">
+                                    {['PENDING', 'ACCEPTED', 'COMPLETED'].map((step, idx) => {
+                                        const statusOrder = ['PENDING', 'ACCEPTED', 'COMPLETED'];
+                                        const currentIdx = deal.status === 'REJECTED' ? 0 : statusOrder.indexOf(deal.status);
+                                        const stepIdx = statusOrder.indexOf(step);
+                                        const isActive = stepIdx <= currentIdx;
+                                        const isRejected = deal.status === 'REJECTED' && step === 'PENDING';
+                                        return (
+                                            <div key={step} className="flex items-center gap-1 flex-1">
+                                                <div className={`w-2 h-2 rounded-full shrink-0 ${isRejected ? 'bg-red-500' : isActive ? 'bg-indigo-500' : 'bg-white/10'}`} />
+                                                <div className={`h-0.5 flex-1 rounded ${idx < 2 ? (isActive && stepIdx < currentIdx ? 'bg-indigo-500' : 'bg-white/10') : 'hidden'}`} />
+                                            </div>
+                                        );
+                                    })}
+                                    <span className="text-[10px] text-slate-500 ml-1">
+                                        {deal.status === 'REJECTED' ? 'Declined' : deal.status === 'COMPLETED' ? 'Done' : deal.status === 'ACCEPTED' ? 'Awaiting PIN' : 'Reviewing'}
+                                    </span>
+                                </div>
+
                                 <div className="flex items-center gap-2 mb-1">
                                     <h3 className="text-2xl font-bold text-white">
                                         {deal.company.industry || 'Company'}
@@ -194,6 +214,11 @@ export default function ClubSponsorshipsPage() {
                                             Verify
                                         </button>
                                     </div>
+                                )}
+                                {deal.status === 'ACCEPTED' && (
+                                    <p className="text-[11px] text-slate-500 mt-2">
+                                        Ask the sponsoring company for their 6-character Deal PIN to verify and complete this sponsorship.
+                                    </p>
                                 )}
                                 {deal.status === 'COMPLETED' && (
                                     <div className="text-right">

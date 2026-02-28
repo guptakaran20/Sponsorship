@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { fetchApi } from '@/lib/api';
 import { Building2, Users, Link as LinkIcon, Info, Save, Phone, User } from 'lucide-react';
 import { CalendarDays, Image as ImageIcon } from 'lucide-react';
@@ -19,6 +19,17 @@ export default function ClubProfilePage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
     const [message, setMessage] = useState({ type: '', text: '' });
+
+    const profileCompleteness = useMemo(() => {
+        const fields = [
+            formData.collegeName, formData.description, formData.about,
+            formData.profilePhoto, formData.reach, formData.pastEvents,
+            formData.contactPerson, formData.contactNumber,
+            socials.instagram, socials.website,
+        ];
+        const filled = fields.filter(Boolean).length;
+        return Math.round((filled / fields.length) * 100);
+    }, [formData, socials]);
 
     useEffect(() => {
         const loadProfile = async () => {
@@ -99,6 +110,29 @@ export default function ClubProfilePage() {
                 <p className="text-slate-400">Manage your club details to attract better sponsorships.</p>
             </div>
 
+            {/* Profile Completeness Indicator */}
+            <div className="bg-slate-900 border border-white/5 rounded-2xl p-5 mb-6">
+                <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm font-medium text-white">Profile Completeness</span>
+                    <span className={`text-sm font-bold ${profileCompleteness === 100 ? 'text-emerald-400' : profileCompleteness >= 60 ? 'text-blue-400' : 'text-amber-400'}`}>
+                        {profileCompleteness}%
+                    </span>
+                </div>
+                <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div
+                        className={`h-full rounded-full transition-all duration-500 ${profileCompleteness === 100 ? 'bg-emerald-500' : profileCompleteness >= 60 ? 'bg-blue-500' : 'bg-amber-500'}`}
+                        style={{ width: `${profileCompleteness}%` }}
+                    />
+                </div>
+                {profileCompleteness < 100 && (
+                    <p className="text-xs text-slate-400 mt-2">
+                        {profileCompleteness < 50
+                            ? 'Complete your profile to attract more sponsors.'
+                            : 'Almost there! Add social links and contact info to finish.'}
+                    </p>
+                )}
+            </div>
+
             <div className="bg-slate-900 border border-white/5 rounded-3xl p-6 lg:p-8 shadow-xl">
                 {message.text && (
                     <div className={`p-4 rounded-xl mb-6 border ${message.type === 'success'
@@ -109,8 +143,11 @@ export default function ClubProfilePage() {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
+                <form onSubmit={handleSubmit} className="space-y-8">
+                    {/* Basic Info Section */}
+                    <div className="space-y-6">
+                        <h3 className="text-lg font-semibold text-white border-b border-white/5 pb-3">Basic Information</h3>
+                        <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-300 flex items-center">
                             <Building2 className="w-4 h-4 mr-2 text-indigo-400" />
                             College / University Name
@@ -196,92 +233,103 @@ export default function ClubProfilePage() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300 flex items-center">
-                                <Users className="w-4 h-4 mr-2 text-indigo-400" />
-                                Current Club Members
-                            </label>
-                            <input
-                                type="number"
-                                value={formData.reach}
-                                onChange={(e) => setFormData({ ...formData, reach: e.target.value })}
-                                className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                                placeholder="e.g. 5000"
-                            />
-                        </div>
+                    </div>
 
-                        <div className="space-y-4">
+                    {/* Social & Contact */}
+                    <div className="space-y-6">
+                        <h3 className="text-lg font-semibold text-white border-b border-white/5 pb-3">Social & Contact</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-slate-300 flex items-center">
-                                    <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
-                                    Instagram URL
+                                    <Users className="w-4 h-4 mr-2 text-indigo-400" />
+                                    Current Club Members
                                 </label>
                                 <input
-                                    type="url"
-                                    value={socials.instagram}
-                                    onChange={(e) => setSocials({ ...socials, instagram: e.target.value })}
-                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
-                                    placeholder="https://instagram.com/yourclub"
+                                    type="number"
+                                    value={formData.reach}
+                                    onChange={(e) => setFormData({ ...formData, reach: e.target.value })}
+                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                    placeholder="e.g. 5000"
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center">
-                                    <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
-                                    Website URL
-                                </label>
-                                <input
-                                    type="url"
-                                    value={socials.website}
-                                    onChange={(e) => setSocials({ ...socials, website: e.target.value })}
-                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
-                                    placeholder="https://yourclub.com"
-                                />
-                            </div>
-                        </div>
 
-                        <div className="space-y-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center">
-                                    <User className="w-4 h-4 mr-2 text-indigo-400" />
-                                    Contact Person Name
-                                </label>
-                                <input
-                                    type="text"
-                                    value={formData.contactPerson}
-                                    onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
-                                    placeholder="John Doe"
-                                />
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-slate-300 flex items-center">
+                                        <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
+                                        Instagram URL
+                                    </label>
+                                    <input
+                                        type="url"
+                                        value={socials.instagram}
+                                        onChange={(e) => setSocials({ ...socials, instagram: e.target.value })}
+                                        className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                        placeholder="https://instagram.com/yourclub"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-slate-300 flex items-center">
+                                        <LinkIcon className="w-4 h-4 mr-2 text-indigo-400" />
+                                        Website URL
+                                    </label>
+                                    <input
+                                        type="url"
+                                        value={socials.website}
+                                        onChange={(e) => setSocials({ ...socials, website: e.target.value })}
+                                        className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                        placeholder="https://yourclub.com"
+                                    />
+                                </div>
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center">
-                                    <Phone className="w-4 h-4 mr-2 text-indigo-400" />
-                                    Contact Number
-                                </label>
-                                <input
-                                    type="tel"
-                                    value={formData.contactNumber}
-                                    onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
-                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
-                                    placeholder="+91 9876543210"
-                                />
+
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-slate-300 flex items-center">
+                                        <User className="w-4 h-4 mr-2 text-indigo-400" />
+                                        Contact Person Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={formData.contactPerson}
+                                        onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
+                                        className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                        placeholder="John Doe"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-slate-300 flex items-center">
+                                        <Phone className="w-4 h-4 mr-2 text-indigo-400" />
+                                        Contact Number
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        value={formData.contactNumber}
+                                        onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
+                                        className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                                        placeholder="+91 9876543210"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300 flex items-center">
-                            <CalendarDays className="w-4 h-4 mr-2 text-indigo-400" />
-                            Past Events (Comma separated)
-                        </label>
-                        <input
-                            type="text"
-                            value={formData.pastEvents}
-                            onChange={(e) => setFormData({ ...formData, pastEvents: e.target.value })}
-                            className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                            placeholder="e.g. Techfest 2024, Hackathon 2025"
-                        />
+                    {/* History */}
+                    <div className="space-y-6">
+                        <h3 className="text-lg font-semibold text-white border-b border-white/5 pb-3">History</h3>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-slate-300 flex items-center">
+                                <CalendarDays className="w-4 h-4 mr-2 text-indigo-400" />
+                                Past Events (Comma separated)
+                            </label>
+                            <input
+                                type="text"
+                                value={formData.pastEvents}
+                                onChange={(e) => setFormData({ ...formData, pastEvents: e.target.value })}
+                                className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                placeholder="e.g. Techfest 2024, Hackathon 2025"
+                            />
+                        </div>
                     </div>
 
                     <div className="pt-4 flex justify-end">

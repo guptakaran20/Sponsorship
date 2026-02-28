@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ToastProvider } from "@/components/Toast";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,7 +15,18 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "SponsorBridge — Campus Sponsorship Platform",
-  description: "Connect college clubs with companies for sponsorships. The two-sided marketplace for campus events.",
+  description: "The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z. Connect, sponsor, and grow.",
+  openGraph: {
+    title: "SponsorBridge — Campus Sponsorship Platform",
+    description: "The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z.",
+    siteName: "SponsorBridge",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SponsorBridge — Campus Sponsorship Platform",
+    description: "The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z.",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +39,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ToastProvider>
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );
