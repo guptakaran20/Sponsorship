@@ -7,7 +7,7 @@ import { AuthRequest } from '../middlewares/auth';
 export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => {
     try {
         const userId = req.user.id;
-        const { industry, about, budgetRange, targetAudience, companySize, website, contactPerson, contactNumber, socialLinks } = req.body;
+        const { industry, customIndustry, about, profilePhoto, budgetRange, targetAudience, companySize, website, contactPerson, contactNumber, socialLinks } = req.body;
 
         const existingProfile = await prisma.companyProfile.findUnique({
             where: { userId },
@@ -18,7 +18,9 @@ export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => 
                 where: { userId },
                 data: {
                     industry,
+                    customIndustry: industry === 'Other' ? customIndustry : null,
                     about,
+                    profilePhoto,
                     budgetRange,
                     targetAudience,
                     companySize,
@@ -35,7 +37,9 @@ export const createOrUpdateProfile = async (req: AuthRequest, res: Response) => 
             data: {
                 userId,
                 industry,
+                customIndustry: industry === 'Other' ? customIndustry : null,
                 about,
+                profilePhoto,
                 budgetRange,
                 targetAudience,
                 companySize,

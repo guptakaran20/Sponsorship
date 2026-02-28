@@ -2,12 +2,14 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { authenticateRequest } from '../middlewares/auth';
-import { v4 as uuidv4 } from 'uuid'; // Fallback if we don't have uuid installed, we can just use Date.now()
+import { uploadToCloudinary, isCloudinaryConfigured } from '../config/cloudinary';
 
 const router = express.Router();
 
-// Configure Multer storage
-const storage = multer.diskStorage({
+// Use memory storage when Cloudinary is configured, disk storage as fallback
+const memoryStorage = multer.memoryStorage();
+
+const diskStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, '..', '..', 'uploads'));
     },
@@ -18,7 +20,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({
-    storage,
+    storage: isCloudinaryConfigured() ? memoryStorage : diskStorage,
     limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB limit
     fileFilter: (req, file, cb) => {
         // Accept images only
@@ -32,16 +34,21 @@ const upload = multer({
 // @route   POST /api/upload
 // @desc    Upload an image file and return its public URL
 // @access  Private
-router.post('/', authenticateRequest, upload.single('image'), (req, res) => {
+router.post('/', authenticateRequest, upload.single('image'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ message: 'No file uploaded' });
         }
 
-        // Construct the public URL for the file
+        // If Cloudinary is configured, upload to cloud
+        if (isCloudinaryConfigured() && req.file.buffer) {
+            const result = await uploadToCloudinary(req.file.buffer, 'sponsorbridge/profiles');
+            return res.status(200).json({ url: result.url });
+        }
+
+        // Fallback to local disk storage
         const protocol = req.protocol;
         const host = req.get('host');
-        // If file is stored as backend/uploads/123.jpg, we want http://localhost:5000/uploads/123.jpg
         const fileUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
 
         res.status(200).json({ url: fileUrl });

@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import { prisma } from '../lib/prisma';
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt';
 import { env } from '../config/env';
 import { ApiResponse } from '../utils/ApiResponse';
+import { sendPasswordResetEmail } from '../config/mailer';
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -158,5 +160,114 @@ export const getMe = async (req: Request | any, res: Response) => {
         res.status(200).json(ApiResponse.ok('User fetched', user));
     } catch (error) {
         res.status(500).json(ApiResponse.error('Server error getting user profile'));
+    }
+};
+
+export const forgotPassword = async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json(ApiResponse.error('Please provide an email address'));
+        }
+
+        // Always return success to prevent user enumeration
+        const successMsg = 'If an account with that email exists, a password reset link has been sent.';
+
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user) {
+            return res.status(200).json(ApiResponse.ok(successMsg));
+        }
+
+        // Generate a secure random token
+        const rawToken = crypto.randomBytes(32).toString('hex');
+        const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex');
+
+        // Store hashed token with 15 min expiry; invalidates any previous token
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                resetToken: hashedToken,
+                resetTokenExpiry: new Date(Date.now() + 15 * 60 * 1000),
+            },
+        });
+
+        // Send email (non-blocking — still return success even if mail fails)
+        sendPasswordResetEmail(user.email, rawToken).catch((err) => {
+            console.error('Failed to send password reset email:', err);
+        });
+
+        res.status(200).json(ApiResponse.ok(successMsg));
+    } catch (error) {
+        res.status(500).json(ApiResponse.error('Server error during password reset request'));
+    }
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+    try {
+        const { token, password } = req.body;
+
+        if (!token || !password) {
+            return res.status(400).json(ApiResponse.error('Token and new password are required'));
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json(ApiResponse.error('Password must be at least 8 characters'));
+        }
+
+        const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+        const user = await prisma.user.findFirst({
+            where: {
+                resetToken: hashedToken,
+                resetTokenExpiry: { gt: new Date() },
+            },
+        });
+
+        if (!user) {
+            return res.status(400).json(ApiResponse.error('Invalid or expired reset token'));
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                password: hashedPassword,
+                resetToken: null,
+                resetTokenExpiry: null,
+            },
+        });
+
+        res.status(200).json(ApiResponse.ok('Password has been reset successfully'));
+    } catch (error) {
+        res.status(500).json(ApiResponse.error('Server error during password reset'));
+    }
+};
+
+export const googleCallback = async (req: Request | any, res: Response) => {
+    try {
+        const user = req.user;
+        if (!user) {
+            return res.redirect(`${env.CORS_ORIGIN}/login?error=auth_failed`);
+        }
+
+        const accessToken = generateAccessToken(user.id, user.role);
+        const refreshToken = generateRefreshToken(user.id);
+
+        const cookieOptions = {
+            httpOnly: true,
+            secure: env.NODE_ENV === 'production',
+            sameSite: 'strict' as const,
+        };
+
+        res.cookie('accessToken', accessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
+        res.cookie('refreshToken', refreshToken, { ...cookieOptions, maxAge: 7 * 24 * 60 * 60 * 1000 });
+
+        const redirectPath = user.role === 'CLUB' ? '/club/dashboard' : '/company/dashboard';
+        res.redirect(`${env.CORS_ORIGIN}${redirectPath}`);
+    } catch (error) {
+        res.redirect(`${env.CORS_ORIGIN}/login?error=server_error`);
     }
 };

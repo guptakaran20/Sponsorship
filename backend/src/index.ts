@@ -12,6 +12,8 @@ dotenv.config();
 // Must import env config early to validate env vars
 import { env } from './config/env';
 import { logger } from './utils/logger';
+import { configurePassport } from './config/passport';
+import passport from 'passport';
 
 const app = express();
 
@@ -55,6 +57,10 @@ app.use(cors({
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 app.use(cookieParser());
+
+// Initialize Passport for Google OAuth
+configurePassport();
+app.use(passport.initialize());
 
 // Rate limiting
 app.use('/api', generalLimiter);

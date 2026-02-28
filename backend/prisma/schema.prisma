@@ -8,18 +8,22 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(uuid())
-  email          String          @unique
-  password       String
-  name           String
-  role           Role            @default(CLUB)
-  isVerified     Boolean         @default(false)
-  deletedAt      DateTime?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  clubProfile    ClubProfile?
-  companyProfile CompanyProfile?
-  notifications  Notification[]
+  id               String          @id @default(uuid())
+  email            String          @unique
+  password         String
+  name             String
+  role             Role            @default(CLUB)
+  isVerified       Boolean         @default(false)
+  provider         String?
+  providerId       String?
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  deletedAt        DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  clubProfile      ClubProfile?
+  companyProfile   CompanyProfile?
+  notifications    Notification[]
 }
 
 enum Role {
@@ -56,7 +60,9 @@ model CompanyProfile {
   userId           String            @unique
   user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   industry         String?
+  customIndustry   String?
   about            String?
+  profilePhoto     String?
   budgetRange      String?
   targetAudience   String?
   companySize      String?
