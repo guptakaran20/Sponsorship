@@ -1,14 +1,26 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
+import { env } from '../config/env';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecret_fallback_key';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
+export const generateAccessToken = (userId: string, role: string): string => {
+  return jwt.sign({ id: userId, role }, env.JWT_SECRET, {
+    expiresIn: env.JWT_EXPIRES_IN as SignOptions['expiresIn'],
+  });
+};
 
-export const generateToken = (userId: string, role: string) => {
-    return jwt.sign({ id: userId, role }, JWT_SECRET, {
-        expiresIn: JWT_EXPIRES_IN as SignOptions['expiresIn'],
-    });
+export const generateRefreshToken = (userId: string): string => {
+  return jwt.sign({ id: userId }, env.JWT_REFRESH_SECRET, {
+    expiresIn: env.JWT_REFRESH_EXPIRES_IN as SignOptions['expiresIn'],
+  });
+};
+
+export const generateToken = (userId: string, role: string): string => {
+  return generateAccessToken(userId, role);
 };
 
 export const verifyToken = (token: string) => {
-    return jwt.verify(token, JWT_SECRET);
+  return jwt.verify(token, env.JWT_SECRET);
+};
+
+export const verifyRefreshToken = (token: string) => {
+  return jwt.verify(token, env.JWT_REFRESH_SECRET);
 };

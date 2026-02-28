@@ -5,6 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -14,6 +15,7 @@ model User {
   name           String
   role           Role            @default(CLUB)
   isVerified     Boolean         @default(false)
+  deletedAt      DateTime?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   clubProfile    ClubProfile?
@@ -28,89 +30,110 @@ enum Role {
 }
 
 model ClubProfile {
-  id           String   @id @default(uuid())
-  userId       String   @unique
-  user         User     @relation(fields: [userId], references: [id])
-  collegeName  String
-  description  String?
-  profilePhoto String?
-  about        String?
-  pastEvents   String?  // Could be JSON array of strings
-  reach        Int      @default(0) // Estimated audience reach
-  socialLinks  String?  // JSON object of links
-  contactPerson String?
-  contactNumber String?
-  website      String?
-  totalAmountRaised Float @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  events       Event[]
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collegeName       String
+  description       String?
+  profilePhoto      String?
+  about             String?
+  pastEvents        String?
+  reach             Int      @default(0)
+  socialLinks       String?
+  contactPerson     String?
+  contactNumber     String?
+  website           String?
+  totalAmountRaised Float    @default(0)
+  deletedAt         DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  events            Event[]
+
+  @@index([userId])
 }
 
 model CompanyProfile {
-  id           String   @id @default(uuid())
-  userId       String   @unique
-  user         User     @relation(fields: [userId], references: [id])
-  industry     String?
-  about        String?
-  budgetRange  String?
-  targetAudience String?
-  companySize  String?
-  website      String?
-  contactPerson String?
-  contactNumber String?
-  socialLinks   String?
-  totalAmountSpent Float @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  deals        SponsorshipDeal[]
+  id               String            @id @default(uuid())
+  userId           String            @unique
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  industry         String?
+  about            String?
+  budgetRange      String?
+  targetAudience   String?
+  companySize      String?
+  website          String?
+  contactPerson    String?
+  contactNumber    String?
+  socialLinks      String?
+  totalAmountSpent Float             @default(0)
+  deletedAt        DateTime?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  deals            SponsorshipDeal[]
+
+  @@index([userId])
 }
 
 model Event {
-  id          String   @id @default(uuid())
+  id          String            @id @default(uuid())
   clubId      String
-  club        ClubProfile @relation(fields: [clubId], references: [id])
+  club        ClubProfile       @relation(fields: [clubId], references: [id], onDelete: Cascade)
   name        String
   description String
   eventType   String
-  footfall    Int      @default(0)
+  footfall    Int               @default(0)
   location    String
   date        DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
   tiers       SponsorshipTier[]
   deals       SponsorshipDeal[]
+
+  @@index([clubId])
+  @@index([date])
 }
 
 model SponsorshipTier {
-  id          String   @id @default(uuid())
-  eventId     String
-  event       Event    @relation(fields: [eventId], references: [id])
-  name        String
-  amount      Float
-  benefits    String   // JSON array or text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  deals       SponsorshipDeal[]
+  id        String            @id @default(uuid())
+  eventId   String
+  event     Event             @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name      String
+  amount    Float
+  benefits  String
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  deals     SponsorshipDeal[]
+
+  @@index([eventId])
 }
 
 model SponsorshipDeal {
-  id          String   @id @default(uuid())
-  eventId     String
-  event       Event    @relation(fields: [eventId], references: [id])
-  companyId   String
-  company     CompanyProfile @relation(fields: [companyId], references: [id])
-  tierId      String
-  tier        SponsorshipTier @relation(fields: [tierId], references: [id])
-  status      DealStatus @default(PENDING)
-  paymentStatus PaymentStatus @default(UNPAID)
-  dealPin     String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String          @id @default(uuid())
+  eventId         String
+  event           Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  companyId       String
+  company         CompanyProfile  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  tierId          String
+  tier            SponsorshipTier @relation(fields: [tierId], references: [id], onDelete: Cascade)
+  status          DealStatus      @default(PENDING)
+  paymentStatus   PaymentStatus   @default(UNPAID)
+  dealPin         String?
+  negotiationNotes String?
+  deletedAt       DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  activityLogs    ActivityLog[]
+
+  @@index([eventId])
+  @@index([companyId])
+  @@index([tierId])
+  @@index([status])
 }
 
 enum DealStatus {
   PENDING
+  NEGOTIATING
   ACCEPTED
   REJECTED
   COMPLETED
@@ -123,14 +146,29 @@ enum PaymentStatus {
   REFUNDED
 }
 
+model ActivityLog {
+  id        String          @id @default(uuid())
+  dealId    String
+  deal      SponsorshipDeal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  action    String
+  details   String?
+  actorId   String
+  createdAt DateTime        @default(now())
+
+  @@index([dealId])
+  @@index([actorId])
+}
+
 model Notification {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   title     String
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 model ContactMessage {

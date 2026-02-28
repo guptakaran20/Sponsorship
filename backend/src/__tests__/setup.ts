@@ -1,0 +1,8 @@
+process.env.JWT_SECRET = 'test-secret-key-that-is-at-least-32-chars-long';
+process.env.JWT_REFRESH_SECRET = 'test-refresh-secret-key-that-is-at-least-32-chars';
+process.env.JWT_EXPIRES_IN = '15m';
+process.env.JWT_REFRESH_EXPIRES_IN = '7d';
+process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/test';
+process.env.ADMIN_SECRET = 'test-admin-secret';
+process.env.CORS_ORIGIN = 'http://localhost:3000';
+process.env.NODE_ENV = 'test';
