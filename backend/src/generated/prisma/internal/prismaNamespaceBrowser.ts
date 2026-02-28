@@ -57,6 +57,7 @@ export const ModelName = {
   Event: 'Event',
   SponsorshipTier: 'SponsorshipTier',
   SponsorshipDeal: 'SponsorshipDeal',
+  ActivityLog: 'ActivityLog',
   Notification: 'Notification',
   ContactMessage: 'ContactMessage'
 } as const
@@ -84,6 +85,11 @@ export const UserScalarFieldEnum = {
   name: 'name',
   role: 'role',
   isVerified: 'isVerified',
+  provider: 'provider',
+  providerId: 'providerId',
+  resetToken: 'resetToken',
+  resetTokenExpiry: 'resetTokenExpiry',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -105,6 +111,7 @@ export const ClubProfileScalarFieldEnum = {
   contactNumber: 'contactNumber',
   website: 'website',
   totalAmountRaised: 'totalAmountRaised',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -116,7 +123,9 @@ export const CompanyProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   industry: 'industry',
+  customIndustry: 'customIndustry',
   about: 'about',
+  profilePhoto: 'profilePhoto',
   budgetRange: 'budgetRange',
   targetAudience: 'targetAudience',
   companySize: 'companySize',
@@ -125,6 +134,7 @@ export const CompanyProfileScalarFieldEnum = {
   contactNumber: 'contactNumber',
   socialLinks: 'socialLinks',
   totalAmountSpent: 'totalAmountSpent',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -141,6 +151,7 @@ export const EventScalarFieldEnum = {
   footfall: 'footfall',
   location: 'location',
   date: 'date',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -169,11 +180,25 @@ export const SponsorshipDealScalarFieldEnum = {
   status: 'status',
   paymentStatus: 'paymentStatus',
   dealPin: 'dealPin',
+  negotiationNotes: 'negotiationNotes',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type SponsorshipDealScalarFieldEnum = (typeof SponsorshipDealScalarFieldEnum)[keyof typeof SponsorshipDealScalarFieldEnum]
+
+
+export const ActivityLogScalarFieldEnum = {
+  id: 'id',
+  dealId: 'dealId',
+  action: 'action',
+  details: 'details',
+  actorId: 'actorId',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {

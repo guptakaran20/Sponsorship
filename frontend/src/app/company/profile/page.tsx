@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
-import { Building2, Save, Target, DollarSign, Users, Globe, Phone, User, Link as LinkIcon, Info } from 'lucide-react';
+import { Building2, Save, Target, DollarSign, Users, Globe, Phone, User, Link as LinkIcon, Info, Image as ImageIcon } from 'lucide-react';
 
 export default function CompanyProfilePage() {
     const [formData, setFormData] = useState({
         industry: 'Technology',
+        customIndustry: '',
         about: '',
+        profilePhoto: '',
         budgetRange: '',
         targetAudience: '',
         companySize: '',
@@ -27,7 +29,9 @@ export default function CompanyProfilePage() {
                 if (profile) {
                     setFormData({
                         industry: profile.industry || 'Technology',
+                        customIndustry: profile.customIndustry || '',
                         about: profile.about || '',
+                        profilePhoto: profile.profilePhoto || '',
                         budgetRange: profile.budgetRange || '',
                         targetAudience: profile.targetAudience || '',
                         companySize: profile.companySize || '',
@@ -102,7 +106,59 @@ export default function CompanyProfilePage() {
                             <option className="bg-slate-900">FMCG</option>
                             <option className="bg-slate-900">EdTech</option>
                             <option className="bg-slate-900">Retail</option>
+                            <option className="bg-slate-900">Other</option>
                         </select>
+                        {formData.industry === 'Other' && (
+                            <input
+                                type="text"
+                                value={formData.customIndustry}
+                                onChange={(e) => setFormData({ ...formData, customIndustry: e.target.value })}
+                                className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all mt-2"
+                                placeholder="Enter your industry"
+                            />
+                        )}
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300 flex items-center">
+                            <ImageIcon className="w-4 h-4 mr-2 text-indigo-400" />
+                            Profile Photo
+                        </label>
+                        <div className="flex items-center gap-4">
+                            {formData.profilePhoto && (
+                                <img src={formData.profilePhoto} alt="Profile Preview" className="w-16 h-16 rounded-xl object-cover border border-white/10" />
+                            )}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={async (e) => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+
+                                    const uploadData = new FormData();
+                                    uploadData.append('image', file);
+
+                                    try {
+                                        setIsLoading(true);
+                                        const res = await fetchApi('/upload', {
+                                            method: 'POST',
+                                            body: uploadData,
+                                        });
+                                        if (res?.url) {
+                                            setFormData(prev => ({ ...prev, profilePhoto: res.url }));
+                                            setMessage({ type: 'success', text: 'Image uploaded successfully. Remember to Save Profile.' });
+                                        } else {
+                                            throw new Error(res?.message || 'Upload failed');
+                                        }
+                                    } catch (err: any) {
+                                        setMessage({ type: 'error', text: err.message });
+                                    } finally {
+                                        setIsLoading(false);
+                                    }
+                                }}
+                                className="w-full bg-black/20 border border-white/10 rounded-xl py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-500/10 file:text-indigo-400 hover:file:bg-indigo-500/20"
+                            />
+                        </div>
                     </div>
 
                     <div className="space-y-2">
@@ -122,7 +178,7 @@ export default function CompanyProfilePage() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-300 flex items-center">
                             <DollarSign className="w-4 h-4 mr-2 text-indigo-400" />
-                            Annual Sponsorship Budget Range
+                            Sponsorship Budget Range
                         </label>
                         <select
                             value={formData.budgetRange}
