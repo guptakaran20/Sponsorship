@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import { doubleCsrf } from 'csrf-csrf';
 
 dotenv.config();
 
@@ -32,6 +33,19 @@ import uploadRoutes from './routes/uploadRoutes';
 import { errorHandler } from './middlewares/errorHandler';
 import { generalLimiter } from './middlewares/rateLimiter';
 
+// CSRF protection using double-submit cookie pattern
+const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
+  getSecret: () => env.JWT_SECRET,
+  getSessionIdentifier: (req) => (req as any).cookies?.refreshToken || req.ip || '',
+  cookieName: 'x-csrf-token',
+  cookieOptions: {
+    httpOnly: false, // must be readable by client JS for double-submit pattern
+    sameSite: 'strict',
+    secure: env.NODE_ENV === 'production',
+  },
+  ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
+});
+
 // Security middleware
 app.use(helmet());
 app.use(cors({
@@ -52,6 +66,15 @@ app.use('/uploads', express.static(uploadDir));
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), uptime: process.uptime() });
 });
+
+// CSRF token endpoint — client calls this before making state-changing requests
+app.get('/api/csrf-token', (req, res) => {
+  const csrfToken = generateCsrfToken(req, res);
+  res.json({ csrfToken });
+});
+
+// Apply CSRF protection to all state-changing API routes
+app.use('/api', doubleCsrfProtection);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/clubs', clubRoutes);
