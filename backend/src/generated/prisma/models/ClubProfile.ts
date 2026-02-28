@@ -50,6 +50,7 @@ export type ClubProfileMinAggregateOutputType = {
   contactNumber: string | null
   website: string | null
   totalAmountRaised: number | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -68,6 +69,7 @@ export type ClubProfileMaxAggregateOutputType = {
   contactNumber: string | null
   website: string | null
   totalAmountRaised: number | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -86,6 +88,7 @@ export type ClubProfileCountAggregateOutputType = {
   contactNumber: number
   website: number
   totalAmountRaised: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -116,6 +119,7 @@ export type ClubProfileMinAggregateInputType = {
   contactNumber?: true
   website?: true
   totalAmountRaised?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -134,6 +138,7 @@ export type ClubProfileMaxAggregateInputType = {
   contactNumber?: true
   website?: true
   totalAmountRaised?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -152,6 +157,7 @@ export type ClubProfileCountAggregateInputType = {
   contactNumber?: true
   website?: true
   totalAmountRaised?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -257,6 +263,7 @@ export type ClubProfileGroupByOutputType = {
   contactNumber: string | null
   website: string | null
   totalAmountRaised: number
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ClubProfileCountAggregateOutputType | null
@@ -298,6 +305,7 @@ export type ClubProfileWhereInput = {
   contactNumber?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   website?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   totalAmountRaised?: Prisma.FloatFilter<"ClubProfile"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"ClubProfile"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -318,6 +326,7 @@ export type ClubProfileOrderByWithRelationInput = {
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmountRaised?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -341,6 +350,7 @@ export type ClubProfileWhereUniqueInput = Prisma.AtLeast<{
   contactNumber?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   website?: Prisma.StringNullableFilter<"ClubProfile"> | string | null
   totalAmountRaised?: Prisma.FloatFilter<"ClubProfile"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"ClubProfile"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClubProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -361,6 +371,7 @@ export type ClubProfileOrderByWithAggregationInput = {
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmountRaised?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ClubProfileCountOrderByAggregateInput
@@ -387,6 +398,7 @@ export type ClubProfileScalarWhereWithAggregatesInput = {
   contactNumber?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
   website?: Prisma.StringNullableWithAggregatesFilter<"ClubProfile"> | string | null
   totalAmountRaised?: Prisma.FloatWithAggregatesFilter<"ClubProfile"> | number
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClubProfile"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClubProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ClubProfile"> | Date | string
 }
@@ -404,6 +416,7 @@ export type ClubProfileCreateInput = {
   contactNumber?: string | null
   website?: string | null
   totalAmountRaised?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutClubProfileInput
@@ -424,6 +437,7 @@ export type ClubProfileUncheckedCreateInput = {
   contactNumber?: string | null
   website?: string | null
   totalAmountRaised?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EventUncheckedCreateNestedManyWithoutClubInput
@@ -442,6 +456,7 @@ export type ClubProfileUpdateInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutClubProfileNestedInput
@@ -462,6 +477,7 @@ export type ClubProfileUncheckedUpdateInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EventUncheckedUpdateManyWithoutClubNestedInput
@@ -481,6 +497,7 @@ export type ClubProfileCreateManyInput = {
   contactNumber?: string | null
   website?: string | null
   totalAmountRaised?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -498,6 +515,7 @@ export type ClubProfileUpdateManyMutationInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -516,6 +534,7 @@ export type ClubProfileUncheckedUpdateManyInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -539,6 +558,7 @@ export type ClubProfileCountOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   website?: Prisma.SortOrder
   totalAmountRaised?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -562,6 +582,7 @@ export type ClubProfileMaxOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   website?: Prisma.SortOrder
   totalAmountRaised?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -580,6 +601,7 @@ export type ClubProfileMinOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   website?: Prisma.SortOrder
   totalAmountRaised?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -626,10 +648,6 @@ export type ClubProfileUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClubProfileUpdateToOneWithWhereWithoutUserInput, Prisma.ClubProfileUpdateWithoutUserInput>, Prisma.ClubProfileUncheckedUpdateWithoutUserInput>
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -673,6 +691,7 @@ export type ClubProfileCreateWithoutUserInput = {
   contactNumber?: string | null
   website?: string | null
   totalAmountRaised?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EventCreateNestedManyWithoutClubInput
@@ -691,6 +710,7 @@ export type ClubProfileUncheckedCreateWithoutUserInput = {
   contactNumber?: string | null
   website?: string | null
   totalAmountRaised?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.EventUncheckedCreateNestedManyWithoutClubInput
@@ -725,6 +745,7 @@ export type ClubProfileUpdateWithoutUserInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EventUpdateManyWithoutClubNestedInput
@@ -743,6 +764,7 @@ export type ClubProfileUncheckedUpdateWithoutUserInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.EventUncheckedUpdateManyWithoutClubNestedInput
@@ -761,6 +783,7 @@ export type ClubProfileCreateWithoutEventsInput = {
   contactNumber?: string | null
   website?: string | null
   totalAmountRaised?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutClubProfileInput
@@ -780,6 +803,7 @@ export type ClubProfileUncheckedCreateWithoutEventsInput = {
   contactNumber?: string | null
   website?: string | null
   totalAmountRaised?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -813,6 +837,7 @@ export type ClubProfileUpdateWithoutEventsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutClubProfileNestedInput
@@ -832,6 +857,7 @@ export type ClubProfileUncheckedUpdateWithoutEventsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountRaised?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -881,6 +907,7 @@ export type ClubProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   contactNumber?: boolean
   website?: boolean
   totalAmountRaised?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -902,6 +929,7 @@ export type ClubProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   contactNumber?: boolean
   website?: boolean
   totalAmountRaised?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -921,6 +949,7 @@ export type ClubProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   contactNumber?: boolean
   website?: boolean
   totalAmountRaised?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -940,11 +969,12 @@ export type ClubProfileSelectScalar = {
   contactNumber?: boolean
   website?: boolean
   totalAmountRaised?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ClubProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "collegeName" | "description" | "profilePhoto" | "about" | "pastEvents" | "reach" | "socialLinks" | "contactPerson" | "contactNumber" | "website" | "totalAmountRaised" | "createdAt" | "updatedAt", ExtArgs["result"]["clubProfile"]>
+export type ClubProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "collegeName" | "description" | "profilePhoto" | "about" | "pastEvents" | "reach" | "socialLinks" | "contactPerson" | "contactNumber" | "website" | "totalAmountRaised" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["clubProfile"]>
 export type ClubProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   events?: boolean | Prisma.ClubProfile$eventsArgs<ExtArgs>
@@ -977,6 +1007,7 @@ export type $ClubProfilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     contactNumber: string | null
     website: string | null
     totalAmountRaised: number
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["clubProfile"]>
@@ -1417,6 +1448,7 @@ export interface ClubProfileFieldRefs {
   readonly contactNumber: Prisma.FieldRef<"ClubProfile", 'String'>
   readonly website: Prisma.FieldRef<"ClubProfile", 'String'>
   readonly totalAmountRaised: Prisma.FieldRef<"ClubProfile", 'Float'>
+  readonly deletedAt: Prisma.FieldRef<"ClubProfile", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ClubProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ClubProfile", 'DateTime'>
 }

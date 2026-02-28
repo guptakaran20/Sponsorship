@@ -47,6 +47,7 @@ export type CompanyProfileMinAggregateOutputType = {
   contactNumber: string | null
   socialLinks: string | null
   totalAmountSpent: number | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,6 +65,7 @@ export type CompanyProfileMaxAggregateOutputType = {
   contactNumber: string | null
   socialLinks: string | null
   totalAmountSpent: number | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -81,6 +83,7 @@ export type CompanyProfileCountAggregateOutputType = {
   contactNumber: number
   socialLinks: number
   totalAmountSpent: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -108,6 +111,7 @@ export type CompanyProfileMinAggregateInputType = {
   contactNumber?: true
   socialLinks?: true
   totalAmountSpent?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -125,6 +129,7 @@ export type CompanyProfileMaxAggregateInputType = {
   contactNumber?: true
   socialLinks?: true
   totalAmountSpent?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -142,6 +147,7 @@ export type CompanyProfileCountAggregateInputType = {
   contactNumber?: true
   socialLinks?: true
   totalAmountSpent?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -246,6 +252,7 @@ export type CompanyProfileGroupByOutputType = {
   contactNumber: string | null
   socialLinks: string | null
   totalAmountSpent: number
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: CompanyProfileCountAggregateOutputType | null
@@ -286,6 +293,7 @@ export type CompanyProfileWhereInput = {
   contactNumber?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   socialLinks?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   totalAmountSpent?: Prisma.FloatFilter<"CompanyProfile"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"CompanyProfile"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -305,6 +313,7 @@ export type CompanyProfileOrderByWithRelationInput = {
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmountSpent?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -327,6 +336,7 @@ export type CompanyProfileWhereUniqueInput = Prisma.AtLeast<{
   contactNumber?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   socialLinks?: Prisma.StringNullableFilter<"CompanyProfile"> | string | null
   totalAmountSpent?: Prisma.FloatFilter<"CompanyProfile"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"CompanyProfile"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -346,6 +356,7 @@ export type CompanyProfileOrderByWithAggregationInput = {
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmountSpent?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CompanyProfileCountOrderByAggregateInput
@@ -371,6 +382,7 @@ export type CompanyProfileScalarWhereWithAggregatesInput = {
   contactNumber?: Prisma.StringNullableWithAggregatesFilter<"CompanyProfile"> | string | null
   socialLinks?: Prisma.StringNullableWithAggregatesFilter<"CompanyProfile"> | string | null
   totalAmountSpent?: Prisma.FloatWithAggregatesFilter<"CompanyProfile"> | number
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CompanyProfile"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CompanyProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CompanyProfile"> | Date | string
 }
@@ -387,6 +399,7 @@ export type CompanyProfileCreateInput = {
   contactNumber?: string | null
   socialLinks?: string | null
   totalAmountSpent?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCompanyProfileInput
@@ -406,6 +419,7 @@ export type CompanyProfileUncheckedCreateInput = {
   contactNumber?: string | null
   socialLinks?: string | null
   totalAmountSpent?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deals?: Prisma.SponsorshipDealUncheckedCreateNestedManyWithoutCompanyInput
@@ -423,6 +437,7 @@ export type CompanyProfileUpdateInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCompanyProfileNestedInput
@@ -442,6 +457,7 @@ export type CompanyProfileUncheckedUpdateInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deals?: Prisma.SponsorshipDealUncheckedUpdateManyWithoutCompanyNestedInput
@@ -460,6 +476,7 @@ export type CompanyProfileCreateManyInput = {
   contactNumber?: string | null
   socialLinks?: string | null
   totalAmountSpent?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -476,6 +493,7 @@ export type CompanyProfileUpdateManyMutationInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -493,6 +511,7 @@ export type CompanyProfileUncheckedUpdateManyInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -515,6 +534,7 @@ export type CompanyProfileCountOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
   totalAmountSpent?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -536,6 +556,7 @@ export type CompanyProfileMaxOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
   totalAmountSpent?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -553,6 +574,7 @@ export type CompanyProfileMinOrderByAggregateInput = {
   contactNumber?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
   totalAmountSpent?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -624,6 +646,7 @@ export type CompanyProfileCreateWithoutUserInput = {
   contactNumber?: string | null
   socialLinks?: string | null
   totalAmountSpent?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deals?: Prisma.SponsorshipDealCreateNestedManyWithoutCompanyInput
@@ -641,6 +664,7 @@ export type CompanyProfileUncheckedCreateWithoutUserInput = {
   contactNumber?: string | null
   socialLinks?: string | null
   totalAmountSpent?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deals?: Prisma.SponsorshipDealUncheckedCreateNestedManyWithoutCompanyInput
@@ -674,6 +698,7 @@ export type CompanyProfileUpdateWithoutUserInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deals?: Prisma.SponsorshipDealUpdateManyWithoutCompanyNestedInput
@@ -691,6 +716,7 @@ export type CompanyProfileUncheckedUpdateWithoutUserInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deals?: Prisma.SponsorshipDealUncheckedUpdateManyWithoutCompanyNestedInput
@@ -708,6 +734,7 @@ export type CompanyProfileCreateWithoutDealsInput = {
   contactNumber?: string | null
   socialLinks?: string | null
   totalAmountSpent?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCompanyProfileInput
@@ -726,6 +753,7 @@ export type CompanyProfileUncheckedCreateWithoutDealsInput = {
   contactNumber?: string | null
   socialLinks?: string | null
   totalAmountSpent?: number
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -758,6 +786,7 @@ export type CompanyProfileUpdateWithoutDealsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCompanyProfileNestedInput
@@ -776,6 +805,7 @@ export type CompanyProfileUncheckedUpdateWithoutDealsInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmountSpent?: Prisma.FloatFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -824,6 +854,7 @@ export type CompanyProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   contactNumber?: boolean
   socialLinks?: boolean
   totalAmountSpent?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -844,6 +875,7 @@ export type CompanyProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   contactNumber?: boolean
   socialLinks?: boolean
   totalAmountSpent?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -862,6 +894,7 @@ export type CompanyProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   contactNumber?: boolean
   socialLinks?: boolean
   totalAmountSpent?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -880,11 +913,12 @@ export type CompanyProfileSelectScalar = {
   contactNumber?: boolean
   socialLinks?: boolean
   totalAmountSpent?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CompanyProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "industry" | "about" | "budgetRange" | "targetAudience" | "companySize" | "website" | "contactPerson" | "contactNumber" | "socialLinks" | "totalAmountSpent" | "createdAt" | "updatedAt", ExtArgs["result"]["companyProfile"]>
+export type CompanyProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "industry" | "about" | "budgetRange" | "targetAudience" | "companySize" | "website" | "contactPerson" | "contactNumber" | "socialLinks" | "totalAmountSpent" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["companyProfile"]>
 export type CompanyProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   deals?: boolean | Prisma.CompanyProfile$dealsArgs<ExtArgs>
@@ -916,6 +950,7 @@ export type $CompanyProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     contactNumber: string | null
     socialLinks: string | null
     totalAmountSpent: number
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["companyProfile"]>
@@ -1355,6 +1390,7 @@ export interface CompanyProfileFieldRefs {
   readonly contactNumber: Prisma.FieldRef<"CompanyProfile", 'String'>
   readonly socialLinks: Prisma.FieldRef<"CompanyProfile", 'String'>
   readonly totalAmountSpent: Prisma.FieldRef<"CompanyProfile", 'Float'>
+  readonly deletedAt: Prisma.FieldRef<"CompanyProfile", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"CompanyProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CompanyProfile", 'DateTime'>
 }

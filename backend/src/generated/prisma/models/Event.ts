@@ -43,6 +43,7 @@ export type EventMinAggregateOutputType = {
   footfall: number | null
   location: string | null
   date: Date | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +57,7 @@ export type EventMaxAggregateOutputType = {
   footfall: number | null
   location: string | null
   date: Date | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -69,6 +71,7 @@ export type EventCountAggregateOutputType = {
   footfall: number
   location: number
   date: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -92,6 +95,7 @@ export type EventMinAggregateInputType = {
   footfall?: true
   location?: true
   date?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -105,6 +109,7 @@ export type EventMaxAggregateInputType = {
   footfall?: true
   location?: true
   date?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -118,6 +123,7 @@ export type EventCountAggregateInputType = {
   footfall?: true
   location?: true
   date?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -218,6 +224,7 @@ export type EventGroupByOutputType = {
   footfall: number
   location: string
   date: Date
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: EventCountAggregateOutputType | null
@@ -254,6 +261,7 @@ export type EventWhereInput = {
   footfall?: Prisma.IntFilter<"Event"> | number
   location?: Prisma.StringFilter<"Event"> | string
   date?: Prisma.DateTimeFilter<"Event"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   club?: Prisma.XOR<Prisma.ClubProfileScalarRelationFilter, Prisma.ClubProfileWhereInput>
@@ -270,6 +278,7 @@ export type EventOrderByWithRelationInput = {
   footfall?: Prisma.SortOrder
   location?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   club?: Prisma.ClubProfileOrderByWithRelationInput
@@ -289,6 +298,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   footfall?: Prisma.IntFilter<"Event"> | number
   location?: Prisma.StringFilter<"Event"> | string
   date?: Prisma.DateTimeFilter<"Event"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   club?: Prisma.XOR<Prisma.ClubProfileScalarRelationFilter, Prisma.ClubProfileWhereInput>
@@ -305,6 +315,7 @@ export type EventOrderByWithAggregationInput = {
   footfall?: Prisma.SortOrder
   location?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
@@ -326,6 +337,7 @@ export type EventScalarWhereWithAggregatesInput = {
   footfall?: Prisma.IntWithAggregatesFilter<"Event"> | number
   location?: Prisma.StringWithAggregatesFilter<"Event"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
 }
@@ -338,6 +350,7 @@ export type EventCreateInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubProfileCreateNestedOneWithoutEventsInput
@@ -354,6 +367,7 @@ export type EventUncheckedCreateInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tiers?: Prisma.SponsorshipTierUncheckedCreateNestedManyWithoutEventInput
@@ -368,6 +382,7 @@ export type EventUpdateInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubProfileUpdateOneRequiredWithoutEventsNestedInput
@@ -384,6 +399,7 @@ export type EventUncheckedUpdateInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tiers?: Prisma.SponsorshipTierUncheckedUpdateManyWithoutEventNestedInput
@@ -399,6 +415,7 @@ export type EventCreateManyInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -411,6 +428,7 @@ export type EventUpdateManyMutationInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -424,6 +442,7 @@ export type EventUncheckedUpdateManyInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -447,6 +466,7 @@ export type EventCountOrderByAggregateInput = {
   footfall?: Prisma.SortOrder
   location?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -464,6 +484,7 @@ export type EventMaxOrderByAggregateInput = {
   footfall?: Prisma.SortOrder
   location?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -477,6 +498,7 @@ export type EventMinOrderByAggregateInput = {
   footfall?: Prisma.SortOrder
   location?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -568,6 +590,7 @@ export type EventCreateWithoutClubInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tiers?: Prisma.SponsorshipTierCreateNestedManyWithoutEventInput
@@ -582,6 +605,7 @@ export type EventUncheckedCreateWithoutClubInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tiers?: Prisma.SponsorshipTierUncheckedCreateNestedManyWithoutEventInput
@@ -626,6 +650,7 @@ export type EventScalarWhereInput = {
   footfall?: Prisma.IntFilter<"Event"> | number
   location?: Prisma.StringFilter<"Event"> | string
   date?: Prisma.DateTimeFilter<"Event"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
 }
@@ -638,6 +663,7 @@ export type EventCreateWithoutTiersInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubProfileCreateNestedOneWithoutEventsInput
@@ -653,6 +679,7 @@ export type EventUncheckedCreateWithoutTiersInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deals?: Prisma.SponsorshipDealUncheckedCreateNestedManyWithoutEventInput
@@ -682,6 +709,7 @@ export type EventUpdateWithoutTiersInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubProfileUpdateOneRequiredWithoutEventsNestedInput
@@ -697,6 +725,7 @@ export type EventUncheckedUpdateWithoutTiersInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deals?: Prisma.SponsorshipDealUncheckedUpdateManyWithoutEventNestedInput
@@ -710,6 +739,7 @@ export type EventCreateWithoutDealsInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   club: Prisma.ClubProfileCreateNestedOneWithoutEventsInput
@@ -725,6 +755,7 @@ export type EventUncheckedCreateWithoutDealsInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tiers?: Prisma.SponsorshipTierUncheckedCreateNestedManyWithoutEventInput
@@ -754,6 +785,7 @@ export type EventUpdateWithoutDealsInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubProfileUpdateOneRequiredWithoutEventsNestedInput
@@ -769,6 +801,7 @@ export type EventUncheckedUpdateWithoutDealsInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tiers?: Prisma.SponsorshipTierUncheckedUpdateManyWithoutEventNestedInput
@@ -782,6 +815,7 @@ export type EventCreateManyClubInput = {
   footfall?: number
   location: string
   date: Date | string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -794,6 +828,7 @@ export type EventUpdateWithoutClubInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tiers?: Prisma.SponsorshipTierUpdateManyWithoutEventNestedInput
@@ -808,6 +843,7 @@ export type EventUncheckedUpdateWithoutClubInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tiers?: Prisma.SponsorshipTierUncheckedUpdateManyWithoutEventNestedInput
@@ -822,6 +858,7 @@ export type EventUncheckedUpdateManyWithoutClubInput = {
   footfall?: Prisma.IntFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -875,6 +912,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   footfall?: boolean
   location?: boolean
   date?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   club?: boolean | Prisma.ClubProfileDefaultArgs<ExtArgs>
@@ -892,6 +930,7 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   footfall?: boolean
   location?: boolean
   date?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   club?: boolean | Prisma.ClubProfileDefaultArgs<ExtArgs>
@@ -906,6 +945,7 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   footfall?: boolean
   location?: boolean
   date?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   club?: boolean | Prisma.ClubProfileDefaultArgs<ExtArgs>
@@ -920,11 +960,12 @@ export type EventSelectScalar = {
   footfall?: boolean
   location?: boolean
   date?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clubId" | "name" | "description" | "eventType" | "footfall" | "location" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clubId" | "name" | "description" | "eventType" | "footfall" | "location" | "date" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   club?: boolean | Prisma.ClubProfileDefaultArgs<ExtArgs>
   tiers?: boolean | Prisma.Event$tiersArgs<ExtArgs>
@@ -954,6 +995,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     footfall: number
     location: string
     date: Date
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["event"]>
@@ -1390,6 +1432,7 @@ export interface EventFieldRefs {
   readonly footfall: Prisma.FieldRef<"Event", 'Int'>
   readonly location: Prisma.FieldRef<"Event", 'String'>
   readonly date: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Event", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Event", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Event", 'DateTime'>
 }

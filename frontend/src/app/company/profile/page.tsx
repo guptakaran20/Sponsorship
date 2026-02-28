@@ -7,6 +7,7 @@ import { Building2, Save, Target, DollarSign, Users, Globe, Phone, User, Link as
 export default function CompanyProfilePage() {
     const [formData, setFormData] = useState({
         industry: 'Technology',
+        customIndustry: '',
         about: '',
         budgetRange: '',
         targetAudience: '',
@@ -25,8 +26,13 @@ export default function CompanyProfilePage() {
             try {
                 const profile = await fetchApi('/companies/profile');
                 if (profile) {
+                    const knownIndustries = ['Technology', 'Finance', 'FMCG', 'EdTech', 'Retail'];
+                    const savedIndustry = profile.industry || 'Technology';
+                    const isOther = !knownIndustries.includes(savedIndustry);
+
                     setFormData({
-                        industry: profile.industry || 'Technology',
+                        industry: isOther ? 'Other' : savedIndustry,
+                        customIndustry: isOther ? savedIndustry : '',
                         about: profile.about || '',
                         budgetRange: profile.budgetRange || '',
                         targetAudience: profile.targetAudience || '',
@@ -52,9 +58,16 @@ export default function CompanyProfilePage() {
         setMessage({ type: '', text: '' });
 
         try {
+            const payload = {
+                ...formData,
+                industry: formData.industry === 'Other' ? formData.customIndustry : formData.industry,
+            };
+            // Remove customIndustry from payload — it's a UI-only field
+            const { customIndustry, ...submitData } = payload;
+
             await fetchApi('/companies/profile', {
                 method: 'POST',
-                body: JSON.stringify(formData),
+                body: JSON.stringify(submitData),
             });
 
             setMessage({ type: 'success', text: 'Brand Profile updated successfully!' });
@@ -94,7 +107,7 @@ export default function CompanyProfilePage() {
                         </label>
                         <select
                             value={formData.industry}
-                            onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+                            onChange={(e) => setFormData({ ...formData, industry: e.target.value, customIndustry: e.target.value !== 'Other' ? '' : formData.customIndustry })}
                             className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
                         >
                             <option className="bg-slate-900">Technology</option>
@@ -102,7 +115,18 @@ export default function CompanyProfilePage() {
                             <option className="bg-slate-900">FMCG</option>
                             <option className="bg-slate-900">EdTech</option>
                             <option className="bg-slate-900">Retail</option>
+                            <option className="bg-slate-900">Other</option>
                         </select>
+                        {formData.industry === 'Other' && (
+                            <input
+                                type="text"
+                                value={formData.customIndustry}
+                                onChange={(e) => setFormData({ ...formData, customIndustry: e.target.value })}
+                                className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all mt-2"
+                                placeholder="Enter your industry"
+                                required
+                            />
+                        )}
                     </div>
 
                     <div className="space-y-2">
@@ -122,7 +146,7 @@ export default function CompanyProfilePage() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-300 flex items-center">
                             <DollarSign className="w-4 h-4 mr-2 text-indigo-400" />
-                            Annual Sponsorship Budget Range
+                            Sponsorship Budget Range
                         </label>
                         <select
                             value={formData.budgetRange}

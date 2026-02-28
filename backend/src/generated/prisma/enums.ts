@@ -20,6 +20,7 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 export const DealStatus = {
   PENDING: 'PENDING',
+  NEGOTIATING: 'NEGOTIATING',
   ACCEPTED: 'ACCEPTED',
   REJECTED: 'REJECTED',
   COMPLETED: 'COMPLETED'

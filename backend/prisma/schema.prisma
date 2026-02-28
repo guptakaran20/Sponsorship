@@ -8,18 +8,20 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(uuid())
-  email          String          @unique
-  password       String
-  name           String
-  role           Role            @default(CLUB)
-  isVerified     Boolean         @default(false)
-  deletedAt      DateTime?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  clubProfile    ClubProfile?
-  companyProfile CompanyProfile?
-  notifications  Notification[]
+  id               String          @id @default(uuid())
+  email            String          @unique
+  password         String
+  name             String
+  role             Role            @default(CLUB)
+  isVerified       Boolean         @default(false)
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  deletedAt        DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  clubProfile      ClubProfile?
+  companyProfile   CompanyProfile?
+  notifications    Notification[]
 }
 
 enum Role {

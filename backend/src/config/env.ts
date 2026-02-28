@@ -14,6 +14,16 @@ const envSchema = z.object({
   ADMIN_SECRET: z.string().min(1, 'ADMIN_SECRET is required'),
   CSRF_SECRET: z.string().min(32, 'CSRF_SECRET must be at least 32 characters'),
   CORS_ORIGIN: z.string().default('http://localhost:3000'),
+  // SMTP config (optional — password reset emails)
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.string().optional(),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  SMTP_FROM: z.string().optional(),
+  // Cloudinary config (optional — cloud image uploads)
+  CLOUDINARY_CLOUD_NAME: z.string().optional(),
+  CLOUDINARY_API_KEY: z.string().optional(),
+  CLOUDINARY_API_SECRET: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
