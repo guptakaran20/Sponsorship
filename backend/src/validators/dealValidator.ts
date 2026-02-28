@@ -9,7 +9,7 @@ export const createDealSchema = z.object({
 
 export const updateDealStatusSchema = z.object({
   body: z.object({
-    status: z.enum(['ACCEPTED', 'REJECTED', 'NEGOTIATING'], { errorMap: () => ({ message: 'Invalid status' }) }),
+    status: z.enum(['ACCEPTED', 'REJECTED', 'NEGOTIATING'] as const, { error: () => ({ message: 'Invalid status' }) }),
   }),
   params: z.object({ id: z.string().uuid('Invalid deal ID') }),
 });
