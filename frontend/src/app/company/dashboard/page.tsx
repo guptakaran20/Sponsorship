@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
-import { Calendar, Users, Briefcase, ChevronRight, TrendingUp, Compass, Search } from 'lucide-react';
+import { Calendar, Users, Briefcase, ChevronRight, TrendingUp, Compass, Search, Handshake, Settings } from 'lucide-react';
 
 export default function CompanyDashboardPage() {
     const [profile, setProfile] = useState<any>(null);
@@ -31,12 +31,16 @@ export default function CompanyDashboardPage() {
 
     if (isLoading) {
         return (
-            <div className="flex flex-col gap-6 animate-pulse">
-                <div className="h-32 bg-slate-900 rounded-3xl" />
+            <div className="flex flex-col gap-6">
+                <div className="h-32 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-[shimmer_2s_infinite] bg-[length:200%_100%] rounded-3xl" />
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="h-40 bg-slate-900 rounded-3xl" />
-                    <div className="h-40 bg-slate-900 rounded-3xl" />
-                    <div className="h-40 bg-slate-900 rounded-3xl" />
+                    {[1, 2, 3].map(i => (
+                        <div key={i} className="bg-slate-900 rounded-3xl p-6 space-y-4">
+                            <div className="h-3 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-[shimmer_2s_infinite] bg-[length:200%_100%] rounded-lg w-1/2" />
+                            <div className="h-8 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-[shimmer_2s_infinite] bg-[length:200%_100%] rounded-lg w-1/3" />
+                            <div className="h-3 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-[shimmer_2s_infinite] bg-[length:200%_100%] rounded-lg w-2/3" />
+                        </div>
+                    ))}
                 </div>
             </div>
         );
@@ -123,6 +127,28 @@ export default function CompanyDashboardPage() {
                         <span className="text-slate-500">Awaiting club approval</span>
                     </div>
                 </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/company/discover" className="flex items-center gap-3 bg-slate-900 border border-white/5 rounded-2xl p-4 hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all group">
+                    <div className="p-2 bg-indigo-500/20 rounded-xl text-indigo-400 group-hover:scale-110 transition-transform">
+                        <Search className="w-5 h-5" />
+                    </div>
+                    <span className="text-sm font-medium text-white">Discover Events</span>
+                </Link>
+                <Link href="/company/sponsorships" className="flex items-center gap-3 bg-slate-900 border border-white/5 rounded-2xl p-4 hover:border-amber-500/30 hover:bg-amber-500/5 transition-all group">
+                    <div className="p-2 bg-amber-500/20 rounded-xl text-amber-400 group-hover:scale-110 transition-transform">
+                        <Handshake className="w-5 h-5" />
+                    </div>
+                    <span className="text-sm font-medium text-white">My Sponsorships</span>
+                </Link>
+                <Link href="/company/profile" className="flex items-center gap-3 bg-slate-900 border border-white/5 rounded-2xl p-4 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all group">
+                    <div className="p-2 bg-emerald-500/20 rounded-xl text-emerald-400 group-hover:scale-110 transition-transform">
+                        <Settings className="w-5 h-5" />
+                    </div>
+                    <span className="text-sm font-medium text-white">Profile Setup</span>
+                </Link>
             </div>
 
             {/* Discover Action */}

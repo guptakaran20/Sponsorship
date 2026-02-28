@@ -95,6 +95,17 @@ export default function LoginPage() {
                             </div>
                         </div>
 
+                        <div className="flex items-center pl-1">
+                            <input
+                                type="checkbox"
+                                id="remember-me"
+                                className="w-4 h-4 rounded bg-white/5 border border-white/20 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-0"
+                            />
+                            <label htmlFor="remember-me" className="ml-2 text-sm text-indigo-200 cursor-pointer">
+                                Remember me
+                            </label>
+                        </div>
+
                         <button
                             type="submit"
                             disabled={isLoading}
