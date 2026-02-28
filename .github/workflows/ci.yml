@@ -32,7 +32,10 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sponsorbridge
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          CSRF_SECRET: ${{ secrets.CSRF_SECRET }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
 
       - name: Run tests
         run: npm test
