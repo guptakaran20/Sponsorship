@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { fetchApi } from '@/lib/api';
-import { Calendar, Users, MapPin, Tag, Sparkles, Handshake, Filter, ChevronDown, CheckCircle2, ChevronRight, Search } from 'lucide-react';
+import { Calendar, Users, MapPin, Tag, Sparkles, Handshake, Filter, ChevronDown, CheckCircle2, ChevronRight, Search, ArrowUpDown } from 'lucide-react';
 
 export default function DiscoverEventsPage() {
     const [events, setEvents] = useState<any[]>([]);
@@ -15,6 +15,7 @@ export default function DiscoverEventsPage() {
     // Filters
     const [eventTypeFilter, setEventTypeFilter] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
+    const [sortBy, setSortBy] = useState('');
     const [companyProfile, setCompanyProfile] = useState<any>(null);
 
     useEffect(() => {
@@ -72,7 +73,16 @@ export default function DiscoverEventsPage() {
     const filteredEvents = events.filter(event =>
     (event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.club?.collegeName?.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
+    ).sort((a, b) => {
+        if (sortBy === 'date') return new Date(a.date).getTime() - new Date(b.date).getTime();
+        if (sortBy === 'footfall') return (b.footfall || 0) - (a.footfall || 0);
+        if (sortBy === 'amount') {
+            const maxTierA = Math.max(...(a.tiers?.map((t: any) => t.amount) || [0]));
+            const maxTierB = Math.max(...(b.tiers?.map((t: any) => t.amount) || [0]));
+            return maxTierB - maxTierA;
+        }
+        return 0;
+    });
 
     return (
         <div className="space-y-8 pb-12">
@@ -122,6 +132,21 @@ export default function DiscoverEventsPage() {
                             <option value="Hackathon">Hackathon</option>
                             <option value="Cultural Fest">Cultural Fest</option>
                             <option value="Workshop">Workshop</option>
+                        </select>
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                    </div>
+
+                    <div className="relative">
+                        <ArrowUpDown className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="bg-slate-900 border border-white/10 text-white rounded-xl py-2 pl-10 pr-10 appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm"
+                        >
+                            <option value="">Sort By</option>
+                            <option value="date">Date (Soonest)</option>
+                            <option value="footfall">Footfall (Highest)</option>
+                            <option value="amount">Sponsorship Amount</option>
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                     </div>

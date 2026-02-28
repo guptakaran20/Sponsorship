@@ -46,21 +46,54 @@ export default function Home() {
           Stop relying on cold emails. SponsorBridge connects ambitious college clubs with top-tier brands looking for their next audience.
         </p>
 
+        {/* Value Proposition */}
+        <p className="text-base text-indigo-400 font-medium mb-12 tracking-wide">
+          The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z.
+        </p>
+
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-6 mb-24">
+        <div className="flex flex-col sm:flex-row items-center gap-6 mb-16">
           <Link
             href="/register"
             className="group px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-2xl text-lg font-semibold transition-all shadow-[0_0_40px_-10px_var(--color-indigo-500)] flex items-center"
           >
-            Get Started Free
+            List Your Event
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
-            href="/login"
+            href="/register"
             className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-2xl text-lg font-semibold transition-all backdrop-blur-md"
           >
-            Sign In to Dashboard
+            Find Events to Sponsor
           </Link>
+        </div>
+
+        <button
+          onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+          className="text-indigo-400 hover:text-indigo-300 text-sm font-medium flex items-center gap-2 mb-24 transition-colors cursor-pointer"
+        >
+          See How It Works
+          <ArrowRight className="w-4 h-4 rotate-90" />
+        </button>
+
+        {/* Social Proof Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full mb-24">
+          <div className="text-center p-6 bg-white/5 border border-white/5 rounded-2xl backdrop-blur-md">
+            <p className="text-3xl font-bold text-white">500+</p>
+            <p className="text-sm text-slate-400 mt-1">Clubs Connected</p>
+          </div>
+          <div className="text-center p-6 bg-white/5 border border-white/5 rounded-2xl backdrop-blur-md">
+            <p className="text-3xl font-bold text-white">₹2Cr+</p>
+            <p className="text-sm text-slate-400 mt-1">Sponsorships Facilitated</p>
+          </div>
+          <div className="text-center p-6 bg-white/5 border border-white/5 rounded-2xl backdrop-blur-md">
+            <p className="text-3xl font-bold text-white">50+</p>
+            <p className="text-sm text-slate-400 mt-1">Brand Partners</p>
+          </div>
+          <div className="text-center p-6 bg-white/5 border border-white/5 rounded-2xl backdrop-blur-md">
+            <p className="text-3xl font-bold text-white">95%</p>
+            <p className="text-sm text-slate-400 mt-1">Deal Success Rate</p>
+          </div>
         </div>
 
         {/* Feature Cards Grid */}
@@ -69,9 +102,9 @@ export default function Home() {
             <div className="w-14 h-14 bg-indigo-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Rocket className="w-7 h-7 text-indigo-400" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3 text-left">For College Clubs</h3>
+            <h3 className="text-2xl font-bold text-white mb-3 text-left">Attract Top Sponsors</h3>
             <p className="text-slate-400 text-left leading-relaxed">
-              Create beautiful event pages, define sponsorship tiers, and let the brands come to you. Manage all interactions in one dashboard.
+              Stop chasing cold emails. Create beautiful event pages, define sponsorship tiers, and let brands come to you — all from one dashboard.
             </p>
           </div>
 
@@ -79,9 +112,9 @@ export default function Home() {
             <div className="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Target className="w-7 h-7 text-blue-400" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3 text-left">For Companies</h3>
+            <h3 className="text-2xl font-bold text-white mb-3 text-left">Reach Gen-Z Audiences</h3>
             <p className="text-slate-400 text-left leading-relaxed">
-              Filter events by footfall, location, and industry. Seamlessly sponsor the right audiences and track your campus marketing ROI.
+              Discover high-impact campus events filtered by footfall, location, and industry. Sponsor the right audiences and track your campus marketing ROI.
             </p>
           </div>
 
@@ -89,10 +122,46 @@ export default function Home() {
             <div className="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <ShieldCheck className="w-7 h-7 text-emerald-400" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3 text-left">Secure Deals</h3>
+            <h3 className="text-2xl font-bold text-white mb-3 text-left">Fraud-Free Deals</h3>
             <p className="text-slate-400 text-left leading-relaxed">
-              Utilize our secure Deal PIN verification system to finalize sponsorships and gain access to direct contact information.
+              Every deal is secured with PIN verification. Both parties get exactly what they agreed upon in a transparent, trustworthy environment.
             </p>
+          </div>
+        </div>
+
+        {/* How It Works */}
+        <div id="how-it-works" className="w-full max-w-5xl text-center mb-24 scroll-mt-24">
+          <h2 className="text-4xl font-bold text-white mb-4">How It Works</h2>
+          <p className="text-slate-400 mb-12">Get started in three simple steps</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="relative">
+              <div className="w-16 h-16 bg-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-indigo-500/30">
+                <span className="text-2xl font-bold text-indigo-400">1</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Create Profile</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Sign up as a club or company. Set up your profile to showcase your brand and goals.
+              </p>
+            </div>
+            <div className="relative">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/30">
+                <span className="text-2xl font-bold text-blue-400">2</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Discover Matches</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Clubs post events with sponsorship tiers. Companies browse, filter, and find perfect opportunities.
+              </p>
+            </div>
+            <div className="relative">
+              <div className="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
+                <span className="text-2xl font-bold text-emerald-400">3</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Close the Deal</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Accept proposals, verify with a secure PIN, and complete the sponsorship. It&apos;s that simple.
+              </p>
+            </div>
           </div>
         </div>
 

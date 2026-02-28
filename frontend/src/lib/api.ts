@@ -70,6 +70,22 @@ export const fetchApi = async (endpoint: string, options: RequestInit = {}) => {
     const data = await response.json().catch(() => null);
 
     if (!response.ok) {
+        // Contextual error messages based on status code
+        if (response.status === 401) {
+            throw new Error(data?.message || 'Session expired. Please sign in again.');
+        }
+        if (response.status === 404) {
+            throw new Error(data?.message || 'The requested resource was not found.');
+        }
+        if (response.status === 422 || response.status === 400) {
+            throw new Error(data?.message || 'Please check your input and try again.');
+        }
+        if (response.status === 429) {
+            throw new Error('Too many requests. Please wait a moment and try again.');
+        }
+        if (response.status >= 500) {
+            throw new Error(data?.message || 'Server error. Please try again later.');
+        }
         throw new Error(data?.message || 'Something went wrong');
     }
 
