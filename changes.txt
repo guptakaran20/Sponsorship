@@ -1,6 +1,1 @@
 forgot password system not Working
-add option to create account using gmail 
-add option of other in industy brand profile
-remove word annual from annual sponsorship budget range
-IMAGE SHOULD BE stored in db not in backend folder
-image is not loading in profile or say changing

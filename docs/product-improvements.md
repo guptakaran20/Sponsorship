@@ -31,11 +31,6 @@
 
 ## 2. Authentication Pages
 
-### Login
-- ✅ Forgot password link now functional.
-- Consider adding a **"Remember me"** checkbox for convenience.
-- Show password strength indicator on registration page.
-
 ### Register
 - Add a brief **"Why join?"** sidebar or bullet list next to the registration form.
 - Consider progressive onboarding: register → complete profile → create first event (guided flow).
