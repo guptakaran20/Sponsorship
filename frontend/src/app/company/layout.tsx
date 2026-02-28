@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { getAuthToken, removeAuthToken, fetchApi } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 import {
     Building,
     Search,
@@ -25,21 +25,16 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
 
     useEffect(() => {
         const checkAuth = async () => {
-            const token = getAuthToken();
-            if (!token) {
-                router.push('/login');
-                return;
-            }
             try {
-                const u = await fetchApi('/auth/me');
-                if (u.role !== 'COMPANY') {
-                    router.push('/club/dashboard');
+                const res = await fetchApi('/auth/me');
+                const u = res?.data;
+                if (!u || u.role !== 'COMPANY') {
+                    router.push(u ? '/club/dashboard' : '/login');
                 } else {
                     setUser(u);
                     fetchNotifications();
                 }
             } catch (e) {
-                removeAuthToken();
                 router.push('/login');
             }
         };
@@ -72,8 +67,10 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
 
     const unreadCount = notifications.filter(n => !n.isRead).length;
 
-    const handleLogout = () => {
-        removeAuthToken();
+    const handleLogout = async () => {
+        try {
+            await fetchApi('/auth/logout', { method: 'POST' });
+        } catch (e) { }
         router.push('/login');
     };
 

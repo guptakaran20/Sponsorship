@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { fetchApi, setAuthToken } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 import { Mail, Lock, User, Briefcase, GraduationCap, ArrowRight, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
@@ -28,14 +28,11 @@ export default function RegisterPage() {
                 body: JSON.stringify(formData),
             });
 
-            if (data?.token) {
-                setAuthToken(data.token);
-                // Redirect based on role
-                if (data.user?.role === 'CLUB') {
-                    router.push('/club/dashboard');
-                } else {
-                    router.push('/company/dashboard');
-                }
+            const role = data?.data?.user?.role;
+            if (role === 'CLUB') {
+                router.push('/club/dashboard');
+            } else if (role) {
+                router.push('/company/dashboard');
             }
         } catch (err: any) {
             setError(err.message || 'Registration failed');

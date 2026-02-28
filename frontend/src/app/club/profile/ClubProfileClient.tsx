@@ -175,20 +175,15 @@ export default function ClubProfilePage() {
 
                                     try {
                                         setIsLoading(true);
-                                        const token = localStorage.getItem('token');
-                                        const res = await fetch('http://localhost:5000/api/upload', {
+                                        const res = await fetchApi('/upload', {
                                             method: 'POST',
-                                            headers: {
-                                                'Authorization': `Bearer ${token}`
-                                            },
-                                            body: uploadData
+                                            body: uploadData,
                                         });
-                                        const data = await res.json();
-                                        if (res.ok) {
-                                            setFormData(prev => ({ ...prev, profilePhoto: data.url }));
+                                        if (res?.url) {
+                                            setFormData(prev => ({ ...prev, profilePhoto: res.url }));
                                             setMessage({ type: 'success', text: 'Image uploaded successfully. Remember to Save Profile.' });
                                         } else {
-                                            throw new Error(data.message || 'Upload failed');
+                                            throw new Error(res?.message || 'Upload failed');
                                         }
                                     } catch (err: any) {
                                         setMessage({ type: 'error', text: err.message });
