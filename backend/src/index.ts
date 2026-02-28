@@ -35,7 +35,7 @@ import { generalLimiter } from './middlewares/rateLimiter';
 
 // CSRF protection using double-submit cookie pattern
 const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
-  getSecret: () => env.JWT_SECRET,
+  getSecret: () => env.CSRF_SECRET,
   getSessionIdentifier: (req) => (req as any).cookies?.refreshToken || req.ip || '',
   cookieName: 'x-csrf-token',
   cookieOptions: {

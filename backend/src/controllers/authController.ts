@@ -36,6 +36,13 @@ export const register = async (req: Request, res: Response) => {
         const accessToken = generateAccessToken(user.id, user.role);
         const refreshToken = generateRefreshToken(user.id);
 
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 15 * 60 * 1000,
+        });
+
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
@@ -45,7 +52,6 @@ export const register = async (req: Request, res: Response) => {
 
         res.status(201).json(ApiResponse.ok('User registered successfully', {
             user: { id: user.id, email: user.email, name: user.name, role: user.role },
-            token: accessToken,
         }));
     } catch (error) {
         res.status(500).json(ApiResponse.error('Server error during registration'));
@@ -73,6 +79,13 @@ export const login = async (req: Request, res: Response) => {
         const accessToken = generateAccessToken(user.id, user.role);
         const refreshToken = generateRefreshToken(user.id);
 
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 15 * 60 * 1000,
+        });
+
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
@@ -82,7 +95,6 @@ export const login = async (req: Request, res: Response) => {
 
         res.status(200).json(ApiResponse.ok('Logged in successfully', {
             user: { id: user.id, email: user.email, name: user.name, role: user.role },
-            token: accessToken,
         }));
     } catch (error) {
         res.status(500).json(ApiResponse.error('Server error during login'));
@@ -105,6 +117,13 @@ export const refreshToken = async (req: Request, res: Response) => {
         const newAccessToken = generateAccessToken(user.id, user.role);
         const newRefreshToken = generateRefreshToken(user.id);
 
+        res.cookie('accessToken', newAccessToken, {
+            httpOnly: true,
+            secure: env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 15 * 60 * 1000,
+        });
+
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
@@ -112,14 +131,16 @@ export const refreshToken = async (req: Request, res: Response) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
-        res.status(200).json(ApiResponse.ok('Token refreshed', { token: newAccessToken }));
+        res.status(200).json(ApiResponse.ok('Token refreshed'));
     } catch (error) {
         res.status(401).json(ApiResponse.error('Invalid refresh token'));
     }
 };
 
 export const logout = (req: Request, res: Response) => {
-    res.clearCookie('refreshToken', { httpOnly: true, secure: env.NODE_ENV === 'production', sameSite: 'strict' });
+    const cookieOptions = { httpOnly: true, secure: env.NODE_ENV === 'production', sameSite: 'strict' as const };
+    res.clearCookie('accessToken', cookieOptions);
+    res.clearCookie('refreshToken', cookieOptions);
     res.status(200).json(ApiResponse.ok('Logged out successfully'));
 };
 

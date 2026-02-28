@@ -43,6 +43,7 @@ jobs:
           JWT_REFRESH_EXPIRES_IN: 7d
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sponsorbridge
           ADMIN_SECRET: test-admin-secret
+          CSRF_SECRET: test-csrf-secret-key-that-is-at-least-32-chars
           CORS_ORIGIN: http://localhost:3000
 
       - name: Build
@@ -54,6 +55,7 @@ jobs:
           JWT_REFRESH_EXPIRES_IN: 7d
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sponsorbridge
           ADMIN_SECRET: test-admin-secret
+          CSRF_SECRET: test-csrf-secret-key-that-is-at-least-32-chars
           CORS_ORIGIN: http://localhost:3000
 
   frontend-lint-build:

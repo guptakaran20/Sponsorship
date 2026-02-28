@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getAuthToken, removeAuthToken } from '../lib/api';
+import { fetchApi } from '../lib/api';
 import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
@@ -10,19 +10,17 @@ export default function Navbar() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = getAuthToken();
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        setUser({ name: '', role: payload.role });
-      } catch {
-        setUser(null);
-      }
-    }
+    fetchApi('/auth/me', { method: 'GET' })
+      .then((res) => setUser({ name: res?.data?.name ?? '', role: res?.data?.role ?? '' }))
+      .catch(() => setUser(null));
   }, []);
 
-  const handleLogout = () => {
-    removeAuthToken();
+  const handleLogout = async () => {
+    try {
+      await fetchApi('/auth/logout', { method: 'POST' });
+    } catch {
+      // ignore
+    }
     setUser(null);
     router.push('/login');
   };
