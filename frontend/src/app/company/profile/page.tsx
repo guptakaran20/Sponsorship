@@ -146,7 +146,7 @@ export default function CompanyProfilePage() {
                                         });
                                         if (res?.url) {
                                             setFormData(prev => ({ ...prev, profilePhoto: res.url }));
-                                            setMessage({ type: 'success', text: 'Image uploaded successfully. Remember to Save Profile.' });
+                                            setMessage({ type: 'success', text: 'Image uploaded. Click "Save Profile" below to apply changes.' });
                                         } else {
                                             throw new Error(res?.message || 'Upload failed');
                                         }
