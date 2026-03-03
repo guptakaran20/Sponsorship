@@ -9,33 +9,48 @@ export default function ClubDashboardPage() {
     const [profile, setProfile] = useState<any>(null);
     const [events, setEvents] = useState<any[]>([]);
     const [deals, setDeals] = useState<any[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+   const [criticalLoading, setCriticalLoading] = useState(true);
+const [secondaryLoading, setSecondaryLoading] = useState(true);
+
+const loadCriticalData = async () => {
+    try {
+        const profData = await fetchApi('/clubs/profile').catch(() => null);
+        const eventsData = await fetchApi('/events');
+
+        setProfile(profData);
+
+        if (profData && profData.events) {
+            setEvents(profData.events);
+        }
+
+    } catch (error) {
+        console.error("Critical load failed", error);
+    } finally {
+        setCriticalLoading(false);
+    }
+};
+
+const loadSecondaryData = async () => {
+    try {
+        const dealsData = await fetchApi('/deals');
+        setDeals(dealsData || []);
+    } catch (error) {
+        console.error("Secondary load failed", error);
+    } finally {
+        setSecondaryLoading(false);
+    }
+};
 
     useEffect(() => {
-        const loadDashboardData = async () => {
-            try {
-                const [profData, eventsData, dealsData] = await Promise.all([
-                    fetchApi('/clubs/profile').catch(() => null),
-                    fetchApi('/events'), // Need to filter by club actually
-                    fetchApi('/deals')
-                ]);
+    const initDashboard = async () => {
+        await loadCriticalData(); // 👈 render UI first
+        loadSecondaryData();      // 👈 THEN background
+    };
 
-                setProfile(profData);
-                if (profData && profData.events) {
-                    setEvents(profData.events);
-                }
-                const myDeals = dealsData || [];
-                setDeals(myDeals);
-            } catch (error) {
-                console.error("Error loading dashboard", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        loadDashboardData();
-    }, []);
+    initDashboard();
+}, []);
 
-    if (isLoading) {
+    if (criticalLoading) {
         return (
             <div className="flex flex-col gap-6">
                 <div className="h-32 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-[shimmer_2s_infinite] bg-[length:200%_100%] rounded-3xl" />
@@ -100,7 +115,7 @@ export default function ClubDashboardPage() {
                     <div className="flex justify-between items-start mb-4">
                         <div>
                             <p className="text-sm font-medium text-slate-400 mb-1">Active Sponsors</p>
-                            <h3 className="text-4xl font-bold text-white">{activeSponsors}</h3>
+                            <h3 className="text-4xl font-bold text-white">{secondaryLoading ? '...' : activeSponsors}</h3>
                         </div>
                         <div className="p-3 bg-blue-500/20 rounded-2xl text-blue-400">
                             <Users className="w-6 h-6" />
