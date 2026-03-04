@@ -66,13 +66,13 @@ export default function RegisterPage() {
                     <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-2xl backdrop-blur-xl border border-white/10 mb-4 shadow-2xl">
                         <ShieldCheck className="w-8 h-8 text-indigo-400" />
                     </div>
-                    <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Join SponsorBridge</h1>
+                    <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Join SponsorGrid</h1>
                     <p className="text-indigo-200">Create an account to connect and sponsor</p>
                 </div>
 
                 {/* Why Join Section */}
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-5 mb-6 backdrop-blur-md">
-                    <h3 className="text-sm font-semibold text-white mb-3">Why join SponsorBridge?</h3>
+                    <h3 className="text-sm font-semibold text-white mb-3">Why join SponsorGrid?</h3>
                     <ul className="space-y-2">
                         <li className="flex items-start text-sm text-indigo-200">
                             <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-2 shrink-0 mt-0.5" />

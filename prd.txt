@@ -3,7 +3,7 @@
 
 ## 🧩 Product Name (Working Title)
 
-**SponsorBridge**
+**SponsorGrid**
 *Tagline: Connecting Campus Innovation with Industry Support*
 
 ---

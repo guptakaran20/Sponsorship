@@ -1,7 +1,7 @@
 
 # 🏗️ SYSTEM DESIGN DOCUMENT
 
-## Product: **SponsorBridge**
+## Product: **SponsorGrid**
 
 ---
 

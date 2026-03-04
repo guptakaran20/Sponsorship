@@ -89,7 +89,7 @@ app.use('/api/public', publicRoutes);
 app.use('/api/upload', uploadRoutes);
 
 app.get('/', (req, res) => {
-  res.json({ message: 'SponsorBridge API is running!', version: '1.0.0' });
+  res.json({ message: 'SponsorGrid API is running!', version: '1.0.0' });
 });
 
 // Global error handler (must be last)

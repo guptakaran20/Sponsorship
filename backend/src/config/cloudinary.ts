@@ -15,7 +15,7 @@ if (isCloudinaryConfigured()) {
 
 export const uploadToCloudinary = async (
     fileBuffer: Buffer,
-    folder: string = 'sponsorbridge',
+    folder: string = 'sponsorgrid',
 ): Promise<string> => {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(

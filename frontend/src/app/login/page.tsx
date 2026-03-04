@@ -50,7 +50,7 @@ export default function LoginPage() {
                         <Sparkles className="w-8 h-8 text-indigo-400" />
                     </div>
                     <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Welcome Back</h1>
-                    <p className="text-indigo-200">Sign in to SponsorBridge to continue</p>
+                    <p className="text-indigo-200">Sign in to SponsorGrid to continue</p>
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">

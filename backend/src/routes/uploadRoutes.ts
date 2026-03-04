@@ -43,7 +43,7 @@ router.post('/', authenticateRequest, upload.single('image'), async (req, res) =
 
         if (isCloudinaryConfigured() && req.file.buffer) {
             // Upload to Cloudinary
-            fileUrl = await uploadToCloudinary(req.file.buffer, 'sponsorbridge/profiles');
+            fileUrl = await uploadToCloudinary(req.file.buffer, 'sponsorgrid/profiles');
         } else {
             // Fallback to local URL
             const protocol = req.protocol;

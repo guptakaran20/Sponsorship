@@ -60,7 +60,7 @@ export default function CompanyDashboardPage() {
                 </div>
                 <div className="relative z-10">
                     <h1 className="text-3xl font-bold text-white tracking-tight mb-2">
-                        Welcome to SponsorBridge Business
+                        Welcome to SponsorGrid Business
                     </h1>
                     <p className="text-blue-200 max-w-xl text-lg">
                         Monitor your campus outreach and manage active sponsorships.

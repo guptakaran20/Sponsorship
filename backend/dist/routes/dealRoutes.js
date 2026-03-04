@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const dealController_1 = require("../controllers/dealController");
+const auth_1 = require("../middlewares/auth");
+const router = (0, express_1.Router)();
+router.post('/', auth_1.authenticateRequest, (0, auth_1.authorizeRole)(['COMPANY']), dealController_1.createDeal);
+router.get('/', auth_1.authenticateRequest, dealController_1.getDeals);
+router.put('/:id', auth_1.authenticateRequest, (0, auth_1.authorizeRole)(['CLUB']), dealController_1.updateDealStatus);
+router.post('/:id/verify', auth_1.authenticateRequest, (0, auth_1.authorizeRole)(['CLUB']), dealController_1.verifyDealPin);
+exports.default = router;

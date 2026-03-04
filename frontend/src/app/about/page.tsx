@@ -13,7 +13,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="text-center space-y-6 pb-8 border-b border-white/10">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">About SponsorBridge</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">About SponsorGrid</h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
                         We are building the future of campus sponsorships by connecting innovative college clubs with industry-leading brands.
                     </p>
@@ -45,7 +45,7 @@ export default function AboutPage() {
                     <h2 className="text-3xl font-bold text-white mb-6">Ready to transform your events?</h2>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link href="/register" className="px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-xl transition-all shadow-lg shadow-indigo-500/25">
-                            Join SponsorBridge Today
+                            Join SponsorGrid Today
                         </Link>
                     </div>
                 </div>

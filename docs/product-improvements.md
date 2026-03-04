@@ -1,6 +1,6 @@
-# SponsorBridge — Product Improvement Suggestions
+# SponsorGrid — Product Improvement Suggestions
 
-> Audit of the entire frontend (landing, dashboard, profile flows, deal flows) with actionable UI/UX, copywriting, and design suggestions to position SponsorBridge as a professional SaaS startup solving the sponsorship discovery problem.
+> Audit of the entire frontend (landing, dashboard, profile flows, deal flows) with actionable UI/UX, copywriting, and design suggestions to position SponsorGrid as a professional SaaS startup solving the sponsorship discovery problem.
 
 ---
 

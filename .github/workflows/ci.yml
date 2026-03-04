@@ -44,7 +44,7 @@ jobs:
           JWT_REFRESH_SECRET: test-refresh-secret-key-that-is-at-least-32-chars
           JWT_EXPIRES_IN: 15m
           JWT_REFRESH_EXPIRES_IN: 7d
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sponsorbridge
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sponsorgrid
           ADMIN_SECRET: test-admin-secret
           CSRF_SECRET: test-csrf-secret-key-that-is-at-least-32-chars
           CORS_ORIGIN: http://localhost:3000
@@ -56,7 +56,7 @@ jobs:
           JWT_REFRESH_SECRET: test-refresh-secret-key-that-is-at-least-32-chars
           JWT_EXPIRES_IN: 15m
           JWT_REFRESH_EXPIRES_IN: 7d
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sponsorbridge
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sponsorgrid
           ADMIN_SECRET: test-admin-secret
           CSRF_SECRET: test-csrf-secret-key-that-is-at-least-32-chars
           CORS_ORIGIN: http://localhost:3000

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { fetchApi } from '../lib/api';
 import { useRouter } from 'next/navigation';
@@ -27,14 +28,14 @@ export default function Navbar() {
 
   const dashboardPath =
     user?.role === 'CLUB' ? '/club/dashboard' :
-    user?.role === 'COMPANY' ? '/company/dashboard' :
-    '/';
+      user?.role === 'COMPANY' ? '/company/dashboard' :
+        '/';
 
   return (
     <nav className="w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-lg sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-white tracking-tight">
-          SponsorBridge
+        <Link href="/" className="flex items-center pt-1">
+          <Image src="/logo.png" alt="SponsorGrid Logo" width={160} height={40} className="h-8 w-auto object-contain" priority />
         </Link>
         <div className="flex items-center gap-4">
           {user ? (

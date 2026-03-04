@@ -1,11 +1,13 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
     <footer className="w-full border-t border-white/10 bg-slate-950/80 backdrop-blur-lg py-8 z-20">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center">
-          <span className="text-xl font-bold text-white tracking-tight">SponsorBridge</span>
+        <div className="flex items-center gap-2">
+          <Image src="/icon.png" alt="SponsorGrid Icon" width={32} height={32} className="h-8 w-8 object-contain" />
+          <span className="text-xl font-bold text-white tracking-tight">SponsorGrid</span>
         </div>
         <div className="flex flex-wrap items-center gap-6 justify-center">
           <Link href="/about" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
@@ -15,7 +17,7 @@ export default function Footer() {
             Contact Us
           </Link>
           <a
-            href="https://instagram.com/sponsorbridge"
+            href="https://instagram.com/sponsor.grid"
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-400 hover:text-pink-500 transition-colors"
@@ -28,7 +30,7 @@ export default function Footer() {
             </svg>
           </a>
         </div>
-        <p className="text-slate-500 text-xs">© {new Date().getFullYear()} SponsorBridge. All rights reserved.</p>
+        <p className="text-slate-500 text-xs">© {new Date().getFullYear()} SponsorGrid. All rights reserved.</p>
       </div>
     </footer>
   );

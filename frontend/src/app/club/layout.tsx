@@ -108,7 +108,7 @@ export default function ClubLayout({ children }: { children: React.ReactNode }) 
       `}>
                 <div className="h-20 flex items-center px-8 border-b border-white/5">
                     <Sparkles className="w-6 h-6 text-indigo-400 mr-3" />
-                    <span className="text-xl font-bold text-white tracking-tight">SponsorBridge</span>
+                    <span className="text-xl font-bold text-white tracking-tight">SponsorGrid</span>
                 </div>
 
                 <nav className="flex-1 px-4 py-8 space-y-2 overflow-y-auto">

@@ -1,4 +1,4 @@
-# SponsorBridge API Documentation
+# SponsorGrid API Documentation
 
 Base URL: `http://localhost:5000/api`
 

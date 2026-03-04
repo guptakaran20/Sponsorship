@@ -1,4 +1,4 @@
-# SponsorBridge
+# SponsorGrid
 
 > The two-sided marketplace connecting college clubs with companies for sponsorships.
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-SponsorBridge is a SaaS platform that eliminates cold-email based sponsorship outreach. College clubs list their events with sponsorship tiers, and companies discover and sponsor the audiences they care about.
+SponsorGrid is a SaaS platform that eliminates cold-email based sponsorship outreach. College clubs list their events with sponsorship tiers, and companies discover and sponsor the audiences they care about.
 
 ## Tech Stack
 
@@ -23,7 +23,7 @@ SponsorBridge is a SaaS platform that eliminates cold-email based sponsorship ou
 ## Architecture
 
 ```
-SponsorBridge/
+SponsorGrid/
 ├── backend/          # Express.js API server
 │   ├── src/
 │   │   ├── config/       # Environment validation

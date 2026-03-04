@@ -43,7 +43,7 @@ export default function Home() {
         </h1>
 
         <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mb-12 font-light">
-          Stop relying on cold emails. SponsorBridge connects ambitious college clubs with top-tier brands looking for their next audience.
+          Stop relying on cold emails. SponsorGrid connects ambitious college clubs with top-tier brands looking for their next audience.
         </p>
 
         {/* Value Proposition */}
@@ -168,7 +168,7 @@ export default function Home() {
         {/* Leaderboards */}
         <div className="w-full max-w-5xl text-left mb-24 space-y-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">SponsorBridge Leaderboard</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">SponsorGrid Leaderboard</h2>
             <p className="text-slate-400">Recognizing the most active clubs and brands on our platform.</p>
           </div>
 
@@ -241,12 +241,12 @@ export default function Home() {
       <footer className="w-full border-t border-white/10 bg-slate-950/80 backdrop-blur-lg py-8 z-20">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center">
-            <span className="text-xl font-bold text-white tracking-tight">SponsorBridge</span>
+            <span className="text-xl font-bold text-white tracking-tight">SponsorGrid</span>
           </div>
           <div className="flex flex-wrap items-center gap-6 justify-center">
             <Link href="/about" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">About Us</Link>
             <Link href="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Contact Us</Link>
-            <a href="https://instagram.com/sponsorbridge" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-500 transition-colors" aria-label="Instagram">
+            <a href="https://instagram.com/sponsor.grid" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-500 transition-colors" aria-label="Instagram">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
             </a>
           </div>

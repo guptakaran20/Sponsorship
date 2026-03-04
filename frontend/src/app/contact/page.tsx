@@ -62,34 +62,10 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="text-white font-semibold text-lg">Email Us</h3>
                                     <p className="text-slate-400">Our team will respond within 24 hours.</p>
-                                    <a href="mailto:hello@sponsorbridge.com" className="text-indigo-400 hover:text-indigo-300 font-medium mt-1 inline-block">hello@sponsorbridge.com</a>
+                                    <a href="mailto:sponsorgrid@gmail.com" className="text-indigo-400 hover:text-indigo-300 font-medium mt-1 inline-block">sponsorgrid@gmail.com</a>
                                 </div>
                             </div>
 
-                            <div className="flex items-start">
-                                <div className="w-12 h-12 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center shrink-0 mr-4">
-                                    <Phone className="w-5 h-5 text-indigo-400" />
-                                </div>
-                                <div>
-                                    <h3 className="text-white font-semibold text-lg">Call Us</h3>
-                                    <p className="text-slate-400">Mon-Fri from 9am to 6pm IST.</p>
-                                    <p className="text-indigo-400 font-medium mt-1">+91 (123) 456-7890</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start">
-                                <div className="w-12 h-12 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center shrink-0 mr-4">
-                                    <MapPin className="w-5 h-5 text-indigo-400" />
-                                </div>
-                                <div>
-                                    <h3 className="text-white font-semibold text-lg">Office</h3>
-                                    <p className="text-slate-400">Come say hello at our HQ.</p>
-                                    <p className="text-slate-300 mt-1">
-                                        Innovation Hub, Plot No. 42<br />
-                                        Tech Park, Bengaluru, India 560001
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -114,7 +90,7 @@ export default function ContactPage() {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-indigo-500 transition-colors"
-                                    placeholder="John Doe"
+                                    placeholder="Eg. John Doe"
                                     required
                                 />
                             </div>

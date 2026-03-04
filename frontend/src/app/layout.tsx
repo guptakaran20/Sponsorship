@@ -14,17 +14,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SponsorBridge — Campus Sponsorship Platform",
+  title: "SponsorGrid — Campus Sponsorship Platform",
   description: "The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z. Connect, sponsor, and grow.",
   openGraph: {
-    title: "SponsorBridge — Campus Sponsorship Platform",
+    title: "SponsorGrid — Campus Sponsorship Platform",
     description: "The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z.",
-    siteName: "SponsorBridge",
+    siteName: "SponsorGrid",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SponsorBridge — Campus Sponsorship Platform",
+    title: "SponsorGrid — Campus Sponsorship Platform",
     description: "The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z.",
   },
 };
