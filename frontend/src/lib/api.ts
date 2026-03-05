@@ -1,5 +1,6 @@
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
+export const API = `${API_BASE_URL}/api`;
 // Kept for any legacy code that may reference these — token is now managed via HTTP-only cookies
 export const setAuthToken = (_token: string) => {};
 export const getAuthToken = () => null;
@@ -10,7 +11,7 @@ let csrfToken: string | null = null;
 const getCsrfToken = async (): Promise<string | null> => {
     if (csrfToken) return csrfToken;
     try {
-        const response = await fetch(`${API_BASE_URL}/csrf-token`, { credentials: 'include' });
+        const response = await fetch(`${API}/csrf-token`, { credentials: 'include' });
         if (response.ok) {
             const data = await response.json();
             csrfToken = data.csrfToken;
@@ -38,7 +39,7 @@ export const fetchApi = async (endpoint: string, options: RequestInit = {}) => {
         }
     }
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(`${API}${endpoint}`, {
         ...options,
         credentials: 'include',
         headers,
@@ -52,7 +53,7 @@ export const fetchApi = async (endpoint: string, options: RequestInit = {}) => {
             const newCsrf = await getCsrfToken();
             if (newCsrf) {
                 headers.set('x-csrf-token', newCsrf);
-                const retryResponse = await fetch(`${API_BASE_URL}${endpoint}`, {
+                const retryResponse = await fetch(`${API}${endpoint}`, {
                     ...options,
                     credentials: 'include',
                     headers,
