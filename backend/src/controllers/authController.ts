@@ -41,14 +41,14 @@ export const register = async (req: Request, res: Response) => {
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
@@ -84,14 +84,14 @@ export const login = async (req: Request, res: Response) => {
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
@@ -122,14 +122,14 @@ export const refreshToken = async (req: Request, res: Response) => {
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
 
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
             secure: env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
@@ -140,7 +140,7 @@ export const refreshToken = async (req: Request, res: Response) => {
 };
 
 export const logout = (req: Request, res: Response) => {
-    const cookieOptions = { httpOnly: true, secure: env.NODE_ENV === 'production', sameSite: 'strict' as const };
+    const cookieOptions = { httpOnly: true, secure: env.NODE_ENV === 'production', sameSite: 'none' as const };
     res.clearCookie('accessToken', cookieOptions);
     res.clearCookie('refreshToken', cookieOptions);
     res.status(200).json(ApiResponse.ok('Logged out successfully'));
