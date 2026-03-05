@@ -45,13 +45,13 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const refreshToken = (0, jwt_1.generateRefreshToken)(user.id);
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: env_1.env.NODE_ENV === 'production',
+           secure: true,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: env_1.env.NODE_ENV === 'production',
+          secure: true,
             sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
@@ -82,13 +82,13 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const refreshToken = (0, jwt_1.generateRefreshToken)(user.id);
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: env_1.env.NODE_ENV === 'production',
+           secure: true,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: env_1.env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
@@ -117,13 +117,13 @@ const refreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const newRefreshToken = (0, jwt_1.generateRefreshToken)(user.id);
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
-            secure: env_1.env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
-            secure: env_1.env.NODE_ENV === 'production',
+           secure: true,
             sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });

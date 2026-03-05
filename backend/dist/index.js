@@ -49,7 +49,7 @@ const { generateCsrfToken, doubleCsrfProtection } = (0, csrf_csrf_1.doubleCsrf)(
     cookieOptions: {
         httpOnly: false, // must be readable by client JS for double-submit pattern
         sameSite: 'none',
-        secure: env_1.env.NODE_ENV === 'production',
+        secure: true
     },
     ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
 });

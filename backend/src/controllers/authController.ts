@@ -40,14 +40,14 @@ export const register = async (req: Request, res: Response) => {
 
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: env.NODE_ENV === 'production',
+          secure: true,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
@@ -83,14 +83,14 @@ export const login = async (req: Request, res: Response) => {
 
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
@@ -121,14 +121,14 @@ export const refreshToken = async (req: Request, res: Response) => {
 
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
-            secure: env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
 
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
-            secure: env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
