@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/public/leaderboard');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/public/leaderboard`);
         if (res.ok) {
           const data = await res.json();
           setTopClubs(data.topClubs || []);
