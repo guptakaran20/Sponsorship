@@ -46,13 +46,13 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: env_1.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: env_1.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         res.status(201).json(ApiResponse_1.ApiResponse.ok('User registered successfully', {
@@ -83,13 +83,13 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: env_1.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: env_1.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         res.status(200).json(ApiResponse_1.ApiResponse.ok('Logged in successfully', {
@@ -118,13 +118,13 @@ const refreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
             secure: env_1.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
             secure: env_1.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         res.status(200).json(ApiResponse_1.ApiResponse.ok('Token refreshed'));
@@ -135,7 +135,7 @@ const refreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.refreshToken = refreshToken;
 const logout = (req, res) => {
-    const cookieOptions = { httpOnly: true, secure: env_1.env.NODE_ENV === 'production', sameSite: 'strict' };
+    const cookieOptions = { httpOnly: true, secure: env_1.env.NODE_ENV === 'production', sameSite: 'none' };
     res.clearCookie('accessToken', cookieOptions);
     res.clearCookie('refreshToken', cookieOptions);
     res.status(200).json(ApiResponse_1.ApiResponse.ok('Logged out successfully'));
