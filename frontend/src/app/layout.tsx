@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SponsorGrid — Campus Sponsorship Platform",
+  title: "SponsorGrid ",
   description: "The smartest way for college clubs to find brand sponsors — and for brands to reach Gen-Z. Connect, sponsor, and grow.",
   openGraph: {
     title: "SponsorGrid — Campus Sponsorship Platform",
