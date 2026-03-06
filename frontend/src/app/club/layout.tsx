@@ -16,6 +16,7 @@ import {
     X
 } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Image from 'next/image';
 
 export default function ClubLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -107,8 +108,10 @@ export default function ClubLayout({ children }: { children: React.ReactNode }) 
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
                 <div className="h-20 flex items-center px-8 border-b border-white/5">
-                    <Sparkles className="w-6 h-6 text-indigo-400 mr-3" />
-                    <span className="text-xl font-bold text-white tracking-tight">SponsorGrid</span>
+                    <div className="flex items-center gap-3">
+  <Image src="/icon.png" alt="Logo" width={40} height={40} />
+  <span className="text-2xl font-bold text-white">SponsorGrid</span>
+</div>
                 </div>
 
                 <nav className="flex-1 px-4 py-8 space-y-2 overflow-y-auto">
