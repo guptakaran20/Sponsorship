@@ -56,23 +56,25 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 flex items-center justify-center p-4 sm:p-8 relative">
             {/* Background decorations */}
-            <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]" />
-            <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[100px]" />
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-1/4 right-0 md:right-1/4 w-64 md:w-96 h-64 md:h-96 bg-purple-600/20 rounded-full blur-[80px] md:blur-[100px]" />
+                <div className="absolute bottom-1/4 left-0 md:left-1/4 w-64 md:w-96 h-64 md:h-96 bg-indigo-600/20 rounded-full blur-[80px] md:blur-[100px]" />
+            </div>
 
-            <div className="w-full max-w-md relative z-10 py-8">
-                <div className="text-center mb-8">
+            <div className="w-full max-w-md relative z-10 py-6 md:py-8">
+                <div className="text-center mb-6 md:mb-8">
                     <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-2xl backdrop-blur-xl border border-white/10 mb-4 shadow-2xl">
                         <ShieldCheck className="w-8 h-8 text-indigo-400" />
                     </div>
-                    <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Join SponsorGrid</h1>
-                    <p className="text-indigo-200">Create an account to connect and sponsor</p>
+                    <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-2">Join SponsorGrid</h1>
+                    <p className="text-indigo-200 text-sm md:text-base">Create an account to connect and sponsor</p>
                 </div>
 
                 {/* Why Join Section */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-5 mb-6 backdrop-blur-md">
-                    <h3 className="text-sm font-semibold text-white mb-3">Why join SponsorGrid?</h3>
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 md:p-5 mb-6 backdrop-blur-md">
+                    <h3 className="text-sm font-semibold text-white mb-2 md:mb-3">Why join SponsorGrid?</h3>
                     <ul className="space-y-2">
                         <li className="flex items-start text-sm text-indigo-200">
                             <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-2 shrink-0 mt-0.5" />
@@ -89,7 +91,7 @@ export default function RegisterPage() {
                     </ul>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+                <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl">
                     <form onSubmit={handleRegister} className="space-y-5">
                         {error && (
                             <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-sm">
