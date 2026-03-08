@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Target, Rocket, Trophy, Building2, ShieldCheck } from 'lucide-react';
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   const [topClubs, setTopClubs] = useState<any[]>([]);
@@ -244,6 +245,7 @@ export default function Home() {
             <span className="text-xl font-bold text-white tracking-tight">SponsorGrid</span>
           </div>
           <div className="flex flex-wrap items-center gap-6 justify-center">
+            <Analytics />
             <Link href="/about" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">About Us</Link>
             <Link href="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Contact Us</Link>
             <a href="https://instagram.com/sponsor.grid" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-500 transition-colors" aria-label="Instagram">
