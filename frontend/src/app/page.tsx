@@ -77,7 +77,7 @@ export default function Home() {
         </button>
 
         {/* Social Proof Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full mb-24">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full mb-24">
           <div className="text-center p-6 bg-white/5 border border-white/5 rounded-2xl backdrop-blur-md">
             <p className="text-3xl font-bold text-white">500+</p>
             <p className="text-sm text-slate-400 mt-1">Clubs Connected</p>
@@ -94,7 +94,7 @@ export default function Home() {
             <p className="text-3xl font-bold text-white">95%</p>
             <p className="text-sm text-slate-400 mt-1">Deal Success Rate</p>
           </div>
-        </div>
+        </div> */}
 
         {/* Feature Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full z-10 mb-24">
