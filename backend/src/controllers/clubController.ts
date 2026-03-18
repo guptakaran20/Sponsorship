@@ -64,7 +64,7 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
         const userId = req.user.id;
         const profile = await prisma.clubProfile.findUnique({
             where: { userId },
-            include: { events: true },
+            include: { events: true, user: { select: { name: true } } },
         });
 
         if (!profile) {

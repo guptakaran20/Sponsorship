@@ -62,7 +62,7 @@ export const getEvents = async (req: Request, res: Response) => {
             where: whereClause,
             include: {
                 club: {
-                    select: { collegeName: true, reach: true, description: true, pastEvents: true, socialLinks: true, profilePhoto: true }
+                    select: { collegeName: true, reach: true, description: true, pastEvents: true, socialLinks: true, profilePhoto: true, user: { select: { name: true } } }
                 },
                 tiers: true
             },
@@ -82,7 +82,9 @@ export const getEventById = async (req: Request, res: Response) => {
         const event = await prisma.event.findUnique({
             where: { id: id as string },
             include: {
-                club: true,
+                club: {
+                    include: { user: { select: { name: true } } }
+                },
                 tiers: true
             }
         });

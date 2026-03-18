@@ -38,6 +38,7 @@ export const getClubProfileView = async (req: AuthRequest, res: Response) => {
 
         const profileData = {
             id: club.id,
+            name: club.user?.name,
             collegeName: club.collegeName,
             description: club.description,
             reach: club.reach,

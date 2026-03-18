@@ -90,7 +90,7 @@ const loadSecondaryData = async () => {
                 </div>
                 <div className="relative z-10">
                     <h1 className="text-3xl font-bold text-white tracking-tight mb-2">
-                        Welcome back, {profile?.collegeName || 'Club Champion'}!
+                        Welcome back, {profile?.user?.name || profile?.collegeName || 'Club Champion'}!
                     </h1>
                     <p className="text-indigo-200 max-w-xl text-lg">
                         Here's what's happening with your sponsorship campaigns today.

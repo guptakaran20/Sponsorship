@@ -185,7 +185,7 @@ export default function DiscoverEventsPage() {
                                 </div>
                                 <div className="relative z-10">
                                     <h3 className="text-xl font-bold text-white leading-tight mt-4 group-hover:text-indigo-400 transition-colors drop-shadow-md">{event.name}</h3>
-                                    <p className="text-sm text-slate-200 font-medium mt-1 drop-shadow-md">{event.club?.collegeName || 'Unknown College'}</p>
+                                    <p className="text-sm text-slate-200 font-medium mt-1 drop-shadow-md">{event.club?.user?.name || event.club?.collegeName || 'Unknown College'}</p>
                                 </div>
                             </div>
 
@@ -279,7 +279,7 @@ export default function DiscoverEventsPage() {
                                                     <img src={selectedEvent.club.profilePhoto} alt={selectedEvent.club.collegeName} className="w-14 h-14 rounded-xl object-cover border border-indigo-500/30 shadow-md" />
                                                 )}
                                                 <div>
-                                                    <h3 className="text-xl font-semibold text-white">{selectedEvent.club.collegeName}</h3>
+                                                    <h3 className="text-xl font-semibold text-white">{selectedEvent.club.user?.name || selectedEvent.club.collegeName}</h3>
                                                     <p className="text-sm text-indigo-400">Event Organizer</p>
                                                 </div>
                                             </div>

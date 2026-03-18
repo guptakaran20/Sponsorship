@@ -106,7 +106,7 @@ export default function CompanySponsorshipsPage() {
                                         rel="noopener noreferrer"
                                         className="text-indigo-400 hover:text-indigo-300 font-bold hover:underline transition-all flex items-center"
                                     >
-                                        {deal.event.club?.collegeName || 'Unknown Club'}
+                                        {deal.event.club?.user?.name || deal.event.club?.collegeName || 'Unknown Club'}
                                         <ChevronRight className="w-4 h-4 ml-0.5" />
                                     </a>
                                 </div>

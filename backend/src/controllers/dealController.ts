@@ -78,7 +78,7 @@ export const getDeals = async (req: AuthRequest, res: Response) => {
                 deals = await prisma.sponsorshipDeal.findMany({
                     where: { companyId: companyProfile.id },
                     include: {
-                        event: { include: { club: true } },
+                        event: { include: { club: { include: { user: { select: { name: true } } } } } },
                         tier: true
                     },
                     orderBy: { createdAt: 'desc' }

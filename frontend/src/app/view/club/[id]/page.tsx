@@ -74,7 +74,7 @@ export default function PublicClubProfilePage() {
                     </div>
 
                     <div className="pt-16 pb-8 px-8 border-b border-white/5">
-                        <h1 className="text-3xl font-bold text-white mb-2">{profile.collegeName}</h1>
+                        <h1 className="text-3xl font-bold text-white mb-2">{profile.name || profile.collegeName}</h1>
                         <p className="text-slate-400 max-w-2xl">{profile.description || 'No description provided.'}</p>
                         {profile.about && (
                             <div className="mt-6">
@@ -92,6 +92,10 @@ export default function PublicClubProfilePage() {
                                     Club Details
                                 </h3>
                                 <div className="space-y-3">
+                                    <div className="flex items-center text-slate-300">
+                                        <Building2 className="w-4 h-4 mr-3 text-slate-500" />
+                                        <span>College: <strong className="text-white">{profile.collegeName}</strong></span>
+                                    </div>
                                     <div className="flex items-center text-slate-300">
                                         <Users className="w-4 h-4 mr-3 text-slate-500" />
                                         <span>Total Reach: <strong className="text-white">{profile.reach.toLocaleString()}</strong></span>
