@@ -6,6 +6,7 @@ import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '.
 import { env } from '../config/env';
 import { sendPasswordResetEmail } from '../utils/email';
 import { ApiResponse } from '../utils/ApiResponse';
+import jwt from 'jsonwebtoken';
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -287,12 +288,17 @@ export const googleAuthCallback = async (req: Request, res: Response) => {
             const dashboardPath = existingUser.role === 'CLUB' ? '/club/dashboard' : '/company/dashboard';
             return res.redirect(`${env.CORS_ORIGIN}${dashboardPath}`);
         } else {
-            (req.session as any).googleProfile = {
-                email,
-                name,
-                googleId,
-                profileImage
-            };
+            const tempToken = jwt.sign(
+                { email, name, googleId, profileImage },
+                env.JWT_SECRET,
+                { expiresIn: '15m' }
+            );
+            res.cookie('googleAuthToken', tempToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+                maxAge: 15 * 60 * 1000,
+            });
             return res.redirect(`${env.CORS_ORIGIN}/select-role`);
         }
     } catch (error) {
@@ -303,9 +309,16 @@ export const googleAuthCallback = async (req: Request, res: Response) => {
 export const completeProfile = async (req: Request, res: Response) => {
     try {
         const { role } = req.body;
-        const googleProfile = (req.session as any)?.googleProfile;
+        const tempToken = req.cookies?.googleAuthToken;
 
-        if (!googleProfile) {
+        if (!tempToken) {
+            return res.status(400).json(ApiResponse.error('Session expired or invalid. Please try Google Login again.'));
+        }
+
+        let googleProfile;
+        try {
+            googleProfile = jwt.verify(tempToken, env.JWT_SECRET) as any;
+        } catch (error) {
             return res.status(400).json(ApiResponse.error('Session expired or invalid. Please try Google Login again.'));
         }
 
@@ -331,8 +344,12 @@ export const completeProfile = async (req: Request, res: Response) => {
             },
         });
 
-        // Clear temp session
-        delete (req.session as any).googleProfile;
+        // Clear temp session cookie
+        res.clearCookie('googleAuthToken', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        });
 
         const accessToken = generateAccessToken(user.id, user.role);
         const refreshToken = generateRefreshToken(user.id);

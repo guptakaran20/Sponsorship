@@ -5,6 +5,7 @@ import { authenticateRequest } from '../middlewares/auth';
 import { validate } from '../middlewares/validate';
 import { registerSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema } from '../validators/authValidator';
 import { authLimiter } from '../middlewares/rateLimiter';
+import { env } from '../config/env';
 
 const router = Router();
 
@@ -17,10 +18,18 @@ router.post('/forgot-password', authLimiter, validate(forgotPasswordSchema), for
 router.post('/reset-password', authLimiter, validate(resetPasswordSchema), resetPassword);
 
 // Google OAuth Routes
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'], session: false }));
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: `${process.env.CORS_ORIGIN || 'http://localhost:3000'}/login?error=GoogleAuthFailed` }),
+  (req, res, next) => {
+    passport.authenticate('google', { session: false }, (err: any, user: any) => {
+      if (err || !user) {
+        return res.redirect(`${env.CORS_ORIGIN}/login?error=GoogleAuthFailed`);
+      }
+      req.user = user;
+      next();
+    })(req, res, next);
+  },
   googleAuthCallback
 );
 router.post('/complete-profile', authLimiter, completeProfile);
