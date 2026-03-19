@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import passport from './config/passport';
 import { doubleCsrf } from 'csrf-csrf';
 
 dotenv.config();
@@ -58,6 +60,24 @@ app.use(cookieParser());
 
 // Rate limiting
 app.use('/api', generalLimiter);
+
+// Session setup for OAuth flows
+app.use(
+  session({
+    secret: env.JWT_SECRET, // Use existing secret or add SESSION_SECRET in env
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 1000 * 60 * 15, // 15 mins for temp sessions
+      sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax'
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Expose uploads publicly
 app.use('/uploads', express.static(uploadDir));

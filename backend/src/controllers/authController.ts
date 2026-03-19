@@ -40,7 +40,7 @@ export const register = async (req: Request, res: Response) => {
 
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-          secure: true,
+            secure: true,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000,
         });
@@ -71,6 +71,11 @@ export const login = async (req: Request, res: Response) => {
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) {
             return res.status(400).json(ApiResponse.error('Invalid credentials'));
+        }
+
+        // Check if the user has a password (they might have registered via Google OAuth)
+        if (!user.password) {
+            return res.status(400).json(ApiResponse.error('Invalid credentials. Please log in using Google.'));
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -230,5 +235,126 @@ export const resetPassword = async (req: Request, res: Response) => {
         res.status(200).json(ApiResponse.ok('Password has been reset successfully'));
     } catch (error) {
         res.status(500).json(ApiResponse.error('Server error resetting password'));
+    }
+};
+
+export const googleAuthCallback = async (req: Request, res: Response) => {
+    try {
+        const user = req.user as any;
+        if (!user) {
+            return res.redirect(`${env.CORS_ORIGIN}/login?error=GoogleAuthFailed`);
+        }
+
+        const email = user.emails?.[0]?.value;
+        const name = user.displayName;
+        const googleId = user.id;
+        const profileImage = user.photos?.[0]?.value;
+
+        if (!email) {
+            return res.redirect(`${env.CORS_ORIGIN}/login?error=NoEmailProvided`);
+        }
+
+        let existingUser = await prisma.user.findUnique({ where: { email } });
+
+        if (existingUser) {
+            if (!existingUser.googleId || !existingUser.profileImage) {
+                existingUser = await prisma.user.update({
+                    where: { id: existingUser.id },
+                    data: {
+                        googleId: existingUser.googleId || googleId,
+                        profileImage: existingUser.profileImage || profileImage,
+                    }
+                });
+            }
+
+            const accessToken = generateAccessToken(existingUser.id, existingUser.role);
+            const refreshToken = generateRefreshToken(existingUser.id);
+
+            res.cookie('accessToken', accessToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+                maxAge: 15 * 60 * 1000,
+            });
+
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+            });
+
+            const dashboardPath = existingUser.role === 'CLUB' ? '/club/dashboard' : '/company/dashboard';
+            return res.redirect(`${env.CORS_ORIGIN}${dashboardPath}`);
+        } else {
+            (req.session as any).googleProfile = {
+                email,
+                name,
+                googleId,
+                profileImage
+            };
+            return res.redirect(`${env.CORS_ORIGIN}/select-role`);
+        }
+    } catch (error) {
+        return res.redirect(`${env.CORS_ORIGIN}/login?error=ServerError`);
+    }
+};
+
+export const completeProfile = async (req: Request, res: Response) => {
+    try {
+        const { role } = req.body;
+        const googleProfile = (req.session as any)?.googleProfile;
+
+        if (!googleProfile) {
+            return res.status(400).json(ApiResponse.error('Session expired or invalid. Please try Google Login again.'));
+        }
+
+        if (role !== 'CLUB' && role !== 'COMPANY') {
+            return res.status(400).json(ApiResponse.error('Invalid role selected'));
+        }
+
+        const { email, name, googleId, profileImage } = googleProfile;
+
+        const existingUser = await prisma.user.findUnique({ where: { email } });
+        if (existingUser) {
+            return res.status(400).json(ApiResponse.error('User already exists'));
+        }
+
+        const user = await prisma.user.create({
+            data: {
+                email,
+                name,
+                role,
+                authProvider: 'google',
+                googleId,
+                profileImage,
+            },
+        });
+
+        // Clear temp session
+        delete (req.session as any).googleProfile;
+
+        const accessToken = generateAccessToken(user.id, user.role);
+        const refreshToken = generateRefreshToken(user.id);
+
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 15 * 60 * 1000,
+        });
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
+        res.status(201).json(ApiResponse.ok('Profile completed successfully', {
+            user: { id: user.id, email: user.email, name: user.name, role: user.role, profileImage: user.profileImage },
+        }));
+    } catch (error) {
+        res.status(500).json(ApiResponse.error('Server error completing profile'));
     }
 };

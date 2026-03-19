@@ -10,8 +10,11 @@ datasource db {
 model User {
   id               String          @id @default(uuid())
   email            String          @unique
-  password         String
+  password         String?
   name             String
+  authProvider     String          @default("local")
+  googleId         String?         @unique
+  profileImage     String?
   role             Role            @default(CLUB)
   isVerified       Boolean         @default(false)
   resetToken       String?
