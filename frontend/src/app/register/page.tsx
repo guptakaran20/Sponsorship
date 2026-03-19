@@ -30,7 +30,8 @@ export default function RegisterPage() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const passwordStrength = useMemo(() => getPasswordStrength(formData.password), [formData.password]);
-
+    const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
@@ -203,7 +204,7 @@ export default function RegisterPage() {
                     </div>
                     <button
                         type="button"
-                        onClick={() => window.location.href = 'http://localhost:5000/api/auth/google'}
+                        onClick={() => window.location.href = `${API_URL}/api/auth/google`}
                         className="w-full mt-6 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-3"
                     >
                         <svg viewBox="0 0 24 24" className="w-5 h-5">
