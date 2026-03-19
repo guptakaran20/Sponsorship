@@ -22,10 +22,11 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get(
   '/google/callback',
   (req, res, next) => {
-    passport.authenticate('google', { session: false }, (err: any, user: any) => {
+    passport.authenticate('google', { session: false }, (err: any, user: any, info: any) => {
       if (err || !user) {
-        console.error('Google Auth Error:', err, 'User:', user);
-        return res.redirect(`${env.CORS_ORIGIN}/login?error=GoogleAuthFailed`);
+        console.error('Google Auth Error:', err, 'User:', user, 'Info:', info);
+        const errMsg = err ? (err.message || String(err)) : (info ? (info.message || String(info)) : 'NoUserFromGoogle');
+        return res.redirect(`${env.CORS_ORIGIN}/login?error=GoogleAuthFailed_${encodeURIComponent(errMsg)}`);
       }
       req.user = user;
       next();
