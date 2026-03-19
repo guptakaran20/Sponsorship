@@ -24,6 +24,7 @@ router.get(
   (req, res, next) => {
     passport.authenticate('google', { session: false }, (err: any, user: any) => {
       if (err || !user) {
+        console.error('Google Auth Error:', err, 'User:', user);
         return res.redirect(`${env.CORS_ORIGIN}/login?error=GoogleAuthFailed`);
       }
       req.user = user;
